@@ -100,8 +100,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(slot, { status: 201 })
   } catch (error) {
     console.error('Availability creation error:', error)
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+    console.error('Error details:', errorMessage)
     return NextResponse.json(
-      { error: 'Failed to create availability slot' },
+      { error: 'Failed to create availability slot', details: errorMessage },
       { status: 500 }
     )
   }

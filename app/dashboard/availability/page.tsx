@@ -82,6 +82,10 @@ export default function AvailabilityPage() {
       // Create a slot for each date
       let successCount = 0
       for (const date of datesInRange) {
+        const travelDist = formData.willingToTravel && formData.travelDistance 
+          ? parseInt(formData.travelDistance as string) 
+          : undefined
+
         const response = await fetch('/api/availability', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -91,12 +95,15 @@ export default function AvailabilityPage() {
             endTime: formData.endTime,
             notes: formData.notes,
             willingToTravel: formData.willingToTravel,
-            travelDistance: formData.willingToTravel ? parseInt(formData.travelDistance as string) : null,
+            travelDistance: travelDist,
           }),
         })
 
         if (response.ok) {
           successCount++
+        } else {
+          const errorData = await response.json()
+          console.error(`Failed to create slot for ${date}:`, errorData)
         }
       }
 
