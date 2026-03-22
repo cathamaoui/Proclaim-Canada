@@ -5,11 +5,12 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const listing = await prisma.churchListing.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         user: {
           select: {
@@ -52,9 +53,9 @@ export async function GET(
   }
 }
 
-export async function PATCH(
+export async function PUT(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -63,8 +64,9 @@ export async function PATCH(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
+    const { id } = await params
     const listing = await prisma.churchListing.findUnique({
-      where: { id: params.id },
+      where: { id },
     })
 
     if (!listing) {
@@ -74,7 +76,7 @@ export async function PATCH(
       )
     }
 
-    if (listing.createdBy !== session.user.id) {
+    if (listing.createdBy !== session.user.id && session.user.role !== 'ADMIN') {
       return NextResponse.json(
         { error: 'Forbidden' },
         { status: 403 }
@@ -86,7 +88,7 @@ export async function PATCH(
       body
 
     const updatedListing = await prisma.churchListing.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         ...(title && { title }),
         ...(description && { description }),
@@ -120,7 +122,7 @@ export async function PATCH(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -129,8 +131,9 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
+    const { id } = await params
     const listing = await prisma.churchListing.findUnique({
-      where: { id: params.id },
+      where: { id },
     })
 
     if (!listing) {
@@ -140,12 +143,12 @@ export async function DELETE(
       )
     }
 
-    if (listing.createdBy !== session.user.id) {
+    if (listing.createdBy !== session.user.id && session.user.role !== 'ADMIN') {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
     await prisma.churchListing.delete({
-      where: { id: params.id },
+      where: { id },
     })
 
     return NextResponse.json({ message: 'Listing deleted successfully' })
