@@ -72,7 +72,7 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    const { date, startTime, endTime, notes } = await req.json()
+    const { date, startTime, endTime, notes, willingToTravel, travelDistance } = await req.json()
 
     if (!date || !startTime || !endTime) {
       return NextResponse.json(
@@ -92,6 +92,8 @@ export async function POST(req: NextRequest) {
         startTime,
         endTime,
         notes: notes || null,
+        willingToTravel: willingToTravel || false,
+        travelDistance: travelDistance || null,
       },
     })
 

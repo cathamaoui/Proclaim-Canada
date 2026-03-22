@@ -10,6 +10,8 @@ interface AvailabilitySlot {
   startTime: string
   endTime: string
   notes?: string
+  willingToTravel?: boolean
+  travelDistance?: number
 }
 
 export default function AvailabilityPage() {
@@ -25,6 +27,8 @@ export default function AvailabilityPage() {
     startTime: '09:00',
     endTime: '17:00',
     notes: '',
+    willingToTravel: false,
+    travelDistance: '',
   })
 
   useEffect(() => {
@@ -80,6 +84,8 @@ export default function AvailabilityPage() {
             startTime: formData.startTime,
             endTime: formData.endTime,
             notes: formData.notes,
+            willingToTravel: formData.willingToTravel,
+            travelDistance: formData.willingToTravel ? parseInt(formData.travelDistance as string) : null,
           }),
         })
 
@@ -96,6 +102,8 @@ export default function AvailabilityPage() {
           startTime: '09:00',
           endTime: '17:00',
           notes: '',
+          willingToTravel: false,
+          travelDistance: '',
         })
         setShowForm(false)
         await fetchAvailability()
@@ -231,6 +239,38 @@ export default function AvailabilityPage() {
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600"
                 rows={3}
               />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  id="willingToTravel"
+                  checked={formData.willingToTravel}
+                  onChange={(e) =>
+                    setFormData({ ...formData, willingToTravel: e.target.checked })
+                  }
+                  className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+                />
+                <label htmlFor="willingToTravel" className="ml-2 block text-sm font-medium text-gray-700">
+                  Willing to travel
+                </label>
+              </div>
+              {formData.willingToTravel && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Travel Distance (km)</label>
+                  <input
+                    type="number"
+                    min="1"
+                    max="500"
+                    value={formData.travelDistance}
+                    onChange={(e) =>
+                      setFormData({ ...formData, travelDistance: e.target.value })
+                    }
+                    placeholder="e.g., 50"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600"
+                  />
+                </div>
+              )}
             </div>
             <button
               type="submit"
