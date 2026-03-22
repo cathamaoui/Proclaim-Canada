@@ -109,7 +109,7 @@ export default function AvailabilityPage() {
   const daysInMonth = eachDayOfInterval({ start: monthStart, end: monthEnd })
 
   const slotsByDate = (dateStr: string) =>
-    slots.filter((s) => s.date === dateStr)
+    slots.filter((s) => format(new Date(s.date), 'yyyy-MM-dd') === dateStr)
 
   return (
     <div>
