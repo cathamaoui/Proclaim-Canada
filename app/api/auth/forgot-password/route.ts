@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import { sendEmail, emailTemplates } from "@/lib/email";
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 
@@ -49,12 +50,15 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // TODO: Send email with reset link
-    // const resetUrl = `${process.env.NEXTAUTH_URL}/auth/reset-password?token=${resetToken}`;
-    // await sendPasswordResetEmail(user.email, user.name, resetUrl);
-
-    console.log(`Password reset token created for ${email}`);
-    console.log(`Reset link: ${process.env.NEXTAUTH_URL}/auth/reset-password?token=${resetToken}`);
+    // Send reset email
+    const resetUrl = `${process.env.NEXTAUTH_URL}/auth/reset-password?token=${resetToken}`;
+    const emailContent = emailTemplates.passwordReset(user.name || email, resetUrl);
+    
+    await sendEmail({
+      to: user.email,
+      subject: emailContent.subject,
+      html: emailContent.html,
+    });
 
     return NextResponse.json(
       {

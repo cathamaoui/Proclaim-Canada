@@ -1,6 +1,7 @@
 import { getServerSession } from 'next-auth/next'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/db'
+import { sendEmail, emailTemplates } from '@/lib/email'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(req: NextRequest) {
@@ -155,6 +156,39 @@ export async function POST(req: NextRequest) {
             preacherProfile: true,
           },
         },
+      },
+    })
+
+    // Send email notification to church
+    const church = await prisma.user.findUnique({
+      where: { id: listing.createdBy },
+      select: { email: true, name: true },
+    })
+
+    if (church?.email) {
+      const applicationUrl = `${process.env.NEXTAUTH_URL}/dashboard?tab=applications`
+      const emailContent = emailTemplates.applicationReceived(
+        church.name || church.email,
+        session.user.name || 'A preacher',
+        listing.title,
+        applicationUrl
+      )
+
+      await sendEmail({
+        to: church.email,
+        subject: emailContent.subject,
+        html: emailContent.html,
+      })
+    }
+
+    // Create notification
+    await prisma.notification.create({
+      data: {
+        userId: listing.createdBy,
+        type: 'APPLICATION_RECEIVED',
+        title: `New application from ${session.user.name}`,
+        message: `${session.user.name} applied for ${listing.title}`,
+        relatedId: application.id,
       },
     })
 
