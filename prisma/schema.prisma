@@ -53,6 +53,16 @@ model User {
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
 
+  // Password Reset
+  resetToken    String?      @unique
+  resetExpires  DateTime?
+
+  // Admin Fields
+  isAdmin       Boolean      @default(false)
+  isBanned      Boolean      @default(false)
+  bannedReason  String?      @db.Text
+  bannedUntil   DateTime?
+
   accounts             Account[]       @relation("accounts")
   sessions             Session[]
   preacherProfile      PreacherProfile?
@@ -60,11 +70,14 @@ model User {
   availabilitySlots    AvailabilitySlot[]
   churchListings       ChurchListing[]
   applications         Application[]
-  messages             Message[]
   sentMessages         Message[] @relation("sentBy")
   receivedMessages     Message[] @relation("receivedBy")
+  givenRatings         Rating[] @relation("ratedBy")
+  receivedRatings      Rating[] @relation("ratedTo")
 
   @@index([email])
+  @@index([isAdmin])
+  @@index([isBanned])
 }
 
 enum UserRole {
@@ -84,6 +97,8 @@ model PreacherProfile {
   verified        Boolean  @default(false)
   rating          Decimal  @default(0) @db.Decimal(3, 2)
   totalRatings    Int      @default(0)
+  averageResponseTime Int? // in hours
+  acceptanceRate  Decimal  @default(0) @db.Decimal(5, 2) // percentage
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
@@ -92,6 +107,8 @@ model PreacherProfile {
   languages        String[]
 
   @@index([userId])
+  @@index([rating])
+  @@index([verified])
 }
 
 model ChurchProfile {
@@ -107,6 +124,9 @@ model ChurchProfile {
   averageAttendance Int?
   founded         Int?
   bio             String?  @db.Text
+  rating          Decimal  @default(0) @db.Decimal(3, 2)
+  totalRatings    Int      @default(0)
+  verified        Boolean  @default(false)
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
@@ -115,6 +135,8 @@ model ChurchProfile {
   @@index([userId])
   @@index([city])
   @@index([province])
+  @@index([rating])
+  @@index([verified])
 }
 
 model AvailabilitySlot {
@@ -203,8 +225,14 @@ model Message {
   receiverId  String
   content     String   @db.Text
   read        Boolean  @default(false)
+  readAt      DateTime?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  // Conversation grouping
+  conversationId String?
+  subject     String?
+  isArchived  Boolean  @default(false)
 
   sender      User     @relation("sentBy", fields: [senderId], references: [id], onDelete: Cascade)
   receiver    User     @relation("receivedBy", fields: [receiverId], references: [id], onDelete: Cascade)
@@ -212,6 +240,35 @@ model Message {
   @@index([senderId])
   @@index([receiverId])
   @@index([createdAt])
+  @@index([read])
+  @@index([conversationId])
+}
+
+model Rating {
+  id          String   @id @default(cuid())
+  ratedById   String
+  ratedToId   String
+  relatedTo   RatingType  // APPLICATION, LISTING, etc
+  relatedId   String?     // ID of application or listing
+  rating      Int         // 1-5 stars
+  comment     String?  @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  ratedBy     User     @relation("ratedBy", fields: [ratedById], references: [id], onDelete: Cascade)
+  ratedTo     User     @relation("ratedTo", fields: [ratedToId], references: [id], onDelete: Cascade)
+
+  @@unique([ratedById, ratedToId, relatedId, relatedTo])
+  @@index([ratedById])
+  @@index([ratedToId])
+  @@index([rating])
+  @@index([createdAt])
+}
+
+enum RatingType {
+  APPLICATION
+  LISTING
+  GENERAL
 }
 
 model VerificationToken {
@@ -220,4 +277,55 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model PasswordResetToken {
+  email      String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([email, token])
+  @@index([email])
+}
+
+model Notification {
+  id          String   @id @default(cuid())
+  userId      String
+  type        NotificationType
+  title       String
+  message     String   @db.Text
+  relatedId   String?  // ID of related object (message, application, etc)
+  read        Boolean  @default(false)
+  readAt      DateTime?
+  createdAt   DateTime @default(now())
+
+  @@index([userId])
+  @@index([createdAt])
+  @@index([read])
+}
+
+enum NotificationType {
+  APPLICATION_RECEIVED
+  APPLICATION_ACCEPTED
+  APPLICATION_REJECTED
+  MESSAGE_RECEIVED
+  LISTING_VIEWED
+  RATING_RECEIVED
+  SYSTEM_ALERT
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  userId      String?
+  action      String
+  resource    String   // User, Listing, Application, etc
+  resourceId  String?
+  changes     String?  @db.Text // JSON of what changed
+  ipAddress   String?
+  userAgent   String?  @db.Text
+  createdAt   DateTime @default(now())
+
+  @@index([userId])
+  @@index([resource])
+  @@index([createdAt])
 }
