@@ -56,9 +56,15 @@ export default function AvailabilityPage() {
   async function handleAddSlot(e: React.FormEvent) {
     e.preventDefault()
     try {
-      // Parse date range
-      const startDateObj = new Date(formData.startDate)
-      const endDateObj = new Date(formData.endDate)
+      // Helper function to parse date strings as local dates (not UTC)
+      const parseLocalDate = (dateStr: string) => {
+        const [year, month, day] = dateStr.split('-')
+        return new Date(parseInt(year), parseInt(month) - 1, parseInt(day))
+      }
+
+      // Parse date range as local dates
+      const startDateObj = parseLocalDate(formData.startDate)
+      const endDateObj = parseLocalDate(formData.endDate)
 
       if (startDateObj > endDateObj) {
         setError('Start date must be before end date')
