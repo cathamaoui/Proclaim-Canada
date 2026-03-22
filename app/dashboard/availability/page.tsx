@@ -35,11 +35,12 @@ export default function AvailabilityPage() {
   async function fetchAvailability() {
     try {
       setLoading(true)
-      const monthStr = format(currentDate, 'yyyy-MM')
-      const response = await fetch(`/api/availability?month=${monthStr}`)
+      const monthStart = format(startOfMonth(currentDate), 'yyyy-MM-dd')
+      const monthEnd = format(endOfMonth(currentDate), 'yyyy-MM-dd')
+      const response = await fetch(`/api/availability?monthStart=${monthStart}&monthEnd=${monthEnd}`)
       if (!response.ok) throw new Error('Failed to fetch availability')
       const data = await response.json()
-      setSlots(data.slots || [])
+      setSlots(data.availability || [])
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error loading availability')
     } finally {

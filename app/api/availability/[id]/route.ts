@@ -15,15 +15,14 @@ export async function DELETE(
 
     const slot = await db.availabilitySlot.findUnique({
       where: { id: params.id },
-      include: { preacher: { select: { userId: true } } },
     });
 
     if (!slot) {
       return NextResponse.json({ error: "Slot not found" }, { status: 404 });
     }
 
-    // Only the preacher who created the slot can delete it
-    if (slot.preacher.userId !== session.user.id) {
+    // Only the user who created the slot can delete it
+    if (slot.userId !== session.user.id) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
