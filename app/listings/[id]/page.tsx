@@ -29,7 +29,7 @@ interface Listing {
   }
 }
 
-export default function ListingDetailPage({ params }: { params: { id: string } }) {
+export default function ListingDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { data: session } = useSession()
   const router = useRouter()
   const [listing, setListing] = useState<Listing | null>(null)
@@ -39,11 +39,21 @@ export default function ListingDetailPage({ params }: { params: { id: string } }
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
   const [hasApplied, setHasApplied] = useState(false)
+  const [listingId, setListingId] = useState<string>('')
+
+  useEffect(() => {
+    const unwrapParams = async () => {
+      const { id } = await params
+      setListingId(id)
+    }
+    unwrapParams()
+  }, [params])
 
   useEffect(() => {
     const fetchListing = async () => {
+      if (!listingId) return
       try {
-        const res = await fetch(`/api/listings/${params.id}`)
+        const res = await fetch(`/api/listings/${listingId}`)
         if (!res.ok) throw new Error('Listing not found')
         const data = await res.json()
         setListing(data)
@@ -53,7 +63,7 @@ export default function ListingDetailPage({ params }: { params: { id: string } }
           const appRes = await fetch('/api/applications')
           const appData = await appRes.json()
           const hasApp = appData.applications?.some(
-            (app: any) => app.listingId === params.id
+            (app: any) => app.listingId === listingId
           )
           setHasApplied(!!hasApp)
         }
@@ -64,10 +74,10 @@ export default function ListingDetailPage({ params }: { params: { id: string } }
       }
     }
 
-    if (session) {
+    if (session && listingId) {
       fetchListing()
     }
-  }, [params.id, session])
+  }, [listingId, session])
 
   const handleApply = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -79,7 +89,7 @@ export default function ListingDetailPage({ params }: { params: { id: string } }
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          listingId: params.id,
+          listingId: listingId,
           coverLetter: coverLetter || null,
         }),
       })
