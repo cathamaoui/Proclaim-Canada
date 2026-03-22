@@ -207,18 +207,17 @@ export default function AvailabilityPage() {
                     setFormData({ ...formData, startTime: e.target.value })
                   }
                   className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600"
-                    required
-                  />
-                  <input
-                    type="time"
-                    value={formData.endTime}
-                    onChange={(e) =>
-                      setFormData({ ...formData, endTime: e.target.value })
-                    }
-                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600"
-                    required
-                  />
-                </div>
+                  required
+                />
+                <input
+                  type="time"
+                  value={formData.endTime}
+                  onChange={(e) =>
+                    setFormData({ ...formData, endTime: e.target.value })
+                  }
+                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600"
+                  required
+                />
               </div>
             </div>
             <div>
