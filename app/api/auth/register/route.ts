@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/db'
+import { sendEmail, emailTemplates } from '@/lib/email'
 import bcrypt from 'bcryptjs'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -61,6 +62,20 @@ export async function POST(req: NextRequest) {
         },
       })
     }
+
+    // Send welcome email
+    const dashboardUrl = `${process.env.NEXTAUTH_URL}/dashboard`
+    const emailContent = emailTemplates.welcome(
+      name,
+      role as 'PREACHER' | 'CHURCH',
+      dashboardUrl
+    )
+
+    await sendEmail({
+      to: user.email,
+      subject: emailContent.subject,
+      html: emailContent.html,
+    })
 
     return NextResponse.json(
       {

@@ -1,6 +1,7 @@
 import { getServerSession } from 'next-auth/next'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/db'
+import { sendEmail, emailTemplates } from '@/lib/email'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(
@@ -101,6 +102,32 @@ export async function PATCH(
         },
       },
     })
+
+    // Send email notification to applicant if status changed
+    if (updatedApplication.applicant?.email && (status === 'ACCEPTED' || status === 'REJECTED')) {
+      const church = await prisma.user.findUnique({
+        where: { id: updatedApplication.listing.createdBy },
+        select: { name: true },
+      })
+
+      const churchName = church?.name || 'A church'
+      const statusMessage = status === 'ACCEPTED'
+        ? `${churchName} has accepted your application for ${updatedApplication.listing.title}. Next steps will be shared with you soon.`
+        : `Unfortunately, ${churchName} did not move forward with your application for ${updatedApplication.listing.title}. Keep applying to other opportunities!`
+
+      const emailContent = emailTemplates.applicationStatus(
+        updatedApplication.applicant.name || 'Preacher',
+        status as 'ACCEPTED' | 'REJECTED',
+        churchName,
+        statusMessage
+      )
+
+      await sendEmail({
+        to: updatedApplication.applicant.email,
+        subject: emailContent.subject,
+        html: emailContent.html,
+      })
+    }
 
     return NextResponse.json(updatedApplication)
   } catch (error) {
