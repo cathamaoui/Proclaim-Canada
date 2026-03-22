@@ -20,7 +20,8 @@ export default function AvailabilityPage() {
   const [currentDate, setCurrentDate] = useState(new Date())
   const [showForm, setShowForm] = useState(false)
   const [formData, setFormData] = useState({
-    date: format(new Date(), 'yyyy-MM-dd'),
+    startDate: format(new Date(), 'yyyy-MM-dd'),
+    endDate: format(new Date(), 'yyyy-MM-dd'),
     startTime: '09:00',
     endTime: '17:00',
     notes: '',
@@ -51,25 +52,58 @@ export default function AvailabilityPage() {
   async function handleAddSlot(e: React.FormEvent) {
     e.preventDefault()
     try {
-      const response = await fetch('/api/availability', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      })
+      // Parse date range
+      const startDateObj = new Date(formData.startDate)
+      const endDateObj = new Date(formData.endDate)
 
-      if (!response.ok) throw new Error('Failed to create availability slot')
+      if (startDateObj > endDateObj) {
+        setError('Start date must be before end date')
+        return
+      }
 
-      // Reset form and refresh
-      setFormData({
-        date: format(new Date(), 'yyyy-MM-dd'),
-        startTime: '09:00',
-        endTime: '17:00',
-        notes: '',
-      })
-      setShowForm(false)
-      await fetchAvailability()
+      // Generate all dates in range
+      const datesInRange: string[] = []
+      const currentDate = new Date(startDateObj)
+      while (currentDate <= endDateObj) {
+        datesInRange.push(format(currentDate, 'yyyy-MM-dd'))
+        currentDate.setDate(currentDate.getDate() + 1)
+      }
+
+      // Create a slot for each date
+      let successCount = 0
+      for (const date of datesInRange) {
+        const response = await fetch('/api/availability', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            date,
+            startTime: formData.startTime,
+            endTime: formData.endTime,
+            notes: formData.notes,
+          }),
+        })
+
+        if (response.ok) {
+          successCount++
+        }
+      }
+
+      if (successCount === datesInRange.length) {
+        // Reset form and refresh
+        setFormData({
+          startDate: format(new Date(), 'yyyy-MM-dd'),
+          endDate: format(new Date(), 'yyyy-MM-dd'),
+          startTime: '09:00',
+          endTime: '17:00',
+          notes: '',
+        })
+        setShowForm(false)
+        await fetchAvailability()
+      } else {
+        setError(`Created ${successCount} of ${datesInRange.length} slots`)
+      }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error creating slot')
+      setError(err instanceof Error ? err.message : 'Error creating slots')
     }
   }
 
@@ -139,27 +173,40 @@ export default function AvailabilityPage() {
           <form onSubmit={handleAddSlot} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Date</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Start Date</label>
                 <input
                   type="date"
-                  value={formData.date}
+                  value={formData.startDate}
                   onChange={(e) =>
-                    setFormData({ ...formData, date: e.target.value })
+                    setFormData({ ...formData, startDate: e.target.value })
                   }
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600"
                   required
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Duration</label>
-                <div className="flex gap-2">
-                  <input
-                    type="time"
-                    value={formData.startTime}
-                    onChange={(e) =>
-                      setFormData({ ...formData, startTime: e.target.value })
-                    }
-                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600"
+                <label className="block text-sm font-medium text-gray-700 mb-2">End Date</label>
+                <input
+                  type="date"
+                  value={formData.endDate}
+                  onChange={(e) =>
+                    setFormData({ ...formData, endDate: e.target.value })
+                  }
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600"
+                  required
+                />
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Duration</label>
+              <div className="flex gap-2">
+                <input
+                  type="time"
+                  value={formData.startTime}
+                  onChange={(e) =>
+                    setFormData({ ...formData, startTime: e.target.value })
+                  }
+                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600"
                     required
                   />
                   <input
