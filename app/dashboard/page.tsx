@@ -73,6 +73,9 @@ export default function Dashboard() {
     const churchStats = stats as ListingStats
     return (
       <div className="space-y-6">
+        <h1 className="text-2xl font-bold text-gray-900">
+          Welcome back, {session.user.name || 'Church'} 👋
+        </h1>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-white rounded-lg shadow p-6">
             <div className="text-gray-600 text-sm font-semibold mb-2">Total Listings</div>
@@ -135,6 +138,9 @@ export default function Dashboard() {
     const preacherStats = stats as ApplicationStats
     return (
       <div className="space-y-6">
+        <h1 className="text-2xl font-bold text-gray-900">
+          Welcome back, {session.user.name || 'Evangelist'} 👋
+        </h1>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-white rounded-lg shadow p-6">
             <div className="text-gray-600 text-sm font-semibold mb-2">Total Applications</div>

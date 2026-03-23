@@ -5,7 +5,25 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, password, name, phone, role } = await req.json()
+    const { 
+      email, 
+      password, 
+      name, 
+      phone, 
+      role, 
+      churchName, 
+      organizationName, 
+      denomination, 
+      specifyAffiliation,
+      street,
+      city,
+      province,
+      postalCode,
+      website,
+      averageAttendance,
+      serviceTypes,
+      customService
+    } = await req.json()
 
     // Validation
     if (!email || !password || !name || !role) {
@@ -53,17 +71,29 @@ export async function POST(req: NextRequest) {
       await prisma.preacherProfile.create({
         data: {
           userId: user.id,
+          serviceTypes: serviceTypes || [],
+          customService: customService || null,
         },
       })
     } else if (role === 'CHURCH') {
       await prisma.churchProfile.create({
         data: {
           userId: user.id,
+          churchName: churchName || null,
+          organizationName: organizationName || null,
+          denomination: denomination || null,
+          specifyAffiliation: specifyAffiliation || null,
+          street: street || null,
+          city: city || null,
+          province: province || null,
+          postalCode: postalCode || null,
+          website: website || null,
+          averageAttendance: averageAttendance || null,
         },
       })
     }
 
-    // Send welcome email
+    // Send welcome email (non-blocking)
     const dashboardUrl = `${process.env.NEXTAUTH_URL}/dashboard`
     const emailContent = emailTemplates.welcome(
       name,
@@ -71,11 +101,12 @@ export async function POST(req: NextRequest) {
       dashboardUrl
     )
 
-    await sendEmail({
+    // Fire and forget - don't await
+    sendEmail({
       to: user.email,
       subject: emailContent.subject,
       html: emailContent.html,
-    })
+    }).catch((err) => console.error('Email send failed:', err))
 
     return NextResponse.json(
       {

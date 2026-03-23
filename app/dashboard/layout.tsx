@@ -3,7 +3,7 @@
 import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function DashboardLayout({
   children,
@@ -12,6 +12,7 @@ export default function DashboardLayout({
 }) {
   const { data: session, status } = useSession()
   const router = useRouter()
+  const [profileChecked, setProfileChecked] = useState(false)
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -19,7 +20,39 @@ export default function DashboardLayout({
     }
   }, [status, router])
 
-  if (status === 'loading') {
+  // Check if preacher profile is incomplete
+  useEffect(() => {
+    if (!session?.user) {
+      return
+    }
+
+    // For non-preachers, skip the profile check
+    if (session.user.role !== 'PREACHER') {
+      setProfileChecked(true)
+      return
+    }
+
+    // For preachers, check if profile needs completion
+    const checkProfile = async () => {
+      try {
+        const response = await fetch('/api/preacher/profile')
+        const data = await response.json()
+        
+        // If no bio, redirect to profile completion
+        if (!data.profile?.bio) {
+          router.push('/dashboard/profile')
+        }
+      } catch (error) {
+        console.error('Error checking profile:', error)
+      } finally {
+        setProfileChecked(true)
+      }
+    }
+
+    checkProfile()
+  }, [session, router])
+
+  if (status === 'loading' || !profileChecked) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin">Loading...</div>

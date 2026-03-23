@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Service Type Selector - Evangelist Registration</title>
+  <!-- Choices.js CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
+  />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+        Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .header {
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 8px;
+    }
+
+    .required {
+      color: #dc2626;
+    }
+
+    .help-text {
+      font-size: 12px;
+      color: #6b7280;
+      margin-bottom: 12px;
+      font-weight: 400;
+    }
+
+    /* Multi-Select Dropdown Styling */
+    select[multiple] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    select[multiple]:focus {
+      outline: none;
+      ring: 2px;
+      border-color: transparent;
+      box-shadow: 0 0 0 3px #667eea33, inset 0 0 0 1px #667eea;
+    }
+
+    /* Choices.js Custom Styling */
+    .choices {
+      margin: 0;
+    }
+
+    .choices__inner {
+      padding: 8px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      background-color: #ffffff;
+      min-height: 44px;
+    }
+
+    .choices__inner:focus-within {
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px #667eea33;
+    }
+
+    .choices__list--multiple .choices__item {
+      background-color: #667eea;
+      border: 0;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    .choices__list--multiple .choices__item.choices__item--selectable {
+      padding-right: 24px;
+    }
+
+    .choices__list--dropdown {
+      border: 1px solid #d1d5db;
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+      background-color: #ffffff;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .choices__group {
+      padding: 0;
+    }
+
+    .choices__group-heading {
+      padding: 10px 12px;
+      background-color: #f3f4f6;
+      font-weight: 600;
+      color: #667eea;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .choices__item--group-heading {
+      cursor: default;
+    }
+
+    .choices__option {
+      padding: 10px 12px;
+      font-size: 13px;
+      color: #374151;
+    }
+
+    .choices__option--selectable:hover {
+      background-color: #f3f4f6;
+    }
+
+    .choices__option.is-selected {
+      background-color: #667eea;
+      color: white;
+    }
+
+    .choices__input {
+      background-color: #ffffff;
+      padding: 8px;
+      font-size: 13px;
+    }
+
+    /* Selected Services Display */
+    .selected-services {
+      padding: 16px;
+      background-color: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 8px;
+      margin-top: 16px;
+    }
+
+    .selected-services h3 {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 12px;
+    }
+
+    .selected-services-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .service-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background-color: #667eea;
+      color: white;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .service-tag button {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+
+    .service-tag button:hover {
+      opacity: 1;
+    }
+
+    /* Conditional Custom Field */
+    .custom-field {
+      padding: 16px;
+      background-color: #fef3c7;
+      border: 1px solid #fde68a;
+      border-radius: 8px;
+      margin-top: 16px;
+      display: none;
+    }
+
+    .custom-field.show {
+      display: block;
+      animation: slideDown 0.3s ease-out;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .custom-field label {
+      margin-bottom: 8px;
+    }
+
+    .custom-field input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #fcd34d;
+      border-radius: 6px;
+      font-size: 13px;
+      font-family: inherit;
+    }
+
+    .custom-field input:focus {
+      outline: none;
+      border-color: #f59e0b;
+      box-shadow: 0 0 0 3px #f59e0b33;
+    }
+
+    .custom-help {
+      font-size: 11px;
+      color: #6b7280;
+      margin-top: 6px;
+    }
+
+    /* Helper Tips */
+    .helper-tips {
+      margin-top: 24px;
+      padding: 16px;
+      background-color: #f9fafb;
+      border-left: 4px solid #667eea;
+      border-radius: 6px;
+    }
+
+    .helper-tips p {
+      font-size: 12px;
+      color: #4b5563;
+      margin-bottom: 6px;
+      line-height: 1.5;
+    }
+
+    .helper-tips p:last-child {
+      margin-bottom: 0;
+    }
+
+    .helper-tips strong {
+      color: #667eea;
+    }
+
+    /* Button Styling (for context) */
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    button[type='submit'],
+    button[type='button'] {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    button[type='submit'] {
+      background-color: #667eea;
+      color: white;
+    }
+
+    button[type='submit']:hover:not(:disabled) {
+      background-color: #5568d3;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+
+    button[type='button'] {
+      background-color: #e5e7eb;
+      color: #374151;
+    }
+
+    button[type='button']:hover {
+      background-color: #d1d5db;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Evangelist Registration</h1>
+      <p>Tell us about the service types you're qualified to lead</p>
+    </div>
+
+    <form id="registrationForm">
+      <div class="form-group">
+        <label for="serviceTypes">
+          Service Types You Can Lead
+          <span class="required">*</span>
+        </label>
+        <p class="help-text">
+          Select all service types you are qualified and willing to lead (multi-select)
+        </p>
+
+        <select id="serviceTypes" name="serviceTypes" multiple required>
+          <!-- Standard Services -->
+          <optgroup label="Standard Services">
+            <option value="Midweek Service / Bible Study">Midweek Service / Bible Study</option>
+            <option value="Sunday Evening Service">Sunday Evening Service</option>
+            <option value="Sunday Morning Service">Sunday Morning Service</option>
+          </optgroup>
+
+          <!-- Specialized Outreach -->
+          <optgroup label="Specialized Outreach">
+            <option value="Evangelistic Crusade / Rally">Evangelistic Crusade / Rally</option>
+            <option value="Revival Meetings (Multi-day)">Revival Meetings (Multi-day)</option>
+            <option value="Seeker-Sensitive / Guest Sunday">
+              Seeker-Sensitive / Guest Sunday
+            </option>
+          </optgroup>
+
+          <!-- Targeted Ministry -->
+          <optgroup label="Targeted Ministry">
+            <option value="Campus / University Outreach">Campus / University Outreach</option>
+            <option value="Men's / Women's Conference">Men's / Women's Conference</option>
+            <option value="Young Adults Gathering">Young Adults Gathering</option>
+            <option value="Youth Rally / Youth Retreat">Youth Rally / Youth Retreat</option>
+          </optgroup>
+
+          <!-- Training & Equipping -->
+          <optgroup label="Training & Equipping">
+            <option value="Evangelism Workshop / Seminar">Evangelism Workshop / Seminar</option>
+            <option value="Leadership Development">Leadership Development</option>
+            <option value="VBS / Family Night Keynote">VBS / Family Night Keynote</option>
+          </optgroup>
+
+          <!-- General -->
+          <optgroup label="General">
+            <option value="Community Event / Festival">Community Event / Festival</option>
+            <option value="Holiday Special Service">Holiday Special Service</option>
+            <option value="Other (Please specify)">Other (Please specify)</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <!-- Selected Services Display -->
+      <div id="selectedServicesContainer" class="selected-services" style="display: none">
+        <h3>Selected Services (<span id="selectedCount">0</span>)</h3>
+        <div id="selectedServicesList" class="selected-services-list"></div>
+      </div>
+
+      <!-- Conditional Custom Field -->
+      <div id="customFieldContainer" class="custom-field">
+        <label for="customService">
+          Please Specify Your Service Type
+          <span class="required">*</span>
+        </label>
+        <input
+          type="text"
+          id="customService"
+          name="customService"
+          placeholder="e.g., Corporate Prayer Meeting, Street Evangelism, etc."
+        />
+        <p class="custom-help">Help us understand the specialized service type you lead</p>
+      </div>
+
+      <!-- Helper Tips -->
+      <div class="helper-tips">
+        <p><strong>💡 Pro Tips:</strong></p>
+        <p>• Use the search box to quickly find relevant services</p>
+        <p>• You can select multiple service types</p>
+        <p>• If your specialty isn't listed, select "Other" and describe it</p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="button-group">
+        <button type="button" onclick="resetForm()">Clear All</button>
+        <button type="submit">Continue Registration</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Choices.js Script -->
+  <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
+  <script>
+    let choicesInstance
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const serviceSelect = document.getElementById('serviceTypes')
+
+      // Initialize Choices.js
+      choicesInstance = new Choices(serviceSelect, {
+        searchEnabled: true,
+        searchChoices: true,
+        shouldSort: false,
+        placeholderValue: 'Search service types...',
+        noResultsText: 'No matches found',
+        noChoicesText: 'No available services',
+        removeItemButton: true,
+        duplicateItemsAllowed: false,
+      })
+
+      // Update display when selection changes
+      serviceSelect.addEventListener('change', updateSelectedServices)
+
+      // Handle form submission
+      document.getElementById('registrationForm').addEventListener('submit', handleSubmit)
+    })
+
+    function updateSelectedServices() {
+      const serviceSelect = document.getElementById('serviceTypes')
+      const selectedOptions = Array.from(serviceSelect.selectedOptions)
+      const selectedValues = selectedOptions.map((option) => option.value)
+
+      // Update display
+      const container = document.getElementById('selectedServicesContainer')
+      const listEl = document.getElementById('selectedServicesList')
+      const countEl = document.getElementById('selectedCount')
+
+      if (selectedValues.length > 0) {
+        container.style.display = 'block'
+        countEl.textContent = selectedValues.length
+
+        listEl.innerHTML = selectedValues
+          .map(
+            (service) => `
+          <div class="service-tag">
+            ${service}
+            <button type="button" onclick="removeService('${service}')">✕</button>
+          </div>
+        `
+          )
+          .join('')
+      } else {
+        container.style.display = 'none'
+      }
+
+      // Show/hide custom field
+      const customFieldContainer = document.getElementById('customFieldContainer')
+      if (selectedValues.includes('Other (Please specify)')) {
+        customFieldContainer.classList.add('show')
+        document.getElementById('customService').required = true
+      } else {
+        customFieldContainer.classList.remove('show')
+        document.getElementById('customService').required = false
+        document.getElementById('customService').value = ''
+      }
+    }
+
+    function removeService(service) {
+      const serviceSelect = document.getElementById('serviceTypes')
+      const option = Array.from(serviceSelect.options).find((opt) => opt.value === service)
+      if (option) {
+        option.selected = false
+        choicesInstance.setChoiceByValue(
+          Array.from(serviceSelect.selectedOptions).map((opt) => opt.value)
+        )
+        updateSelectedServices()
+      }
+    }
+
+    function resetForm() {
+      const serviceSelect = document.getElementById('serviceTypes')
+      serviceSelect.selectedIndex = -1
+      document.getElementById('customService').value = ''
+      if (choicesInstance) {
+        choicesInstance.clearStore()
+      }
+      updateSelectedServices()
+    }
+
+    function handleSubmit(e) {
+      e.preventDefault()
+
+      const serviceSelect = document.getElementById('serviceTypes')
+      const selectedServices = Array.from(serviceSelect.selectedOptions).map((opt) => opt.value)
+      const customService = document.getElementById('customService').value
+
+      const formData = {
+        serviceTypes: selectedServices,
+        customService: customService || null,
+      }
+
+      console.log('Form Data:', formData)
+      alert(
+        'Selected Services:\n' +
+          selectedServices.join('\n') +
+          (customService ? '\n\nCustom: ' + customService : '')
+      )
+
+      // Send to server
+      // fetch('/api/evangelist/register', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(formData)
+      // })
+    }
+  </script>
+</body>
+</html>
