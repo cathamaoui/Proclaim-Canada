@@ -74,7 +74,7 @@ export default function DashboardLayout({
       <nav className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex justify-between items-center">
-            <Link href="/dashboard" className="text-2xl font-bold text-primary-700">
+            <Link href="/" className="text-2xl font-bold text-primary-700">
               Proclaim Canada
             </Link>
             <div className="flex items-center space-x-6">

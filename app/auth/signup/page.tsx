@@ -35,6 +35,77 @@ const DENOMINATIONS = {
   ],
 }
 
+const REGIONS = {
+  'Canada': {
+    'Alberta': ['Calgary', 'Edmonton', 'Red Deer', 'Lethbridge', 'Airdrie', 'Okotoks', 'Fort McMurray', 'Grande Prairie', 'Lacombe', 'Camrose', 'Banff', 'Canmore', 'Brooks', 'Medicine Hat', 'Drumheller', 'Strathmore'],
+    'British Columbia': ['Vancouver', 'Victoria', 'Surrey', 'Burnaby', 'Kelowna', 'Abbotsford', 'Coquitlam', 'Nanaimo', 'Prince George', 'Vernon', 'Kamloops', 'Chilliwack', 'Penticton', 'New Westminster', 'Langley', 'Duncan'],
+    'Manitoba': ['Winnipeg', 'Brandon', 'Missoula', 'Winkler', 'Steinbach', 'Selkirk', 'Dauphin', 'Thompson', 'Flin Flon', 'Portage la Prairie', 'Swan River', 'Virden'],
+    'New Brunswick': ['Saint John', 'Fredericton', 'Moncton', 'Saint-Léonard', 'Bathurst', 'Campbellton', 'Edmundston', 'Miramichi', 'Sussex', 'Sackville', 'Newcastle', 'Caraquet'],
+    'Newfoundland and Labrador': ['St. Johns', 'Corner Brook', 'Gander', 'Grand Falls-Windsor', 'Labrador City', 'Happy Valley-Goose Bay', 'Stephenville', 'Bay Roberts', 'Conception Bay', 'Twillingate', 'Carbonear', 'Placentia'],
+    'Northwest Territories': ['Yellowknife', 'Hay River', 'Inuvik', 'Dettah', 'Tuktoyaktuk', 'Norman Wells'],
+    'Nova Scotia': ['Halifax', 'Cape Breton', 'Glace Bay', 'Sydney', 'Dartmouth', 'Truro', 'New Glasgow', 'Amherst', 'Wolfville', 'Yarmouth', 'Lunenburg', 'Antigonish'],
+    'Nunavut': ['Iqaluit', 'Rankin Inlet', 'Arviat', 'Cambridge Bay', 'Yellowknife'],
+    'Ontario': ['Toronto', 'Ottawa', 'Hamilton', 'London', 'Mississauga', 'Brampton', 'Windsor', 'Kitchener', 'Thunder Bay', 'Sudbury', 'Barrie', 'Guelph', 'Kingston', 'Oshawa', 'Belleville', 'Peterborough', 'Sarnia', 'St. Catharines', 'Niagara Falls', 'Stratford', 'Owen Sound', 'Sault Ste. Marie', 'Timmins', 'North Bay', 'Pembroke', 'Kenora'],
+    'Prince Edward Island': ['Charlottetown', 'Summerside', 'Stratford', 'Cornwall', 'Montague', 'Souris', 'Alberton', 'Georgetown'],
+    'Quebec': ['Montreal', 'Quebec City', 'Laval', 'Gatineau', 'Longueuil', 'Saint-Hyacinthe', 'Sherbrooke', 'Trois-Rivières', 'Terrebonne', 'Saint-Laurent', 'Repentigny', 'Saguenay', 'Rimouski', 'Baie-Comeau', 'Val-d\'Or', 'Rouyn-Noranda', 'Magog', 'Sainte-Thérèse', 'Blainville'],
+    'Saskatchewan': ['Saskatoon', 'Regina', 'Prince Albert', 'Moose Jaw', 'Yorkton', 'Swift Current', 'North Battleford', 'Estevan', 'Meadow Lake', 'Athabasca', 'La Ronge'],
+    'Yukon': ['Whitehorse', 'Dawson City', 'Watson Lake', 'Whitehorse', 'Haines Junction'],
+  },
+  'United States': {
+    'Alabama': ['Birmingham', 'Montgomery', 'Mobile', 'Huntsville', 'Tuscaloosa', 'Auburn', 'Dothan', 'Bessemer', 'Florence', 'Gadsden', 'Anniston', 'Decatur', 'Cullman', 'Opelika', 'Enterprise', 'Phenix City', 'Selma', 'Alexandria', 'Talladega', 'Union Springs'],
+    'Alaska': ['Anchorage', 'Juneau', 'Fairbanks', 'Spokane', 'Sitka', 'Ketchikan', 'Palmer', 'Wasilla', 'Kenai', 'Soldotna', 'Barrow', 'Nome', 'Kodiak'],
+    'Arizona': ['Phoenix', 'Tucson', 'Mesa', 'Chandler', 'Scottsdale', 'Glendale', 'Gilbert', 'Tempe', 'Peoria', 'Surprise', 'Flagstaff', 'Yuma', 'Prescott', 'Lake Havasu City', 'Kingman', 'Bullhead City', 'Willcox', 'Sierra Vista'],
+    'Arkansas': ['Little Rock', 'Fayetteville', 'Fort Smith', 'Springdale', 'Jonesboro', 'North Little Rock', 'Pine Bluff', 'Texarkana', 'Hot Springs', 'Bentonville', 'Conway', 'Russellville', 'Searcy', 'Paragould', 'Mountain Home'],
+    'California': ['Los Angeles', 'San Francisco', 'San Diego', 'Sacramento', 'San Jose', 'Fresno', 'Long Beach', 'Oakland', 'Bakersfield', 'Anaheim', 'Santa Ana', 'Riverside', 'Stockton', 'Irvine', 'Santa Clarita', 'Ventura', 'Visalia', 'Vallejo', 'Modesto', 'Oxnard'],
+    'Colorado': ['Denver', 'Colorado Springs', 'Fort Collins', 'Aurora', 'Lakewood', 'Pueblo', 'Greeley', 'Longmont', 'Westminster', 'Littleton', 'Boulder', 'Arvada', 'Broomfield', 'Estes Park', 'Aspen', 'Vail', 'Durango', 'Delta'],
+    'Connecticut': ['Hartford', 'Bridgeport', 'New Haven', 'Waterbury', 'Stamford', 'Norwalk', 'Meriden', 'Danbury', 'New Britain', 'Torrington', 'Shelton', 'Bristol', 'Glastonbury', 'Enfield', 'Wallingford', 'Manchester'],
+    'Delaware': ['Wilmington', 'Dover', 'Newark', 'Middletown', 'Smyrna', 'New Castle', 'Rehoboth Beach', 'Bethany Beach', 'Seaford', 'Georgetown'],
+    'Florida': ['Miami', 'Orlando', 'Tampa', 'Jacksonville', 'St. Petersburg', 'Tallahassee', 'Fort Lauderdale', 'Hialeah', 'Lakeland', 'Boca Raton', 'Cape Coral', 'Fort Myers', 'Clearwater', 'Daytona Beach', 'West Palm Beach', 'Naples', 'Pensacola'],
+    'Georgia': ['Atlanta', 'Augusta', 'Savannah', 'Athens', 'Columbus', 'Macon', 'Dalton', 'Marietta', 'Sandy Springs', 'Roswell', 'Johns Creek', 'Alpharetta', 'Rome', 'Decatur'],
+    'Hawaii': ['Honolulu', 'Hilo', 'Kailua', 'Kaneohe', 'Waipahu', 'Pearl City', 'Mililani', 'Kahului'],
+    'Idaho': ['Boise', 'Pocatello', 'Nampa', 'Meridian', 'Idaho Falls', 'Lewiston', 'Moscow', 'Caldwell', 'Coeur d\'Alene'],
+    'Illinois': ['Chicago', 'Aurora', 'Rockford', 'Springfield', 'Joliet', 'Naperville', 'Peoria', 'Elgin', 'Waukegan', 'Evanston', 'Decatur', 'Champaign'],
+    'Indiana': ['Indianapolis', 'Fort Wayne', 'Evansville', 'South Bend', 'Bloomington', 'Gary', 'Hammond', 'Terre Haute'],
+    'Iowa': ['Des Moines', 'Cedar Rapids', 'Davenport', 'Iowa City', 'Council Bluffs', 'Dubuque', 'Waterloo', 'Ames'],
+    'Kansas': ['Kansas City', 'Wichita', 'Topeka', 'Overland Park', 'Olathe', 'Lawrence', 'Salina'],
+    'Kentucky': ['Louisville', 'Lexington', 'Bowling Green', 'Owensboro', 'Covington', 'Paducah'],
+    'Louisiana': ['New Orleans', 'Baton Rouge', 'Shreveport', 'Lafayette', 'Lake Charles', 'Monroe', 'Houma'],
+    'Maine': ['Portland', 'Lewiston', 'Bangor', 'Augusta', 'Biddeford', 'Waterville'],
+    'Maryland': ['Baltimore', 'Annapolis', 'Silver Spring', 'Frederick', 'Gaithersburg', 'Columbia'],
+    'Massachusetts': ['Boston', 'Worcester', 'Springfield', 'Cambridge', 'Lowell', 'New Bedford', 'Brockton', 'Quincy'],
+    'Michigan': ['Detroit', 'Grand Rapids', 'Warren', 'Ann Arbor', 'Flint', 'Dearborn', 'Lansing', 'Kalamazoo', 'Saginaw'],
+    'Minnesota': ['Minneapolis', 'St. Paul', 'Duluth', 'Rochester', 'Bloomington', 'St. Cloud', 'Mankato'],
+    'Mississippi': ['Jackson', 'Gulfport', 'Biloxi', 'Hattiesburg', 'Meridian', 'Tupelo', 'Greenville'],
+    'Missouri': ['Kansas City', 'St. Louis', 'Springfield', 'Independence', 'Columbia', 'St. Joseph', 'Joplin'],
+    'Montana': ['Billings', 'Missoula', 'Great Falls', 'Bozeman', 'Butte', 'Helena'],
+    'Nebraska': ['Omaha', 'Lincoln', 'Grand Island', 'North Platte', 'Kearney'],
+    'Nevada': ['Las Vegas', 'Henderson', 'Reno', 'Paradise', 'North Las Vegas', 'Sparks', 'Carson City'],
+    'New Hampshire': ['Manchester', 'Nashua', 'Concord', 'Rochester', 'Dover', 'Derry', 'Keene'],
+    'New Jersey': ['Newark', 'Jersey City', 'Paterson', 'Elizabeth', 'Trenton', 'Atlantic City'],
+    'New Mexico': ['Albuquerque', 'Las Cruces', 'Santa Fe', 'Rio Rancho', 'Roswell'],
+    'New York': ['New York City', 'Buffalo', 'Rochester', 'Albany', 'Yonkers', 'Troy', 'Syracuse'],
+    'North Carolina': ['Charlotte', 'Raleigh', 'Greensboro', 'Durham', 'Winston-Salem', 'Fayetteville', 'Wilmington'],
+    'North Dakota': ['Bismarck', 'Fargo', 'Grand Forks', 'Minot', 'Williston'],
+    'Ohio': ['Columbus', 'Cleveland', 'Cincinnati', 'Toledo', 'Akron', 'Dayton', 'Parma', 'Canton', 'Youngstown'],
+    'Oklahoma': ['Oklahoma City', 'Tulsa', 'Norman', 'Broken Arrow', 'Edmond', 'Lawton'],
+    'Oregon': ['Portland', 'Eugene', 'Salem', 'Gresham', 'Hillsboro', 'Beaverton', 'Bend', 'Medford'],
+    'Pennsylvania': ['Philadelphia', 'Pittsburgh', 'Allentown', 'Erie', 'Reading', 'Scranton', 'Bethlehem', 'Lancaster', 'Harrisburg'],
+    'Rhode Island': ['Providence', 'Warwick', 'Cranston', 'Pawtucket', 'Woonsocket'],
+    'South Carolina': ['Charleston', 'Columbia', 'Greenville', 'Myrtle Beach', 'Spartanburg', 'Rock Hill'],
+    'South Dakota': ['Pierre', 'Sioux Falls', 'Rapid City', 'Aberdeen', 'Brookings'],
+    'Tennessee': ['Memphis', 'Nashville', 'Knoxville', 'Chattanooga', 'Clarksville', 'Murfreesboro'],
+    'Texas': ['Houston', 'Dallas', 'Austin', 'San Antonio', 'Fort Worth', 'El Paso', 'Arlington', 'Corpus Christi', 'Plano', 'Garland', 'Lubbock'],
+    'Utah': ['Salt Lake City', 'Provo', 'West Jordan', 'Orem', 'Sandy', 'Ogden', 'Layton', 'Lehi', 'Draper'],
+    'Vermont': ['Burlington', 'Rutland', 'Montpelier', 'Barre', 'Brattleboro'],
+    'Virginia': ['Richmond', 'Virginia Beach', 'Arlington', 'Alexandria', 'Roanoke', 'Hampton', 'Newport News'],
+    'Washington': ['Seattle', 'Spokane', 'Tacoma', 'Vancouver', 'Bellevue', 'Kent', 'Renton', 'Federal Way'],
+    'West Virginia': ['Charleston', 'Huntington', 'Parkersburg', 'Wheeling', 'Morgantown'],
+    'Wisconsin': ['Milwaukee', 'Madison', 'Green Bay', 'Kenosha', 'Racine', 'Appleton', 'Sheboygan'],
+    'Wyoming': ['Cheyenne', 'Laramie', 'Casper', 'Gillette', 'Rock Springs'],
+  },
+}
+
+
 export default function SignupPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -50,6 +121,7 @@ export default function SignupPage() {
     organizationName: '',
     denomination: '',
     specifyAffiliation: '',
+    country: '',
     street: '',
     city: '',
     province: '',
@@ -143,7 +215,7 @@ export default function SignupPage() {
 
     // Validate required church fields
     if (type === 'church') {
-      if (!formData.churchName || !formData.city || !formData.province || !formData.postalCode || !formData.denomination || !formData.averageAttendance) {
+      if (!formData.churchName || !formData.country || !formData.city || !formData.province || !formData.postalCode || !formData.denomination || !formData.averageAttendance) {
         setError('Please fill in all required church fields')
         setLoading(false)
         return
@@ -184,6 +256,7 @@ export default function SignupPage() {
             organizationName: formData.organizationName,
             denomination: formData.denomination,
             specifyAffiliation: formData.specifyAffiliation || null,
+            country: formData.country,
             street: formData.street,
             city: formData.city,
             province: formData.province,
@@ -226,14 +299,14 @@ export default function SignupPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-primary-50 to-primary-100 flex items-center justify-center px-4">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center px-4">
         <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md text-center">
           <div className="text-5xl mb-4">✅</div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome!</h1>
           <p className="text-gray-600 mb-6">
             Your account has been created successfully. Redirecting to login...
           </p>
-          <Link href="/auth/login" className="text-primary-600 hover:text-primary-700 font-semibold">
+          <Link href="/auth/login" className="text-lime-600 hover:text-lime-700 font-semibold">
             Sign In Now
           </Link>
         </div>
@@ -242,10 +315,10 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-primary-100 flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center px-4 py-8">
       <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          Sign Up as {type === 'church' ? 'Church' : 'Preacher'}
+          {type === 'church' ? 'Sign up my Church' : 'Sign Up as Preacher'}
         </h1>
         <p className="text-gray-600 mb-8">Join Proclaim Canada today</p>
 
@@ -273,7 +346,7 @@ export default function SignupPage() {
                   value={formData.churchName}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-transparent"
                   placeholder="e.g., Grace Community Church"
                 />
               </div>
@@ -289,7 +362,7 @@ export default function SignupPage() {
                   name="organizationName"
                   value={formData.organizationName}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-transparent"
                   placeholder="e.g., Grace Community Church Inc."
                 />
               </div>
@@ -305,7 +378,7 @@ export default function SignupPage() {
                   value={formData.denomination}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-transparent"
                 >
                   <option value="">-- Select a denomination --</option>
                   {Object.entries(DENOMINATIONS).map(([category, options]) => (
@@ -322,7 +395,7 @@ export default function SignupPage() {
 
               {/* Conditional: Specify Affiliation (if "Other" selected) */}
               {formData.denomination === 'Other (Please specify)' && (
-                <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <div className="mb-4 p-4 bg-lime-50 border border-lime-200 rounded-lg\">
                   <label htmlFor="specifyAffiliation" className="block text-sm font-medium text-gray-700 mb-2">
                     Please Specify Your Church Affiliation <span className="text-red-500">*</span>
                   </label>
@@ -333,7 +406,7 @@ export default function SignupPage() {
                     value={formData.specifyAffiliation}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-transparent"
                     placeholder="Enter your church affiliation"
                   />
                 </div>
@@ -350,7 +423,7 @@ export default function SignupPage() {
                   value={formData.averageAttendance}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-transparent"
                 >
                   <option value="">-- Select attendance range --</option>
                   <option value="<50">Less than 50</option>
@@ -372,7 +445,7 @@ export default function SignupPage() {
                   name="website"
                   value={formData.website}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-transparent"
                   placeholder="www.example.com or https://www.example.com"
                 />
                 <p className="text-xs text-gray-500 mt-1">https:// will be added automatically if not provided</p>
@@ -385,6 +458,79 @@ export default function SignupPage() {
             <div className="border-b border-gray-200 pb-6">
               <h3 className="text-lg font-semibold text-gray-800 mb-4">Physical Address</h3>
               
+              {/* Country */}
+              <div className="mb-4">
+                <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-2">
+                  Country <span className="text-red-500">*</span>
+                </label>
+                <select
+                  id="country"
+                  name="country"
+                  value={formData.country || ''}
+                  onChange={(e) => {
+                    handleChange(e)
+                    // Clear province and city when country changes
+                    setFormData(prev => ({ ...prev, province: '', city: '' }))
+                  }}
+                  required
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-transparent"
+                >
+                  <option value="">-- Select a country --</option>
+                  <option value="Canada">Canada</option>
+                  <option value="United States">United States</option>
+                </select>
+              </div>
+
+              {/* Province/State */}
+              <div className="mb-4">
+                <label htmlFor="province" className="block text-sm font-medium text-gray-700 mb-2">
+                  Province/State <span className="text-red-500">*</span>
+                </label>
+                <select
+                  id="province"
+                  name="province"
+                  value={formData.province}
+                  onChange={(e) => {
+                    handleChange(e)
+                    // Clear city when province changes
+                    setFormData(prev => ({ ...prev, city: '' }))
+                  }}
+                  required
+                  disabled={!formData.country}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-transparent disabled:bg-gray-100 disabled:text-gray-500 disabled:cursor-not-allowed"
+                >
+                  <option value="">-- Select a province/state --</option>
+                  {formData.country && REGIONS[formData.country as keyof typeof REGIONS] && 
+                    Object.keys(REGIONS[formData.country as keyof typeof REGIONS]).sort().map((prov) => (
+                      <option key={prov} value={prov}>{prov}</option>
+                    ))
+                  }
+                </select>
+              </div>
+
+              {/* City */}
+              <div className="mb-4">
+                <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-2">
+                  City <span className="text-red-500">*</span>
+                </label>
+                <select
+                  id="city"
+                  name="city"
+                  value={formData.city}
+                  onChange={handleChange}
+                  required
+                  disabled={!formData.province}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-transparent disabled:bg-gray-100 disabled:text-gray-500 disabled:cursor-not-allowed"
+                >
+                  <option value="">-- Select a city --</option>
+                  {formData.country && formData.province && REGIONS[formData.country as keyof typeof REGIONS]?.[formData.province as any] && 
+                    REGIONS[formData.country as keyof typeof REGIONS][formData.province as any].map((city) => (
+                      <option key={city} value={city}>{city}</option>
+                    ))
+                  }
+                </select>
+              </div>
+
               {/* Street Address */}
               <div className="mb-4">
                 <label htmlFor="street" className="block text-sm font-medium text-gray-700 mb-2">
@@ -397,42 +543,8 @@ export default function SignupPage() {
                   value={formData.street}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-transparent"
                   placeholder="123 Main Street"
-                />
-              </div>
-
-              {/* City */}
-              <div className="mb-4">
-                <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-2">
-                  City <span className="text-red-500">*</span>
-                </label>
-                <input
-                  id="city"
-                  type="text"
-                  name="city"
-                  value={formData.city}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent"
-                  placeholder="Toronto"
-                />
-              </div>
-
-              {/* Province/State */}
-              <div className="mb-4">
-                <label htmlFor="province" className="block text-sm font-medium text-gray-700 mb-2">
-                  Province/State <span className="text-red-500">*</span>
-                </label>
-                <input
-                  id="province"
-                  type="text"
-                  name="province"
-                  value={formData.province}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent"
-                  placeholder="Ontario"
                 />
               </div>
 
@@ -448,7 +560,7 @@ export default function SignupPage() {
                   value={formData.postalCode}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-transparent"
                   placeholder="M5V 3A8"
                 />
               </div>
@@ -473,7 +585,7 @@ export default function SignupPage() {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-transparent"
                 placeholder="John Doe"
               />
             </div>
@@ -490,7 +602,7 @@ export default function SignupPage() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-transparent"
                 placeholder="your@email.com"
               />
             </div>
@@ -506,7 +618,7 @@ export default function SignupPage() {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-transparent"
                 placeholder="+1 (555) 123-4567"
               />
             </div>
@@ -527,7 +639,7 @@ export default function SignupPage() {
               
               {/* Custom Service Type Input */}
               {formData.serviceTypes.includes('Other (Please specify)') && (
-                <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <div className="mt-4 p-4 bg-gray-50 border border-gray-200 rounded-lg\">
                   <label htmlFor="customService" className="block text-sm font-medium text-gray-700 mb-2">
                     Please Specify Your Service Type <span className="text-red-500">*</span>
                   </label>
@@ -538,7 +650,7 @@ export default function SignupPage() {
                     value={formData.customService}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-transparent"
                     placeholder="e.g., Prison Ministry, Hospital Chaplaincy"
                   />
                 </div>
@@ -563,7 +675,7 @@ export default function SignupPage() {
                   value={formData.password}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+                  className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-transparent"
                   placeholder="••••••••"
                 />
                 <button
@@ -600,7 +712,7 @@ export default function SignupPage() {
                   value={formData.confirmPassword}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+                  className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-transparent"
                   placeholder="••••••••"
                 />
                 <button
@@ -628,7 +740,7 @@ export default function SignupPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-primary-600 text-white py-3 rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed font-semibold text-lg transition-colors duration-200"
+            className="w-full bg-lime-500 text-white py-3 rounded-lg hover:bg-lime-600 disabled:opacity-50 disabled:cursor-not-allowed font-semibold text-lg transition-colors duration-200"
           >
             {loading ? 'Creating Account...' : 'Create Account'}
           </button>
@@ -637,7 +749,7 @@ export default function SignupPage() {
         <div className="mt-6 text-center">
           <p className="text-gray-600">
             Already have an account?{' '}
-            <Link href="/auth/login" className="text-primary-600 hover:text-primary-700 font-semibold">
+            <Link href="/auth/login" className="text-lime-600 hover:text-lime-700 font-semibold">
               Sign In
             </Link>
           </p>
@@ -647,7 +759,7 @@ export default function SignupPage() {
           <p className="text-gray-600 mb-2">Not a {type === 'church' ? 'Church' : 'Preacher'}?</p>
           <Link 
             href={`/auth/signup?type=${type === 'church' ? 'preacher' : 'church'}`}
-            className="text-primary-600 hover:text-primary-700 font-semibold"
+            className="text-lime-600 hover:text-lime-700 font-semibold"
           >
             Sign up as {type === 'church' ? 'Preacher' : 'Church'} instead
           </Link>

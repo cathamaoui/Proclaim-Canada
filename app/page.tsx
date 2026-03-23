@@ -135,7 +135,7 @@ export default function Home() {
                 Admin
               </Link>
               <Link 
-                href="/dashboard" 
+                href="/church-home" 
                 className="bg-lime-500 hover:bg-lime-600 text-slate-900 px-3 py-1.5 rounded font-semibold transition text-sm"
               >
                 Church Home

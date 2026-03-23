@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/db'
 import { sendEmail, emailTemplates } from '@/lib/email'
+import { createTrialSubscription } from '@/lib/subscription'
 import bcrypt from 'bcryptjs'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -15,6 +16,7 @@ export async function POST(req: NextRequest) {
       organizationName, 
       denomination, 
       specifyAffiliation,
+      country,
       street,
       city,
       province,
@@ -76,13 +78,14 @@ export async function POST(req: NextRequest) {
         },
       })
     } else if (role === 'CHURCH') {
-      await prisma.churchProfile.create({
+      const churchProfile = await prisma.churchProfile.create({
         data: {
           userId: user.id,
           churchName: churchName || null,
           organizationName: organizationName || null,
           denomination: denomination || null,
           specifyAffiliation: specifyAffiliation || null,
+          country: country || null,
           street: street || null,
           city: city || null,
           province: province || null,
@@ -91,6 +94,9 @@ export async function POST(req: NextRequest) {
           averageAttendance: averageAttendance || null,
         },
       })
+
+      // Auto-assign free trial subscription
+      await createTrialSubscription(churchProfile.id)
     }
 
     // Send welcome email (non-blocking)
@@ -117,8 +123,10 @@ export async function POST(req: NextRequest) {
     )
   } catch (error) {
     console.error('Registration error:', error)
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+    console.error('Error details:', errorMessage)
     return NextResponse.json(
-      { error: 'Failed to create account' },
+      { error: `Failed to create account: ${errorMessage}` },
       { status: 500 }
     )
   }

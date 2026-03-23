@@ -2,6 +2,7 @@ import { getServerSession } from 'next-auth/next'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/db'
 import { NextRequest, NextResponse } from 'next/server'
+import { canPostListing, decrementPostingsRemaining } from '@/lib/subscription'
 
 export async function GET(req: NextRequest) {
   try {
@@ -74,6 +75,15 @@ export async function POST(req: NextRequest) {
       )
     }
 
+    // Check if church has active subscription and can post
+    const canPost = await canPostListing()
+    if (!canPost.canPost) {
+      return NextResponse.json(
+        { error: canPost.reason || 'Cannot post listing' },
+        { status: 403 }
+      )
+    }
+
     const body = await req.json()
     const {
       title,
@@ -82,6 +92,27 @@ export async function POST(req: NextRequest) {
       date,
       location,
       compensation,
+      churchName,
+      contactName,
+      denomination,
+      congregationProfile,
+      avgAttendance,
+      neighborhood,
+      statementOfFaithUrl,
+      preferredBibleTranslation,
+      preachingStyleSought,
+      dresscode,
+      arrivalTime,
+      sermonLength,
+      additionalDuties,
+      technologyAvailable,
+      technologyRequired,
+      honorarium,
+      mileageReimbursement,
+      travelLodging,
+      meals,
+      necessaryDocuments,
+      backgroundCheckRequired,
     } = body
 
     if (!title || !description || !type || !date || !location) {
@@ -98,8 +129,29 @@ export async function POST(req: NextRequest) {
         type,
         date: new Date(date),
         location,
-        compensation: compensation || null,
+        compensation: honorarium || compensation || null,
         createdBy: session.user.id,
+        churchName: churchName || null,
+        contactName: contactName || null,
+        denomination: denomination || null,
+        congregationProfile: congregationProfile || null,
+        avgAttendance: avgAttendance ? parseInt(avgAttendance) : null,
+        neighborhood: neighborhood || null,
+        statementOfFaithUrl: statementOfFaithUrl || null,
+        preferredBibleTranslation: preferredBibleTranslation || null,
+        preachingStyleSought: preachingStyleSought || null,
+        dresscode: dresscode || null,
+        arrivalTime: arrivalTime || null,
+        sermonLength: sermonLength ? parseInt(sermonLength) : null,
+        additionalDuties: additionalDuties || null,
+        technologyAvailable: technologyAvailable || null,
+        technologyRequired: technologyRequired || null,
+        honorarium: honorarium || null,
+        mileageReimbursement: mileageReimbursement || null,
+        travelLodging: travelLodging || null,
+        meals: meals || null,
+        necessaryDocuments: necessaryDocuments || null,
+        backgroundCheckRequired: backgroundCheckRequired || null,
       },
       include: {
         user: {
@@ -112,6 +164,17 @@ export async function POST(req: NextRequest) {
         },
       },
     })
+
+    // Decrement postings remaining for limited plans
+    const churchProfile = user.churchProfile || (await prisma.churchProfile.findUnique({
+      where: { userId: session.user.id },
+    }))
+
+    if (churchProfile) {
+      await decrementPostingsRemaining(churchProfile.id).catch((err) => {
+        console.error('Failed to decrement postings:', err)
+      })
+    }
 
     return NextResponse.json(listing, { status: 201 })
   } catch (error) {
