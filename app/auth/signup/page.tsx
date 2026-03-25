@@ -112,6 +112,7 @@ export default function SignupPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const type = searchParams.get('type') || 'preacher'
+  const message = searchParams.get('message')
 
   const [formData, setFormData] = useState({
     email: '',
@@ -375,6 +376,13 @@ export default function SignupPage() {
         {error && (
           <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
             {error}
+          </div>
+        )}
+
+        {message === 'free-month' && type === 'church' && (
+          <div className="bg-lime-50 border border-lime-300 text-lime-800 px-4 py-3 rounded-lg mb-6">
+            <p className="font-semibold">🎉 Great news!</p>
+            <p className="text-sm mt-1">Register now and get <strong>1 month of free posting and full access</strong> included with your account!</p>
           </div>
         )}
 

@@ -285,7 +285,7 @@ export default function PricingPage() {
                 if (session?.user.role === 'CHURCH') {
                   router.push('/listings/new')
                 } else {
-                  router.push('/auth/signup?type=church')
+                  router.push('/auth/signup?type=church&message=free-month')
                 }
               }}
               className="bg-white hover:bg-gray-100 text-emerald-600 px-8 py-3 rounded-lg font-bold transition"
