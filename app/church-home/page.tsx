@@ -99,7 +99,7 @@ export default function ChurchHomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-slate-900">
       {/* Spring Deal Popup */}
       {showPromo && (
         <div className="fixed bottom-5 right-5 z-40 bg-gradient-to-b from-slate-800 to-slate-900 rounded-xl shadow-2xl p-5 w-72 text-white">
@@ -253,13 +253,13 @@ export default function ChurchHomePage() {
       </section>
 
       {/* Value Proposition Section */}
-      <section className="py-12 bg-gray-50 relative">
+      <section className="py-12 bg-slate-900 relative">
         <div className="max-w-6xl mx-auto px-4">
-          <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          <div className="bg-slate-800 rounded-2xl shadow-lg p-8 text-center">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
               Let's grow your team together.
             </h2>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-slate-300 mb-8 max-w-3xl mx-auto leading-relaxed">
               With the help of hiring tools from Proclaim Canada, you'll reach hundreds of job seekers who are not only talented and qualified, but also aligned with your mission.
             </p>
             <Link
@@ -273,9 +273,9 @@ export default function ChurchHomePage() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-12 bg-white">
+      <section id="features" className="py-12 bg-slate-900">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-8">
+          <h2 className="text-4xl font-bold text-center text-white mb-8">
             Included with your Listing Post
           </h2>
 
@@ -297,12 +297,12 @@ export default function ChurchHomePage() {
                 description: 'Receive application information from interested job seekers for as long as your listing is active.'
               },
             ].map((feature, idx) => (
-              <div key={idx} className="text-center">
-                <div className="flex items-center justify-center w-20 h-20 rounded-full bg-slate-100 mx-auto mb-4">
+              <div key={idx} className="text-center bg-slate-800 p-6 rounded-lg">
+                <div className="flex items-center justify-center w-20 h-20 rounded-full bg-slate-700 mx-auto mb-4">
                   <span className="text-4xl">{feature.icon}</span>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                <h3 className="text-xl font-bold text-white mb-3">{feature.title}</h3>
+                <p className="text-slate-300 leading-relaxed">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -310,12 +310,12 @@ export default function ChurchHomePage() {
       </section>
 
       {/* How It Works */}
-      <section id="how-it-works" className="py-12 bg-gradient-to-b from-slate-50 to-white">
+      <section id="how-it-works" className="py-12 bg-slate-900">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-8">
+          <h2 className="text-4xl font-bold text-center text-white mb-8">
             How It Works
           </h2>
-          <p className="text-center text-gray-700 text-lg mb-8 max-w-3xl mx-auto">
+          <p className="text-center text-slate-300 text-lg mb-8 max-w-3xl mx-auto">
             Connecting your congregation with inspired leadership is simple. Follow these four steps to start building your church's guest speaker roster.
           </p>
 
