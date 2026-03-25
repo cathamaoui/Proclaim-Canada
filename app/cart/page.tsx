@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import Logo from '@/components/Logo';
+import Footer from '@/components/Footer';
 
 export default function CartPage() {
   const [cartItems] = useState<any[]>([]); // In a real app, this would come from context/state
@@ -129,6 +130,8 @@ export default function CartPage() {
           </div>
         )}
       </div>
+
+      <Footer />
     </div>
   );
 }

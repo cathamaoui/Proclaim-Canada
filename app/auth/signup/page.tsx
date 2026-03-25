@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { signIn } from 'next-auth/react'
 import ServiceTypeSelector from '@/components/ServiceTypeSelector'
 import Logo from '@/components/Logo'
+import Footer from '@/components/Footer'
 
 // Denomination categories - sorted alphabetically within each category
 const DENOMINATIONS = {
@@ -329,6 +330,8 @@ export default function SignupPage() {
             Sign In Now
           </Link>
         </div>
+        
+        <Footer />
       </div>
     )
   }
@@ -819,6 +822,8 @@ export default function SignupPage() {
         </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   )
 }

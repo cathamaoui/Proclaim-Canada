@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Logo from '@/components/Logo'
+import Footer from '@/components/Footer'
 
 const PRICING_PLANS = [
   {
@@ -365,44 +366,7 @@ export default function PricingPage() {
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="bg-slate-950 text-gray-400 py-12 mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <h3 className="text-white font-bold mb-4">Proclaim Canada</h3>
-              <p className="text-sm">Connecting churches with evangelists nationwide</p>
-            </div>
-            <div>
-              <h4 className="text-white font-bold mb-4">Product</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/" className="hover:text-lime-400">Home</Link></li>
-                <li><a href="#" className="hover:text-lime-400">Pricing</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-bold mb-4">Company</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-lime-400">About</a></li>
-                <li><a href="#" className="hover:text-lime-400">Contact</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-bold mb-4">Legal</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-lime-400">Privacy</a></li>
-                <li><a href="#" className="hover:text-lime-400">Terms</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-gray-700 py-6 text-center text-sm">
-            <p className="mb-4">Interested in advertising on our platform? <a href="mailto:advertise@proclaimcanada.com" className="text-lime-400 hover:text-lime-300">Connect with us</a></p>
-          </div>
-          <div className="border-t border-gray-700 pt-8 text-center text-sm">
-            <p>&copy; 2026 Proclaim Canada. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

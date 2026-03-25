@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import Logo from '@/components/Logo'
 import PreacherTicker from '@/components/PreacherTicker'
+import Footer from '@/components/Footer'
 
 export default function ChurchHomePage() {
   const { data: session } = useSession()
@@ -326,45 +327,7 @@ export default function ChurchHomePage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 py-12">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <h4 className="text-white font-bold mb-4 flex items-center gap-2">
-                <span>✝️</span>
-                <span>Proclaim Canada</span>
-              </h4>
-              <p className="text-sm">Connecting churches with qualified preachers and evangelists across North America.</p>
-            </div>
-            <div>
-              <h4 className="text-white font-bold mb-4">For Churches</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/church-home" className="hover:text-white">Home</Link></li>
-                <li><Link href="/listings/pricing" className="hover:text-white">Pricing</Link></li>
-                <li><Link href="#features" className="hover:text-white">Features</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-bold mb-4">For Preachers</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/browse" className="hover:text-white">Browse</Link></li>
-                <li><Link href="/auth/signup?type=preacher" className="hover:text-white">Sign Up</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-bold mb-4">Legal</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white">Terms</a></li>
-                <li><a href="#" className="hover:text-white">Privacy</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 pt-8 text-center text-sm">
-            <p>&copy; 2026 Proclaim Canada. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

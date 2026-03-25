@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import Logo from '@/components/Logo'
 import PreacherTicker from '@/components/PreacherTicker'
+import Footer from '@/components/Footer'
 
 const REGIONS = {
   'Canada': {
@@ -307,41 +308,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Footer */}
-      <footer id="contact" className="bg-slate-950 text-gray-400 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <h3 className="text-white font-bold mb-4">Proclaim Canada</h3>
-              <p className="text-sm">Connecting evangelists with churches nationwide</p>
-            </div>
-            <div>
-              <h4 className="text-white font-bold mb-4">Quick Links</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/browse/preachers" className="hover:text-lime-400">Browse</Link></li>
-                <li><Link href="/listings/new" className="hover:text-lime-400">Post Job</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-bold mb-4">Company</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-lime-400">About</a></li>
-                <li><a href="#" className="hover:text-lime-400">Contact</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-bold mb-4">Legal</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-lime-400">Privacy</a></li>
-                <li><a href="#" className="hover:text-lime-400">Terms</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-gray-700 pt-8 text-center text-sm">
-            <p>&copy; 2026 Proclaim Canada. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </main>
   )
 }

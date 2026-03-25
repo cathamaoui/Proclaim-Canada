@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Logo from '@/components/Logo';
+import Footer from '@/components/Footer';
 
 const AVAILABLE_PREACHERS = [
   {
@@ -389,6 +390,8 @@ export default function BrowsePreachersPage() {
           </div>
         )}
       </div>
+
+      <Footer />
     </div>
   );
 }
