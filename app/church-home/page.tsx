@@ -8,10 +8,95 @@ import Logo from '@/components/Logo'
 import PreacherTicker from '@/components/PreacherTicker'
 import Footer from '@/components/Footer'
 
+const REGIONS = {
+  'Canada': {
+    'Alberta': ['Calgary', 'Edmonton', 'Red Deer', 'Lethbridge', 'Airdrie', 'Okotoks', 'Fort McMurray', 'Grande Prairie', 'Lacombe', 'Camrose', 'Banff', 'Canmore', 'Brooks', 'Medicine Hat', 'Drumheller', 'Strathmore'],
+    'British Columbia': ['Vancouver', 'Victoria', 'Surrey', 'Burnaby', 'Kelowna', 'Abbotsford', 'Coquitlam', 'Nanaimo', 'Prince George', 'Vernon', 'Kamloops', 'Chilliwack', 'Penticton', 'New Westminster', 'Langley', 'Duncan'],
+    'Manitoba': ['Winnipeg', 'Brandon', 'Missoula', 'Winkler', 'Steinbach', 'Selkirk', 'Dauphin', 'Thompson', 'Flin Flon', 'Portage la Prairie', 'Swan River', 'Virden'],
+    'New Brunswick': ['Saint John', 'Fredericton', 'Moncton', 'Saint-Léonard', 'Bathurst', 'Campbellton', 'Edmundston', 'Miramichi', 'Sussex', 'Sackville', 'Newcastle', 'Caraquet'],
+    'Newfoundland and Labrador': ['St. Johns', 'Corner Brook', 'Gander', 'Grand Falls-Windsor', 'Labrador City', 'Happy Valley-Goose Bay', 'Stephenville', 'Bay Roberts', 'Conception Bay', 'Twillingate', 'Carbonear', 'Placentia'],
+    'Northwest Territories': ['Yellowknife', 'Hay River', 'Inuvik', 'Dettah', 'Tuktoyaktuk', 'Norman Wells'],
+    'Nova Scotia': ['Halifax', 'Cape Breton', 'Glace Bay', 'Sydney', 'Dartmouth', 'Truro', 'New Glasgow', 'Amherst', 'Wolfville', 'Yarmouth', 'Lunenburg', 'Antigonish'],
+    'Nunavut': ['Iqaluit', 'Rankin Inlet', 'Arviat', 'Cambridge Bay', 'Yellowknife'],
+    'Ontario': ['Toronto', 'Ottawa', 'Hamilton', 'London', 'Mississauga', 'Brampton', 'Windsor', 'Kitchener', 'Thunder Bay', 'Sudbury', 'Barrie', 'Guelph', 'Kingston', 'Oshawa', 'Belleville', 'Peterborough', 'Sarnia', 'St. Catharines', 'Niagara Falls', 'Stratford', 'Owen Sound', 'Sault Ste. Marie', 'Timmins', 'North Bay', 'Pembroke', 'Kenora'],
+    'Prince Edward Island': ['Charlottetown', 'Summerside', 'Stratford', 'Cornwall', 'Montague', 'Souris', 'Alberton', 'Georgetown'],
+    'Quebec': ['Montreal', 'Quebec City', 'Laval', 'Gatineau', 'Longueuil', 'Saint-Hyacinthe', 'Sherbrooke', 'Trois-Rivières', 'Terrebonne', 'Saint-Laurent', 'Repentigny', 'Saguenay', 'Rimouski', 'Baie-Comeau', 'Val-d\'Or', 'Rouyn-Noranda', 'Magog', 'Sainte-Thérèse', 'Blainville'],
+    'Saskatchewan': ['Saskatoon', 'Regina', 'Prince Albert', 'Moose Jaw', 'Yorkton', 'Swift Current', 'North Battleford', 'Estevan', 'Meadow Lake', 'Athabasca', 'La Ronge'],
+    'Yukon': ['Whitehorse', 'Dawson City', 'Watson Lake', 'Whitehorse', 'Haines Junction'],
+  },
+  'United States': {
+    'Alabama': ['Birmingham', 'Montgomery', 'Mobile', 'Huntsville', 'Tuscaloosa', 'Auburn', 'Dothan', 'Bessemer', 'Florence', 'Gadsden', 'Anniston', 'Decatur', 'Cullman', 'Opelika', 'Enterprise'],
+    'Alaska': ['Anchorage', 'Juneau', 'Fairbanks', 'Sitka', 'Ketchikan', 'Palmer', 'Wasilla', 'Kenai', 'Soldotna', 'Barrow'],
+    'Arizona': ['Phoenix', 'Tucson', 'Mesa', 'Chandler', 'Scottsdale', 'Glendale', 'Gilbert', 'Tempe', 'Peoria', 'Surprise'],
+    'Arkansas': ['Little Rock', 'Fayetteville', 'Fort Smith', 'Springdale', 'Jonesboro', 'North Little Rock', 'Pine Bluff'],
+    'California': ['Los Angeles', 'San Francisco', 'San Diego', 'Sacramento', 'San Jose', 'Fresno', 'Long Beach', 'Oakland'],
+    'Colorado': ['Denver', 'Colorado Springs', 'Fort Collins', 'Aurora', 'Lakewood', 'Boulder', 'Greeley'],
+    'Connecticut': ['Hartford', 'Bridgeport', 'New Haven', 'Waterbury', 'Stamford', 'Norwalk'],
+    'Delaware': ['Wilmington', 'Dover', 'Newark'],
+    'Florida': ['Miami', 'Orlando', 'Tampa', 'Jacksonville', 'St. Petersburg', 'Tallahassee', 'Fort Lauderdale'],
+    'Georgia': ['Atlanta', 'Augusta', 'Savannah', 'Athens', 'Columbus', 'Macon','Marietta'],
+    'Hawaii': ['Honolulu', 'Hilo', 'Kailua'],
+    'Idaho': ['Boise', 'Pocatello', 'Nampa', 'Meridian', 'Idaho Falls'],
+    'Illinois': ['Chicago', 'Aurora', 'Rockford', 'Springfield', 'Joliet'],
+    'Indiana': ['Indianapolis', 'Fort Wayne', 'Evansville', 'South Bend'],
+    'Iowa': ['Des Moines', 'Cedar Rapids', 'Davenport', 'Iowa City'],
+    'Kansas': ['Kansas City', 'Wichita', 'Topeka', 'Overland Park'],
+    'Kentucky': ['Louisville', 'Lexington', 'Bowling Green', 'Owensboro'],
+    'Louisiana': ['New Orleans', 'Baton Rouge', 'Shreveport', 'Lafayette'],
+    'Maine': ['Portland', 'Lewiston', 'Bangor', 'Augusta'],
+    'Maryland': ['Baltimore', 'Annapolis', 'Silver Spring'],
+    'Massachusetts': ['Boston', 'Worcester', 'Springfield', 'Cambridge'],
+    'Michigan': ['Detroit', 'Grand Rapids', 'Warren', 'Ann Arbor'],
+    'Minnesota': ['Minneapolis', 'St. Paul', 'Duluth', 'Rochester'],
+    'Mississippi': ['Jackson', 'Gulfport', 'Biloxi'],
+    'Missouri': ['Kansas City', 'St. Louis', 'Springfield', 'Independence'],
+    'Montana': ['Billings', 'Missoula', 'Great Falls', 'Bozeman'],
+    'Nebraska': ['Omaha', 'Lincoln', 'Grand Island'],
+    'Nevada': ['Las Vegas', 'Henderson', 'Reno'],
+    'New Hampshire': ['Manchester', 'Nashua', 'Concord'],
+    'New Jersey': ['Newark', 'Jersey City', 'Paterson'],
+    'New Mexico': ['Albuquerque', 'Las Cruces', 'Santa Fe'],
+    'New York': ['New York City', 'Buffalo', 'Rochester', 'Albany'],
+    'North Carolina': ['Charlotte', 'Raleigh', 'Greensboro', 'Durham'],
+    'North Dakota': ['Bismarck', 'Fargo', 'Grand Forks'],
+    'Ohio': ['Columbus', 'Cleveland', 'Cincinnati', 'Toledo'],
+    'Oklahoma': ['Oklahoma City', 'Tulsa', 'Norman'],
+    'Oregon': ['Portland', 'Eugene', 'Salem'],
+    'Pennsylvania': ['Philadelphia', 'Pittsburgh', 'Allentown'],
+    'Rhode Island': ['Providence', 'Warwick', 'Cranston'],
+    'South Carolina': ['Charleston', 'Columbia', 'Greenville'],
+    'South Dakota': ['Pierre', 'Sioux Falls', 'Rapid City'],
+    'Tennessee': ['Memphis', 'Nashville', 'Knoxville'],
+    'Texas': ['Houston', 'Dallas', 'Austin', 'San Antonio', 'Fort Worth'],
+    'Utah': ['Salt Lake City', 'Provo', 'West Jordan'],
+    'Vermont': ['Burlington', 'Rutland', 'Montpelier'],
+    'Virginia': ['Richmond', 'Virginia Beach', 'Arlington'],
+    'Washington': ['Seattle', 'Spokane', 'Tacoma', 'Vancouver'],
+    'West Virginia': ['Charleston', 'Huntington'],
+    'Wisconsin': ['Milwaukee', 'Madison', 'Green Bay'],
+    'Wyoming': ['Cheyenne', 'Laramie', 'Casper'],
+  },
+}
+
 export default function ChurchHomePage() {
   const { data: session } = useSession()
   const router = useRouter()
   const [showPromo, setShowPromo] = useState(true)
+  const [country, setCountry] = useState('')
+  const [region, setRegion] = useState('')
+  const [city, setCity] = useState('')
+
+  const regions = country ? Object.keys(REGIONS[country as keyof typeof REGIONS] || {}) : []
+  const cities = country && region ? REGIONS[country as keyof typeof REGIONS]?.[region as keyof typeof REGIONS[keyof typeof REGIONS]] || [] : []
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    const params = new URLSearchParams()
+    if (country) params.append('country', country)
+    if (region) params.append('region', region)
+    if (city) params.append('city', city)
+    window.location.href = `/browse/preachers?${params.toString()}`
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -87,6 +172,78 @@ export default function ChurchHomePage() {
           >
             Register for free
           </Link>
+
+          {/* Search Form */}
+          <form onSubmit={handleSearch} className="bg-white rounded-lg shadow-xl p-6 mt-8 max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-4 gap-4 items-end">
+              {/* Country Dropdown */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Country</label>
+                <select
+                  value={country}
+                  onChange={(e) => {
+                    setCountry(e.target.value)
+                    setRegion('')
+                    setCity('')
+                  }}
+                  className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="">Select a Country</option>
+                  <option value="Canada">Canada</option>
+                  <option value="United States">United States</option>
+                </select>
+              </div>
+
+              {/* State/Province Dropdown */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  {country === 'Canada' ? 'Province' : country === 'United States' ? 'State' : 'Region'}
+                </label>
+                <select
+                  value={region}
+                  onChange={(e) => {
+                    setRegion(e.target.value)
+                    setCity('')
+                  }}
+                  disabled={!country}
+                  className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
+                >
+                  <option value="">Select a {country === 'Canada' ? 'Province' : country === 'United States' ? 'State' : 'Region'}</option>
+                  {regions.map((r) => (
+                    <option key={r} value={r}>
+                      {r}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* City Dropdown */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">City</label>
+                <select
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  disabled={!region}
+                  className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
+                >
+                  <option value="">Select a City</option>
+                  {cities.map((c) => (
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Search Button */}
+              <button
+                type="submit"
+                className="bg-lime-500 hover:bg-lime-600 text-white px-6 py-3 rounded font-bold transition h-12"
+              >
+                Find Preachers
+              </button>
+            </div>
+          </form>
         </div>
       </section>
 
