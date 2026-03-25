@@ -119,6 +119,8 @@ export default function NewListingPage() {
     // Church Identity
     churchName: '',
     contactName: '',
+    contactEmail: '',
+    contactPhone: '',
     denomination: '',
     congregationProfile: '',
     avgAttendance: '',
@@ -315,6 +317,8 @@ export default function NewListingPage() {
           compensation: formData.honorarium,
           churchName: formData.churchName,
           contactName: formData.contactName,
+          contactEmail: formData.contactEmail,
+          contactPhone: formData.contactPhone,
           denomination: formData.denomination,
           congregationProfile: formData.congregationProfile,
           avgAttendance: formData.avgAttendance,
@@ -354,7 +358,7 @@ export default function NewListingPage() {
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-2xl mx-auto px-4">
         <div className="bg-white rounded-lg shadow p-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Post an Opportunity</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Post an Opportunity (Church)</h1>
           <p className="text-gray-600 mb-8">Tell preachers about your upcoming service</p>
 
           {error && (
@@ -398,6 +402,47 @@ export default function NewListingPage() {
                     value={formData.contactName}
                     onChange={handleChange}
                     placeholder="e.g., Pastor John Smith"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <label htmlFor="contactEmail" className="block text-sm font-medium text-gray-700 mb-2">
+                    Contact Email *
+                  </label>
+                  <input
+                    id="contactEmail"
+                    type="email"
+                    name="contactEmail"
+                    value={formData.contactEmail}
+                    onChange={handleChange}
+                    required
+                    placeholder="e.g., pastor@church.com"
+                    list="email-suggestions"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                  />
+                  <datalist id="email-suggestions">
+                    <option value="user@gmail.com" />
+                    <option value="user@yahoo.com" />
+                    <option value="user@hotmail.com" />
+                    <option value="user@outlook.com" />
+                    <option value="user@icloud.com" />
+                    <option value="user@protonmail.com" />
+                  </datalist>
+                </div>
+                <div>
+                  <label htmlFor="contactPhone" className="block text-sm font-medium text-gray-700 mb-2">
+                    Contact Phone
+                  </label>
+                  <input
+                    id="contactPhone"
+                    type="tel"
+                    name="contactPhone"
+                    value={formData.contactPhone}
+                    onChange={handleChange}
+                    placeholder="e.g., (555) 123-4567"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
                   />
                 </div>
