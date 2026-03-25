@@ -799,6 +799,7 @@ export default function SignupPage() {
             ← Back to Home
           </Link>
         </div>
+        </div>
       </div>
     </div>
   )
