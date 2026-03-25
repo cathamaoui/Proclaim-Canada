@@ -149,7 +149,7 @@ export default function PricingPage() {
 
             {/* Menu Items */}
             <div className="hidden md:flex items-center gap-8">
-              <Link href="/" className="text-white font-medium hover:text-lime-400 transition">
+              <Link href="/church-home" className="text-white font-medium hover:text-lime-400 transition">
                 Church Home
               </Link>
               <Link href="/listings/pricing" className="text-white font-medium hover:text-lime-400 transition">

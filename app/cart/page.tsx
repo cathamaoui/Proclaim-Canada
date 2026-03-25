@@ -17,7 +17,7 @@ export default function CartPage() {
             <span className="text-lime-500"> Proclaim</span> Canada
           </Link>
           <div className="hidden md:flex items-center gap-8">
-            <Link href="/dashboard" className="hover:text-lime-500 transition">
+            <Link href="/church-home" className="hover:text-lime-500 transition">
               Church Home
             </Link>
             <Link href="/listings/pricing" className="hover:text-lime-500 transition">
