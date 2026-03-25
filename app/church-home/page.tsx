@@ -155,11 +155,11 @@ export default function ChurchHomePage() {
       </nav>
 
       {/* Hero Section with Background */}
-      <section className="relative h-96 md:h-[500px] bg-cover bg-center overflow-hidden flex items-center justify-center"
+      <section className="relative min-h-screen bg-cover bg-center overflow-hidden flex items-center justify-center"
         style={{
           backgroundImage: 'linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(51, 65, 85, 0.7) 100%), url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 600%22%3E%3Crect fill=%22%234b5563%22 width=%221200%22 height=%22600%22/%3E%3Ccircle cx=%22200%22 cy=%22100%22 r=%2280%22 fill=%22%236b7485%22 opacity=%220.5%22/%3E%3Ccircle cx=%221000%22 cy=%22500%22 r=%22150%22 fill=%22%236b7485%22 opacity=%220.3%22/%3E%3Crect x=%22400%22 y=%22250%22 width=%22400%22 height=%22200%22 fill=%22%236b7485%22 opacity=%220.2%22 rx=%2220%22/%3E%3C/svg%3E")'
         }}>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-900"></div>
         
         {/* PreacherTicker in top right */}
         <div className="absolute top-8 right-8 z-20">
