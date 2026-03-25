@@ -170,9 +170,22 @@ export default function NewListingPage() {
         const response = await fetch('/api/subscription/check')
         const data = await response.json()
 
-        if (!response.ok || !data.hasSubscription) {
-          router.push('/listings/pricing')
-          return
+        // If no subscription found, try to create a trial one
+        if (!data.hasSubscription) {
+          try {
+            const createTrialResponse = await fetch('/api/subscription/create-trial', { method: 'POST' })
+            const trialData = await createTrialResponse.json()
+            if (!createTrialResponse.ok) {
+              console.error('Failed to create trial subscription:', trialData.error)
+              router.push('/listings/pricing')
+              return
+            }
+            // If trial created successfully, continue loading the form
+          } catch (err) {
+            console.error('Failed to create trial subscription:', err)
+            router.push('/listings/pricing')
+            return
+          }
         }
       } catch (err) {
         console.error('Failed to check subscription:', err)
