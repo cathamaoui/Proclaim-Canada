@@ -24,7 +24,7 @@ const PRICING_PLANS = [
         days: '30 days',
         price: '$99',
         description: 'Perfect for one-time opportunities',
-        incentive: '✓ Includes 1 Month Full Access\n✓ Includes Free Registration',
+        incentive: '+ 1 Month Full Access\n✓ Includes Free Registration',
       },
       {
         id: 'single-2-months',
@@ -33,7 +33,7 @@ const PRICING_PLANS = [
         pricePerMonth: '$92.50/month',
         totalPrice: '$185',
         description: 'Extended visibility',
-        incentive: '✓ Includes 1 Month Full Access\n✓ Includes Free Registration',
+        incentive: '+ 1 Month Full Access\n✓ Includes Free Registration',
       },
       {
         id: 'single-3-months',
@@ -42,7 +42,7 @@ const PRICING_PLANS = [
         pricePerMonth: '$85/month',
         totalPrice: '$255',
         description: 'Better reach',
-        incentive: '✓ Includes 1 Month Full Access\n✓ Includes Free Registration',
+        incentive: '+ 1 Month Full Access\n✓ Includes Free Registration',
       },
       {
         id: 'single-6-months',
@@ -51,7 +51,7 @@ const PRICING_PLANS = [
         pricePerMonth: '$75/month',
         totalPrice: '$450',
         description: 'Maximum exposure',
-        incentive: '✓ Includes 1 Month Full Access\n✓ Includes Free Registration',
+        incentive: '+ 1 Month Full Access\n✓ Includes Free Registration',
       },
       {
         id: 'unlimited-yearly',
@@ -61,7 +61,7 @@ const PRICING_PLANS = [
         badge: 'BEST VALUE',
         badgeColor: 'bg-blue-600',
         description: 'For churches with ongoing staffing needs',
-        incentive: '✓ Includes 12 Months Full Access\n✓ Includes Free Registration',
+        incentive: '+ 12 Months Full Access\n✓ Includes Free Registration',
       },
     ],
   },
@@ -75,7 +75,7 @@ const PRICING_PLANS = [
         price: '$249',
         pricePerPosting: '$83/posting',
         description: 'For multiple opportunities',
-        incentive: '✓ Includes 1 Month Full Access\n✓ Includes Free Registration',
+        incentive: '+ 1 Month Full Access\n✓ Includes Free Registration',
       },
       {
         id: 'pack-6-jobs',
@@ -84,7 +84,7 @@ const PRICING_PLANS = [
         price: '$429',
         pricePerPosting: '$71.50/posting',
         description: 'Better value',
-        incentive: '✓ Includes 1 Month Full Access\n✓ Includes Free Registration',
+        incentive: '+ 1 Month Full Access\n✓ Includes Free Registration',
       },
       {
         id: 'pack-30-jobs',
@@ -93,7 +93,7 @@ const PRICING_PLANS = [
         price: '$1,490',
         pricePerPosting: '$49.67/posting',
         description: 'Best value for active recruiting',
-        incentive: '✓ Includes 1 Month Full Access\n✓ Includes Free Registration',
+        incentive: '+ 1 Month Full Access\n✓ Includes Free Registration',
       },
     ],
   },
