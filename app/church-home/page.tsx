@@ -207,41 +207,56 @@ export default function ChurchHomePage() {
             Simple, Flexible Pricing
           </h2>
           <p className="text-center text-gray-600 text-lg mb-16">
-            Whether you need a one-time posting or unlimited access, we have a plan for you.
+            Whether you need an urgent posting or year-round staffing, we have a plan for you.
           </p>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                name: 'Single Posting',
-                price: '$69',
-                features: ['1 listing post', 'Candidate database access', '30 days active']
+                badge: 'URGENT',
+                name: 'Immediate Call',
+                duration: '3 days',
+                price: '$50',
+                features: ['Quick turnaround', 'Job post distribution', 'Application management']
               },
               {
-                name: 'Monthly',
-                price: '$299',
-                features: ['Unlimited listings', 'Full candidate database', 'Priority support', '30 days access'],
+                name: '1 Month',
+                duration: '30 days',
+                price: '$99',
+                features: ['30-day listing', 'Job post distribution', 'Application management', '1 Month Browse Access'],
                 highlight: true
               },
               {
-                name: 'Yearly',
-                price: '$2,499',
-                features: ['Unlimited listings', 'Full candidate database', '24/7 support', '365 days access']
+                badge: 'BEST VALUE',
+                name: 'Unlimited Yearly',
+                duration: '365 days',
+                price: '$1,700',
+                features: ['Unlimited postings', 'Full year access', 'Job post distribution', '12 Months Browse Access']
               },
             ].map((plan, idx) => (
               <div
                 key={idx}
-                className={`rounded-xl transition transform hover:scale-105 ${
+                className={`rounded-xl transition transform hover:scale-105 relative ${
                   plan.highlight
                     ? 'bg-gradient-to-br from-green-500 to-green-600 text-white shadow-xl ring-4 ring-green-300 scale-105'
                     : 'bg-white shadow-lg text-gray-900'
                 }`}
                 style={plan.highlight ? { boxShadow: '0 20px 50px rgba(34, 197, 94, 0.3)' } : {}}
               >
+                {plan.badge && (
+                  <div className={`absolute -top-3 right-6 px-4 py-1 rounded-full text-sm font-bold text-white ${
+                    plan.badge === 'BEST VALUE' ? 'bg-blue-600' : 'bg-red-600'
+                  }`}>
+                    {plan.badge}
+                  </div>
+                )}
                 <div className="p-8">
                   <h3 className={`text-2xl font-bold mb-2 ${plan.highlight ? 'text-white' : ''}`}>
                     {plan.name}
                   </h3>
+                  <p className={`text-sm mb-4 ${plan.highlight ? 'text-green-50' : 'text-gray-500'}`}>
+                    {plan.duration}
+                  </p>
                   <div className={`text-4xl font-black mb-6 ${plan.highlight ? 'text-lime-200' : 'text-green-600'}`}>
                     {plan.price}
                   </div>
@@ -249,19 +264,19 @@ export default function ChurchHomePage() {
                     {plan.features.map((feature, fidx) => (
                       <li key={fidx} className={`flex items-center gap-3 ${plan.highlight ? 'text-green-50' : 'text-gray-700'}`}>
                         <span className="text-xl">✓</span>
-                        <span>{feature}</span>
+                        <span className="text-sm">{feature}</span>
                       </li>
                     ))}
                   </ul>
                   <Link
-                    href="/auth/signup?type=church"
+                    href="/listings/pricing"
                     className={`block w-full text-center py-3 rounded-lg font-bold transition ${
                       plan.highlight
                         ? 'bg-white text-green-600 hover:bg-lime-50'
                         : 'bg-green-500 text-white hover:bg-green-600'
                     }`}
                   >
-                    Get Started
+                    Choose Plan
                   </Link>
                 </div>
               </div>
@@ -273,7 +288,7 @@ export default function ChurchHomePage() {
               href="/listings/pricing"
               className="text-green-600 hover:text-green-700 font-bold text-lg"
             >
-              View all pricing options →
+              View all pricing options & multi-job packs →
             </Link>
           </div>
         </div>
