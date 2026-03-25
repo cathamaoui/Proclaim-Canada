@@ -353,7 +353,7 @@ export default function ChurchHomePage() {
           </div>
 
           <div className="mt-8 text-center">
-            <p className="text-gray-600 text-lg mb-6">
+            <p className="text-slate-300 text-lg mb-6">
               Post specific pulpit vacancies now! Use our secure platform to message preachers and schedule your next guest speaker.
             </p>
             <Link
@@ -367,12 +367,12 @@ export default function ChurchHomePage() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-12 bg-gray-50">
+      <section id="pricing" className="py-12 bg-slate-900">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-4">
+          <h2 className="text-4xl font-bold text-center text-white mb-4">
             View A Few Simple Plans
           </h2>
-          <p className="text-center text-gray-600 text-lg mb-8">
+          <p className="text-center text-slate-300 text-lg mb-8">
             Whether you need an urgent posting or year-round staffing, we have a plan for you.
           </p>
 
@@ -404,10 +404,10 @@ export default function ChurchHomePage() {
                 key={idx}
                 className={`rounded-xl transition transform hover:scale-105 relative ${
                   plan.highlight
-                    ? 'bg-gradient-to-br from-blue-600 to-blue-700 text-white shadow-xl ring-4 ring-blue-300 scale-105'
-                    : 'bg-white shadow-lg text-gray-900'
+                    ? 'bg-gradient-to-br from-slate-700 to-slate-800 text-white shadow-xl ring-4 ring-slate-600 scale-105'
+                    : 'bg-slate-800 shadow-lg text-white'
                 }`}
-                style={plan.highlight ? { boxShadow: '0 20px 50px rgba(37, 99, 235, 0.3)' } : {}}
+                style={plan.highlight ? { boxShadow: '0 20px 50px rgba(30, 41, 59, 0.5)' } : {}}
               >
                 {plan.badge && (
                   <div className={`absolute -top-3 right-6 px-4 py-1 rounded-full text-sm font-bold text-white ${
@@ -417,10 +417,10 @@ export default function ChurchHomePage() {
                   </div>
                 )}
                 <div className="p-8">
-                  <h3 className={`text-2xl font-bold mb-2 ${plan.highlight ? 'text-white' : ''}`}>
+                  <h3 className={`text-2xl font-bold mb-2 ${plan.highlight ? 'text-white' : 'text-white'}`}>
                     {plan.name}
                   </h3>
-                  <p className={`text-sm mb-4 ${plan.highlight ? 'text-blue-50' : 'text-gray-500'}`}>
+                  <p className={`text-sm mb-4 ${plan.highlight ? 'text-slate-300' : 'text-slate-400'}`}>
                     {plan.duration}
                   </p>
                   <div className={`text-4xl font-black mb-6 ${plan.highlight ? 'text-white' : 'text-slate-800'}`}>
@@ -428,7 +428,7 @@ export default function ChurchHomePage() {
                   </div>
                   <ul className="space-y-3 mb-8">
                     {plan.features.map((feature, fidx) => (
-                      <li key={fidx} className={`flex items-center gap-3 ${plan.highlight ? 'text-blue-50' : 'text-gray-700'}`}>
+                      <li key={fidx} className={`flex items-center gap-3 ${plan.highlight ? 'text-slate-200' : 'text-slate-300'}`}>
                         <span className="text-xl">✓</span>
                         <span className="text-sm">{feature}</span>
                       </li>
@@ -438,8 +438,8 @@ export default function ChurchHomePage() {
                     href="/listings/pricing"
                     className={`block w-full text-center py-3 rounded-lg font-bold transition ${
                       plan.highlight
-                        ? 'bg-white text-slate-800 hover:bg-gray-100'
-                        : 'bg-slate-800 text-white hover:bg-slate-900'
+                        ? 'bg-lime-500 text-white hover:bg-lime-600'
+                        : 'bg-slate-700 text-white hover:bg-slate-600'
                     }`}
                   >
                     Choose Plan
