@@ -24,7 +24,7 @@ const PRICING_PLANS = [
         days: '30 days',
         price: '$99',
         description: 'Perfect for one-time opportunities',
-        incentive: '✓ Includes 1 Month Browse Preachers Access',
+        incentive: '✓ Includes 1 Month Full Access, ✓ Includes Free Registration',
       },
       {
         id: 'single-2-months',
@@ -33,7 +33,7 @@ const PRICING_PLANS = [
         pricePerMonth: '$59.50/month',
         totalPrice: '$119',
         description: 'Extended visibility',
-        incentive: '✓ Includes 1 Month Browse Preachers Access',
+        incentive: '✓ Includes 1 Month Full Access, ✓ Includes Free Registration',
       },
       {
         id: 'single-3-months',
@@ -42,7 +42,7 @@ const PRICING_PLANS = [
         pricePerMonth: '$64.33/month',
         totalPrice: '$193',
         description: 'Better reach',
-        incentive: '✓ Includes 1 Month Browse Preachers Access',
+        incentive: '✓ Includes 1 Month Full Access, ✓ Includes Free Registration',
       },
       {
         id: 'single-6-months',
@@ -51,7 +51,7 @@ const PRICING_PLANS = [
         pricePerMonth: '$56.50/month',
         totalPrice: '$339',
         description: 'Maximum exposure',
-        incentive: '✓ Includes 1 Month Browse Preachers Access',
+        incentive: '✓ Includes 1 Month Full Access, ✓ Includes Free Registration',
       },
       {
         id: 'unlimited-yearly',
@@ -61,7 +61,7 @@ const PRICING_PLANS = [
         badge: 'BEST VALUE',
         badgeColor: 'bg-blue-600',
         description: 'For churches with ongoing staffing needs',
-        incentive: '✓ Includes 12 Months Browse Preachers Access',
+        incentive: '✓ Includes 12 Months Full Access, ✓ Includes Free Registration',
       },
     ],
   },
@@ -75,7 +75,7 @@ const PRICING_PLANS = [
         price: '$249',
         pricePerPosting: '$83/posting',
         description: 'For multiple opportunities',
-        incentive: '✓ Includes 1 Month Browse Preachers Access',
+        incentive: '✓ Includes 1 Month Full Access, ✓ Includes Free Registration',
       },
       {
         id: 'pack-6-jobs',
@@ -84,7 +84,7 @@ const PRICING_PLANS = [
         price: '$429',
         pricePerPosting: '$71.50/posting',
         description: 'Better value',
-        incentive: '✓ Includes 1 Month Browse Preachers Access',
+        incentive: '✓ Includes 1 Month Full Access, ✓ Includes Free Registration',
       },
       {
         id: 'pack-30-jobs',
@@ -93,7 +93,7 @@ const PRICING_PLANS = [
         price: '$1,490',
         pricePerPosting: '$49.67/posting',
         description: 'Best value for active recruiting',
-        incentive: '✓ Includes 1 Month Browse Preachers Access',
+        incentive: '✓ Includes 1 Month Full Access, ✓ Includes Free Registration',
       },
     ],
   },
