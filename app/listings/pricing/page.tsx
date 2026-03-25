@@ -335,6 +335,9 @@ export default function PricingPage() {
       {/* Donation Section */}
       <div className="bg-lime-50 py-12 px-4">
         <div className="max-w-4xl mx-auto text-center">
+          <div className="flex justify-center mb-4">
+            <Logo />
+          </div>
           <p className="text-gray-700 mb-4">
             Support our mission. <button
               onClick={() => window.open('https://donate.example.com', '_blank')}
