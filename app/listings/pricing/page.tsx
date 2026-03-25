@@ -66,7 +66,7 @@ const PRICING_PLANS = [
     ],
   },
   {
-    category: 'Ongoing Listing Plans (Unlimited Postings)',
+    category: 'Ongoing Unlimited Posting Subscriptions',
     plans: [
       {
         id: 'multi-3-months',
