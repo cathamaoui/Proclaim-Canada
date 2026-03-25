@@ -61,7 +61,7 @@ const PRICING_PLANS = [
         badge: 'BEST VALUE',
         badgeColor: 'bg-blue-600',
         description: 'For churches with ongoing staffing needs',
-        incentive: '+ 12 Months Full Access\n✓ Includes Free Registration',
+        incentive: '+ 12 Months Full Access\n+ 1 Month Full Access\n✓ Includes Free Registration',
       },
     ],
   },
