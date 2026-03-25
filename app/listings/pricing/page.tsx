@@ -8,7 +8,7 @@ import Footer from '@/components/Footer'
 
 const PRICING_PLANS = [
   {
-    category: 'Subscription Options',
+    category: 'Subscription Options (1 Job Posting)',
     plans: [
       {
         id: 'urgent-3-days',
@@ -186,7 +186,7 @@ export default function PricingPage() {
             <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
               {section.category}
             </h2>
-            <div className={`grid grid-cols-1 ${section.category === 'Subscription Options' ? 'md:grid-cols-3 lg:grid-cols-6' : 'md:grid-cols-3'} gap-6 auto-rows-fr`}>
+            <div className={`grid grid-cols-1 ${section.category === 'Subscription Options (1 Job Posting)' ? 'md:grid-cols-3 lg:grid-cols-6' : 'md:grid-cols-3'} gap-6 auto-rows-fr`}>
               {section.plans.map((plan, planIdx) => (
                 <div
                   key={planIdx}
