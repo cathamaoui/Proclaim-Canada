@@ -204,7 +204,7 @@ export default function ChurchHomePage() {
       <section id="pricing" className="py-20 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-4">
-            Simple, Flexible Pricing
+            View A Few Simple Plans
           </h2>
           <p className="text-center text-gray-600 text-lg mb-16">
             Whether you need an urgent posting or year-round staffing, we have a plan for you.
