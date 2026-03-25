@@ -91,13 +91,13 @@ export default function ChurchHomePage() {
       </section>
 
       {/* Value Proposition Section */}
-      <section className="py-20 bg-gray-50 relative">
+      <section className="py-12 bg-gray-50 relative">
         <div className="max-w-6xl mx-auto px-4">
-          <div className="bg-white rounded-2xl shadow-lg p-12 text-center">
+          <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
               Let's grow your team together.
             </h2>
-            <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
               With the help of hiring tools from Proclaim Canada, you'll reach hundreds of job seekers who are not only talented and qualified, but also aligned with your mission.
             </p>
             <Link
@@ -111,9 +111,9 @@ export default function ChurchHomePage() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 bg-white">
+      <section id="features" className="py-12 bg-white">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-8">
             Included with your Listing Post
           </h2>
 
@@ -148,12 +148,12 @@ export default function ChurchHomePage() {
       </section>
 
       {/* How It Works */}
-      <section id="how-it-works" className="py-20 bg-gradient-to-b from-slate-50 to-white">
+      <section id="how-it-works" className="py-12 bg-gradient-to-b from-slate-50 to-white">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-8">
             How It Works
           </h2>
-          <p className="text-center text-gray-700 text-lg mb-16 max-w-3xl mx-auto">
+          <p className="text-center text-gray-700 text-lg mb-8 max-w-3xl mx-auto">
             Connecting your congregation with inspired leadership is simple. Follow these four steps to start building your church's guest speaker roster.
           </p>
 
@@ -190,7 +190,7 @@ export default function ChurchHomePage() {
             ))}
           </div>
 
-          <div className="mt-12 text-center">
+          <div className="mt-8 text-center">
             <p className="text-gray-600 text-lg mb-6">
               Post specific pulpit vacancies now! Use our secure platform to message preachers and schedule your next guest speaker.
             </p>
@@ -205,12 +205,12 @@ export default function ChurchHomePage() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-20 bg-gray-50">
+      <section id="pricing" className="py-12 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-4">
             View A Few Simple Plans
           </h2>
-          <p className="text-center text-gray-600 text-lg mb-16">
+          <p className="text-center text-gray-600 text-lg mb-8">
             Whether you need an urgent posting or year-round staffing, we have a plan for you.
           </p>
 
@@ -287,7 +287,7 @@ export default function ChurchHomePage() {
             ))}
           </div>
 
-          <div className="mt-16 text-center">
+          <div className="mt-12 text-center">
             <div className="inline-block bg-gradient-to-r from-blue-50 to-slate-50 rounded-xl p-8 border-2 border-blue-300 shadow-lg">
               <Link
                 href="/listings/pricing"
@@ -302,12 +302,12 @@ export default function ChurchHomePage() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-center">
+      <section className="py-12 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-center">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-4xl font-bold mb-6">
             Ready to Build Your Team?
           </h2>
-          <p className="text-xl text-blue-50 mb-10 max-w-2xl mx-auto">
+          <p className="text-xl text-blue-50 mb-8 max-w-2xl mx-auto">
             Join hundreds of churches already using Proclaim Canada to find qualified preachers and evangelists.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -331,7 +331,7 @@ export default function ChurchHomePage() {
       </section>
 
       {/* Donation Section */}
-      <div className="bg-slate-50 py-16 px-4">
+      <div className="bg-slate-50 py-10 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex justify-center mb-6">
             <Logo />
