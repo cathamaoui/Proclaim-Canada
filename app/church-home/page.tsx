@@ -502,12 +502,15 @@ export default function ChurchHomePage() {
               If our platform has helped you find a voice for your pulpit or build your roster, would you consider partnering with us? Your gift ensures that even the smallest churches can continue using these tools to connect with pastors across North America.
             </p>
           </div>
-          <button
-            onClick={() => window.open('https://donate.example.com', '_blank')}
-            className="bg-slate-800 hover:bg-slate-900 text-white px-8 py-3 rounded-lg font-bold text-lg transition mb-6"
+          <a
+            href="https://donate.example.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-slate-800 hover:text-slate-900 font-bold text-lg transition mb-6"
           >
             Support the Mission
-          </button>
+            <span className="text-lime-500">→</span>
+          </a>
           <p className="text-gray-700 text-lg font-medium">
             Thank you for being a vital part of this community.
           </p>
