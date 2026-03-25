@@ -1,10 +1,5 @@
 {
   "pages": {
-    "/api/auth/[...nextauth]/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/auth/[...nextauth]/route.js"
-    ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -16,20 +11,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/church-home/page.js"
     ],
-    "/page": [
+    "/api/auth/[...nextauth]/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
-    ],
-    "/api/stats/preachers/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/stats/preachers/route.js"
-    ],
-    "/auth/signup/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/auth/signup/page.js"
+      "static/chunks/app/api/auth/[...nextauth]/route.js"
     ]
   }
 }
