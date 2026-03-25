@@ -190,7 +190,7 @@ export default function PricingPage() {
               {section.plans.map((plan, planIdx) => (
                 <div
                   key={planIdx}
-                  className={`relative flex flex-col bg-white border rounded-lg p-6 shadow-sm hover:shadow-md transition min-h-full ${
+                  className={`relative flex flex-col bg-white border rounded-lg p-4 shadow-sm hover:shadow-md transition min-h-full ${
                     'badge' in plan && plan.badge === 'BEST VALUE' ? 'border-blue-500 border-2' : 'badge' in plan ? 'border-lime-500 border-2' : 'border-gray-200'
                   }`}
                 >
@@ -199,14 +199,14 @@ export default function PricingPage() {
                       {plan.badge}
                     </div>
                   )}
-                  <div className="mb-4">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  <div className="mb-3">
+                    <h3 className="text-xl font-bold text-gray-900 mb-1">
                       {'duration' in plan ? plan.duration : 'jobCount' in plan ? plan.jobCount : ''}
                     </h3>
-                    <p className="text-sm text-gray-600 mb-3">
+                    <p className="text-sm text-gray-600 mb-2">
                       {'days' in plan ? plan.days : ''}
                     </p>
-                    <div className="mb-2">
+                    <div className="mb-1">
                       <span className="text-3xl font-bold text-lime-600">
                         {'price' in plan ? plan.price : ''}
                       </span>
@@ -222,17 +222,17 @@ export default function PricingPage() {
                       </p>
                     )}
                   </div>
-                  <p className="text-sm text-gray-600 mb-4 flex-1">
+                  <p className="text-sm text-gray-600 mb-3 flex-1">
                     {plan.description}
                   </p>
                   {'incentive' in plan && (
-                    <p className="text-sm text-lime-600 font-semibold mb-4 flex items-center">
+                    <p className="text-sm text-lime-600 font-semibold mb-3 flex items-center">
                       {plan.incentive}
                     </p>
                   )}
                   <button
                     onClick={() => window.location.href = `/auth/church-checkout?plan=${('id' in plan) ? plan.id : 'standard'}`}
-                    className="w-full bg-lime-500 hover:bg-lime-600 text-white py-3 rounded-lg font-semibold transition"
+                    className="w-full bg-lime-500 hover:bg-lime-600 text-white py-2 rounded-lg font-semibold transition"
                   >
                     Choose Plan
                   </button>
