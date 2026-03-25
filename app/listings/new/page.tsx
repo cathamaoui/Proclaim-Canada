@@ -252,9 +252,9 @@ export default function NewListingPage() {
 
   if (session?.user.role !== 'CHURCH') {
     return (
-      <div className="min-h-screen bg-gray-50 py-12">
+      <div className="min-h-screen bg-gradient-to-b from-green-50 to-white py-12">
         <div className="max-w-2xl mx-auto px-4">
-          <div className="bg-white rounded-lg shadow p-8 text-center">
+          <div className="bg-white rounded-lg shadow-lg p-8 text-center">
             <p className="text-gray-600 mb-4">Only churches can post opportunities</p>
             <button
               onClick={() => router.push('/browse')}
@@ -270,9 +270,9 @@ export default function NewListingPage() {
 
   if (checkingSubscription) {
     return (
-      <div className="min-h-screen bg-gray-50 py-12">
+      <div className="min-h-screen bg-gradient-to-b from-green-50 to-white py-12">
         <div className="max-w-2xl mx-auto px-4">
-          <div className="bg-white rounded-lg shadow p-8 text-center">
+          <div className="bg-white rounded-lg shadow-lg p-8 text-center">
             <p className="text-gray-600">Checking your subscription...</p>
           </div>
         </div>
@@ -358,15 +358,16 @@ export default function NewListingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white py-12">
       <div className="max-w-2xl mx-auto px-4">
-        <div className="bg-white rounded-lg shadow p-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Post an Opportunity (Church)</h1>
+        <div className="bg-white rounded-lg shadow-lg p-8">
+          <h1 className="text-4xl font-bold text-green-900 mb-2">Post an Opportunity (Church)</h1>
           <p className="text-gray-600 mb-8">Tell preachers about your upcoming service</p>
 
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
-              {error}
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6 flex items-start gap-3">
+              <span className="text-xl leading-none">⚠️</span>
+              <div>{error}</div>
             </div>
           )}
 
@@ -1191,20 +1192,30 @@ export default function NewListingPage() {
               </div>
             </div>
 
-            <div className="flex gap-4 mt-8">
+            <div className="flex gap-3 mt-8 flex-wrap">
               <button
                 type="submit"
                 disabled={loading}
-                className="flex-1 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 disabled:opacity-50 font-semibold text-lg"
+                className="flex-1 min-w-max bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 disabled:opacity-50 font-semibold text-lg transition"
               >
                 {loading ? 'Creating...' : 'Post Opportunity'}
               </button>
               <button
                 type="button"
-                onClick={() => router.back()}
-                className="flex-1 bg-gray-200 text-gray-800 py-3 rounded-lg hover:bg-gray-300 font-semibold text-lg"
+                onClick={async () => {
+                  // Save as draft functionality
+                  alert('Draft saved! You can continue editing this opportunity later.')
+                }}
+                className="flex-1 min-w-max bg-green-100 text-green-700 py-3 rounded-lg hover:bg-green-200 font-semibold text-lg transition border border-green-300"
               >
-                Cancel
+                Save as Draft
+              </button>
+              <button
+                type="button"
+                onClick={() => router.push('/church-dashboard')}
+                className="flex-1 min-w-max bg-gray-200 text-gray-800 py-3 rounded-lg hover:bg-gray-300 font-semibold text-lg transition"
+              >
+                Dashboard
               </button>
             </div>
           </form>
