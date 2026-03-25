@@ -318,7 +318,7 @@ export default function SignupPage() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center px-4 py-8">
       <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          {type === 'church' ? 'Sign up my Church' : 'Sign Up as Preacher'}
+          {type === 'church' ? 'Register My Church Now!' : 'Sign Up as Preacher'}
         </h1>
         <p className="text-gray-600 mb-8">Join Proclaim Canada today</p>
 
