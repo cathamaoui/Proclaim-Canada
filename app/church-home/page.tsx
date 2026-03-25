@@ -78,8 +78,8 @@ export default function ChurchHomePage() {
         
         <div className="relative text-center text-white px-4 z-10">
           <h1 className="text-5xl md:text-6xl font-black leading-tight mb-6">
-            Build Your Dream Team<br />
-            <span className="text-lime-200">on the #1 church staffing site.</span>
+            Secure Faithful Leadership<br />
+            <span className="text-lime-200">Connecting congregations with called ministers in the U.S. and Canada.</span>
           </h1>
           <Link
             href="/auth/signup?type=church"
