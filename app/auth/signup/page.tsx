@@ -424,7 +424,7 @@ export default function SignupPage() {
 
               {/* Conditional: Specify Affiliation (if "Other" selected) */}
               {formData.denomination === 'Other (Please specify)' && (
-                <div className="mb-4 p-4 bg-lime-50 border border-lime-200 rounded-lg\">
+                <div className="mb-4 p-4 bg-lime-50 border border-lime-200 rounded-lg">
                   <label htmlFor="specifyAffiliation" className="block text-sm font-medium text-gray-700 mb-2">
                     Please Specify Your Church Affiliation <span className="text-red-500">*</span>
                   </label>
