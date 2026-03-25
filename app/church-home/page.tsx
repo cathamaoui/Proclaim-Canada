@@ -418,7 +418,7 @@ export default function ChurchHomePage() {
                   <p className={`text-sm mb-4 ${plan.highlight ? 'text-blue-50' : 'text-gray-500'}`}>
                     {plan.duration}
                   </p>
-                  <div className={`text-4xl font-black mb-6 ${plan.highlight ? 'text-blue-200' : 'text-blue-600'}`}>
+                  <div className={`text-4xl font-black mb-6 ${plan.highlight ? 'text-white' : 'text-slate-800'}`}>
                     {plan.price}
                   </div>
                   <ul className="space-y-3 mb-8">
@@ -445,10 +445,10 @@ export default function ChurchHomePage() {
           </div>
 
           <div className="mt-12 text-center">
-            <div className="inline-block bg-gradient-to-r from-blue-50 to-slate-50 rounded-xl p-8 border-2 border-blue-300 shadow-lg">
+            <div className="inline-block bg-gradient-to-r from-slate-100 to-slate-50 rounded-xl p-8 border-2 border-slate-300 shadow-lg">
               <Link
                 href="/listings/pricing"
-                className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-lg font-bold text-lg transition transform hover:scale-105 shadow-md"
+                className="inline-flex items-center gap-3 bg-gradient-to-r from-slate-800 to-slate-900 hover:from-slate-900 hover:to-slate-950 text-white px-8 py-4 rounded-lg font-bold text-lg transition transform hover:scale-105 shadow-md"
               >
                 View all pricing options & multi-job packs
                 <span className="text-2xl">→</span>
@@ -459,29 +459,29 @@ export default function ChurchHomePage() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-12 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-center">
+      <section className="py-12 bg-gradient-to-r from-slate-800 to-slate-900 text-white text-center">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-4xl font-bold mb-6">
             Ready to Build Your Team?
           </h2>
-          <p className="text-xl text-blue-50 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-white mb-8 max-w-2xl mx-auto">
             Join hundreds of churches already using Proclaim Canada to find qualified preachers and evangelists.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/auth/signup?type=church"
-              className="bg-white hover:bg-slate-100 text-blue-600 px-8 py-4 rounded-lg font-bold text-lg transition"
+              className="bg-white hover:bg-slate-100 text-slate-800 px-8 py-4 rounded-lg font-bold text-lg transition"
             >
               Sign Up Free
             </Link>
             <a
               href="mailto:support@proclaimcanada.com"
-              className="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 rounded-lg font-bold text-lg transition"
+              className="border-2 border-white text-white hover:bg-white hover:text-slate-800 px-8 py-4 rounded-lg font-bold text-lg transition"
             >
               Contact Support
             </a>
           </div>
-          <p className="text-sm text-blue-100 mt-8">
+          <p className="text-sm text-white mt-8">
             Free signup • No credit card required • Cancel anytime
           </p>
         </div>
