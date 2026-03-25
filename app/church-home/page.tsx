@@ -287,13 +287,16 @@ export default function ChurchHomePage() {
             ))}
           </div>
 
-          <div className="mt-12 text-center">
-            <Link
-              href="/listings/pricing"
-              className="text-green-600 hover:text-green-700 font-bold text-lg"
-            >
-              View all pricing options & multi-job packs →
-            </Link>
+          <div className="mt-16 text-center">
+            <div className="inline-block bg-gradient-to-r from-lime-100 to-emerald-100 rounded-xl p-8 border-2 border-lime-400 shadow-lg">
+              <Link
+                href="/listings/pricing"
+                className="inline-flex items-center gap-3 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-8 py-4 rounded-lg font-bold text-lg transition transform hover:scale-105 shadow-md"
+              >
+                View all pricing options & multi-job packs
+                <span className="text-2xl">→</span>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
