@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import Logo from '@/components/Logo';
 
 export default function CartPage() {
   const [cartItems] = useState<any[]>([]); // In a real app, this would come from context/state
@@ -12,7 +13,7 @@ export default function CartPage() {
       <nav className="bg-slate-900 text-white sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/" className="font-bold text-xl">
-            <span className="text-lime-500">✝️</span>
+            <Logo />
             <span className="text-lime-500"> Proclaim</span> Canada
           </Link>
           <div className="hidden md:flex items-center gap-8">

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import Logo from '@/components/Logo';
 
 const AVAILABLE_PREACHERS = [
   {
@@ -100,7 +101,7 @@ export default function BrowsePreachersPage() {
       <nav className="bg-slate-900 text-white sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/" className="font-bold text-xl">
-            <span className="text-lime-500">✝️</span>
+            <Logo />
             <span className="text-lime-500"> Proclaim</span> Canada
           </Link>
           <div className="hidden md:flex items-center gap-8">

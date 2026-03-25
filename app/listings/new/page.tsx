@@ -210,7 +210,7 @@ export default function NewListingPage() {
       }
     }
 
-    if (session?.user?.role === 'CHURCH') {
+    if ((session?.user as any)?.role === 'CHURCH') {
       checkSubscription()
     }
   }, [session, router])
@@ -250,7 +250,7 @@ export default function NewListingPage() {
     }
   }, [])
 
-  if (session?.user.role !== 'CHURCH') {
+  if ((session?.user as any)?.role !== 'CHURCH') {
     return (
       <div className="min-h-screen bg-gradient-to-b from-green-50 to-white py-12">
         <div className="max-w-2xl mx-auto px-4">
@@ -608,8 +608,8 @@ export default function NewListingPage() {
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 disabled:bg-gray-100 disabled:cursor-not-allowed"
                   >
                     <option value="">-- Select City --</option>
-                    {formData.country && formData.province && REGIONS[formData.country as keyof typeof REGIONS]?.[formData.province as keyof typeof REGIONS[keyof typeof REGIONS]] &&
-                      REGIONS[formData.country as keyof typeof REGIONS][formData.province as keyof typeof REGIONS[keyof typeof REGIONS]].map((city) => (
+                    {formData.country && formData.province && (REGIONS as any)[formData.country]?.[formData.province] &&
+                      (((REGIONS as any)[formData.country] || {})[formData.province] || []).map((city: string) => (
                         <option key={city} value={city}>
                           {city}
                         </option>
@@ -989,7 +989,7 @@ export default function NewListingPage() {
                     value={
                       formData.honorarium === 'Opportunity for Kingdom Building (No Honorarium)' 
                         ? 'Opportunity for Kingdom Building (No Honorarium)' 
-                        : (formData.honorarium && !isNaN(formData.honorarium)) 
+                        : (formData.honorarium && !isNaN(Number(formData.honorarium))) 
                           ? 'set-amount' 
                           : ''
                     }
@@ -1007,7 +1007,7 @@ export default function NewListingPage() {
                     <option value="Opportunity for Kingdom Building (No Honorarium)">Opportunity for Kingdom Building (No Honorarium)</option>
                   </select>
                   
-                  {(formData.honorarium === 'set-amount' || (formData.honorarium && !isNaN(formData.honorarium) && formData.honorarium !== 'Opportunity for Kingdom Building (No Honorarium)')) && (
+                  {(formData.honorarium === 'set-amount' || (formData.honorarium && !isNaN(Number(formData.honorarium)) && formData.honorarium !== 'Opportunity for Kingdom Building (No Honorarium)')) && (
                     <div className="relative flex items-center mt-3">
                       <span className="absolute left-4 text-gray-600 font-semibold text-lg">$</span>
                       <input
@@ -1015,7 +1015,7 @@ export default function NewListingPage() {
                         placeholder="0.00"
                         min="0"
                         step="10"
-                        value={formData.honorarium && !isNaN(formData.honorarium) ? formData.honorarium : ''}
+                        value={formData.honorarium && !isNaN(Number(formData.honorarium)) ? formData.honorarium : ''}
                         onChange={(e) => {
                           setFormData({ ...formData, honorarium: e.target.value })
                         }}

@@ -8,7 +8,7 @@ export async function POST() {
   try {
     const session = await getServerSession(authOptions)
 
-    if (!session?.user || session.user.role !== 'CHURCH') {
+    if (!session?.user || (session.user as any).role !== 'CHURCH') {
       return NextResponse.json(
         { error: 'Not authenticated as church' },
         { status: 401 }
@@ -16,7 +16,7 @@ export async function POST() {
     }
 
     const churchProfile = await prisma.churchProfile.findUnique({
-      where: { userId: session.user.id },
+      where: { userId: (session.user as any).id },
     })
 
     if (!churchProfile) {

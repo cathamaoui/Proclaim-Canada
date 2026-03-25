@@ -4,17 +4,13 @@ import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import Logo from '@/components/Logo'
+import PreacherTicker from '@/components/PreacherTicker'
 
 export default function ChurchHomePage() {
   const { data: session } = useSession()
   const router = useRouter()
   const [showPromo, setShowPromo] = useState(true)
-
-  // If already logged in as church, redirect to dashboard
-  if (session?.user?.role === 'CHURCH') {
-    router.push('/church-dashboard')
-    return null
-  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -43,7 +39,7 @@ export default function ChurchHomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex justify-between items-center">
             <Link href="/" className="flex items-center gap-2 text-2xl font-bold">
-              <span>✝️</span>
+              <Logo />
               <span><span className="text-white">Proclaim </span><span className="text-lime-300">Canada</span></span>
             </Link>
             <div className="hidden md:flex items-center gap-8">

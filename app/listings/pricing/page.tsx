@@ -3,6 +3,7 @@
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Logo from '@/components/Logo'
 
 const PRICING_PLANS = [
   {
@@ -139,7 +140,7 @@ export default function PricingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2">
-              <div className="text-3xl font-bold text-lime-500">✝️</div>
+              <Logo />
               <Link href="/" className="text-2xl font-bold">
                 <span className="text-white">Proclaim </span>
                 <span className="text-lime-500">Canada</span>
