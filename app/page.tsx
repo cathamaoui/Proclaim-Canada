@@ -163,16 +163,17 @@ export default function Home() {
 
       {/* Hero Banner with Background */}
       <div 
-        className="relative py-32 px-4 sm:px-6 lg:px-8 bg-cover bg-center"
+        className="relative py-16 px-4 sm:px-6 lg:px-8 bg-cover bg-center"
         style={{
           backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(\'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgb(51,65,85);stop-opacity:1" /><stop offset="100%" style="stop-color:rgb(30,41,59);stop-opacity:1" /></linearGradient></defs><rect width="1200" height="600" fill="url(%23grad)"/><path d="M 200 400 L 200 100 L 250 150 L 300 100 L 300 400 Z" fill="rgba(255,255,255,0.1)" opacity="0.5"/></svg>\')',
         }}
       >
         <div className="max-w-6xl mx-auto">
           {/* Main Heading */}
-          <h1 className="text-5xl md:text-6xl font-bold text-white text-center mb-12">
-            Where Is God Calling You?
+          <h1 className="text-5xl md:text-6xl font-bold text-white text-center mb-4">
+            Proclaim. Evangelize. Serve.
           </h1>
+          <p className="text-2xl md:text-3xl text-white text-center mb-12 font-semibold">Your Next Ministry Assignment Starts Here.</p>
 
           {/* Search Section */}
           <form onSubmit={handleSearch} className="bg-white rounded-lg shadow-xl p-6 mb-8">
@@ -241,7 +242,7 @@ export default function Home() {
                 type="submit"
                 className="bg-lime-500 hover:bg-lime-600 text-white px-6 py-3 rounded font-bold transition h-12"
               >
-                Search Now
+                Answer the Call
               </button>
             </div>
           </form>
@@ -249,7 +250,7 @@ export default function Home() {
       </div>
 
       {/* CTA Section */}
-      <div className="bg-gradient-to-r from-lime-500 to-lime-600 text-white py-20">
+      <div className="bg-gradient-to-r from-lime-500 to-lime-600 text-white py-12">
         <div className="max-w-6xl mx-auto text-center px-4">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">Ready to Share Your Calling?</h2>
           <p className="text-lg md:text-xl mb-8 text-lime-100">Whether you're an evangelist, preacher, or worship leader, let us help you reach the churches that need you.</p>
@@ -257,9 +258,33 @@ export default function Home() {
             <Link href="/auth/signup?type=preacher" className="bg-white hover:bg-gray-100 text-lime-600 px-8 py-4 rounded-lg font-bold transition text-lg">
               Join as Evangelist
             </Link>
-            <Link href="/auth/signup?type=church" className="border-2 border-white text-white hover:bg-white hover:text-lime-600 px-8 py-4 rounded-lg font-bold transition text-lg">
+            <Link href="/church-home" className="border-2 border-white text-white hover:bg-white hover:text-lime-600 px-8 py-4 rounded-lg font-bold transition text-lg">
               Join as Church
             </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* No Cost Section */}
+      <div className="bg-gradient-to-br from-lime-50 to-slate-50 py-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-lime-600">Completely Free. No Strings Attached.</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-white rounded-lg shadow-md p-8 text-center">
+              <div className="text-5xl mb-4">🎯</div>
+              <h3 className="text-xl font-bold mb-3 text-gray-900">No Cost to Join</h3>
+              <p className="text-gray-600">Start connecting with churches and evangelists at no charge. It's free to create your profile and begin your ministry journey.</p>
+            </div>
+            <div className="bg-white rounded-lg shadow-md p-8 text-center">
+              <div className="text-5xl mb-4">👁️</div>
+              <h3 className="text-xl font-bold mb-3 text-gray-900">No Cost to View</h3>
+              <p className="text-gray-600">Browse all available opportunities and church profiles. Search, filter, and explore without any fees or hidden costs.</p>
+            </div>
+            <div className="bg-white rounded-lg shadow-md p-8 text-center">
+              <div className="text-5xl mb-4">📝</div>
+              <h3 className="text-xl font-bold mb-3 text-gray-900">No Cost to Post</h3>
+              <p className="text-gray-600">Share your resume, availability, and ministry information for free. Churches can post opportunities at no charge either.</p>
+            </div>
           </div>
         </div>
       </div>
