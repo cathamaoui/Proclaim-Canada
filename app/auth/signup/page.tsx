@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { signIn } from 'next-auth/react'
 import ServiceTypeSelector from '@/components/ServiceTypeSelector'
+import Logo from '@/components/Logo'
 
 // Denomination categories - sorted alphabetically within each category
 const DENOMINATIONS = {
@@ -315,12 +316,40 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center px-4 py-8">
-      <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          {type === 'church' ? 'Register My Church Now!' : 'Sign Up as Preacher'}
-        </h1>
-        <p className="text-gray-600 mb-8">Join Proclaim Canada today</p>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-green-50 to-gray-100">
+      {/* Navigation Bar */}
+      <nav className="bg-gradient-to-r from-green-600 to-green-700 text-white shadow-md sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex justify-between items-center">
+            <Link href="/" className="flex items-center gap-2 text-2xl font-bold">
+              <Logo />
+              <span><span className="text-white">Proclaim </span><span className="text-lime-300">Canada</span></span>
+            </Link>
+            <div className="flex items-center gap-4">
+              <Link href="/auth/login" className="text-green-50 hover:text-white transition font-medium">
+                Log In
+              </Link>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Form Container */}
+      <div className="flex items-center justify-center px-4 py-12 min-h-[calc(100vh-80px)]">
+        <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-md">
+          {/* Back Button */}
+          <button
+            onClick={() => window.history.back()}
+            className="flex items-center gap-2 text-green-600 hover:text-green-700 font-medium mb-6 transition"
+          >
+            <span>←</span>
+            <span>Go Back</span>
+          </button>
+
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            {type === 'church' ? 'Register My Church Now!' : 'Sign Up as Preacher'}
+          </h1>
+          <p className="text-gray-600 mb-8">Join Proclaim Canada today</p>
 
         {error && (
           <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
