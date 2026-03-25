@@ -77,7 +77,7 @@ export default function ChurchHomePage() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white"></div>
         
         <div className="relative text-center text-white px-4 z-10">
-          <h1 className="text-5xl md:text-6xl font-black leading-tight mb-6">
+          <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
             Secure Faithful Leadership<br />
             <span className="text-blue-300">Connecting congregations with called ministers in the U.S. and Canada.</span>
           </h1>
