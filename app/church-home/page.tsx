@@ -79,7 +79,7 @@ export default function ChurchHomePage() {
         <div className="relative text-center text-white px-4 z-10">
           <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
             Secure Faithful Leadership<br />
-            <span className="text-blue-300">Connecting congregations with called ministers in the U.S. and Canada.</span>
+            <span className="text-white text-xl md:text-2xl font-semibold block">Connecting congregations with called ministers in the U.S. and Canada.</span>
           </h1>
           <Link
             href="/auth/signup?type=church"
