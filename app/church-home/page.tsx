@@ -3,275 +3,312 @@
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 export default function ChurchHomePage() {
   const { data: session } = useSession()
   const router = useRouter()
+  const [showPromo, setShowPromo] = useState(true)
 
   // If already logged in as church, redirect to dashboard
   if (session?.user?.role === 'CHURCH') {
-    router.push('/dashboard')
+    router.push('/church-dashboard')
     return null
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Navigation */}
-      <nav className="bg-gradient-to-r from-slate-800 to-slate-900 text-white shadow-lg sticky top-0 z-50">
+    <div className="min-h-screen bg-white">
+      {/* Spring Deal Popup */}
+      {showPromo && (
+        <div className="fixed bottom-5 right-5 z-40 bg-gradient-to-b from-blue-600 to-blue-700 rounded-xl shadow-2xl p-5 w-72 text-white">
+          <button
+            onClick={() => setShowPromo(false)}
+            className="absolute top-3 right-3 text-white hover:text-gray-200 text-xl font-bold"
+          >
+            ✕
+          </button>
+          <div className="text-center pt-2">
+            <div className="text-xs font-bold text-blue-100 mb-1 tracking-wide">SPRING DEAL</div>
+            <div className="text-4xl font-black mb-2">$50 OFF</div>
+            <div className="text-sm font-semibold mb-3">ANY LISTING POST</div>
+            <div className="text-xs bg-white bg-opacity-20 rounded px-2 py-1 inline-block">
+              Use code: SPRING50
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Navigation Bar */}
+      <nav className="bg-gradient-to-r from-green-600 to-green-700 text-white shadow-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex justify-between items-center">
             <Link href="/" className="flex items-center gap-2 text-2xl font-bold">
               <span>✝️</span>
-              <span><span className="text-white">Proclaim </span><span className="text-lime-500">Canada</span></span>
+              <span><span className="text-white">Proclaim </span><span className="text-lime-300">Canada</span></span>
             </Link>
             <div className="hidden md:flex items-center gap-8">
-              <Link href="/browse/preachers" className="text-gray-200 hover:text-white transition">
-                Find Evangelists
-              </Link>
-              <Link href="/browse" className="text-gray-200 hover:text-white transition">
-                Browse Opportunities
-              </Link>
-              <a href="#how-it-works" className="text-gray-200 hover:text-white transition">
+              <a href="#features" className="text-green-50 hover:text-white transition font-medium">
+                Features
+              </a>
+              <a href="#how-it-works" className="text-green-50 hover:text-white transition font-medium">
                 How It Works
               </a>
+              <a href="#pricing" className="text-green-50 hover:text-white transition font-medium">
+                Pricing
+              </a>
             </div>
-            <div className="flex items-center gap-4">
-              {!session ? (
-                <>
-                  <Link href="/auth/login" className="text-gray-200 hover:text-white transition">
-                    Log In
-                  </Link>
-                  <Link
-                    href="/auth/signup?type=church"
-                    className="bg-lime-500 hover:bg-lime-600 text-gray-900 px-4 py-2 rounded-lg font-semibold transition"
-                  >
-                    Church Sign Up
-                  </Link>
-                </>
-              ) : (
-                <Link href="/dashboard" className="text-gray-200 hover:text-white transition">
-                  Dashboard
-                </Link>
-              )}
+            <div className="flex items-center gap-3">
+              <Link href="/auth/login" className="text-green-50 hover:text-white transition font-medium">
+                Log In
+              </Link>
+              <Link
+                href="/auth/signup?type=church"
+                className="bg-lime-400 hover:bg-lime-500 text-green-900 px-5 py-2 rounded-lg font-bold transition"
+              >
+                Find Preachers
+              </Link>
             </div>
           </div>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 text-white py-24 overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 right-10 w-72 h-72 bg-lime-500 rounded-full mix-blend-multiply filter blur-3xl"></div>
-          <div className="absolute bottom-0 left-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl"></div>
-        </div>
-
-        <div className="relative max-w-6xl mx-auto px-4 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-            Find Qualified Preachers<br />
-            <span className="text-lime-400">When You Need Them Most</span>
+      {/* Hero Section with Background */}
+      <section className="relative h-96 md:h-[500px] bg-cover bg-center overflow-hidden flex items-center justify-center"
+        style={{
+          backgroundImage: 'linear-gradient(135deg, rgba(22, 163, 74, 0.7) 0%, rgba(16, 185, 129, 0.7) 100%), url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 600%22%3E%3Crect fill=%22%234b5563%22 width=%221200%22 height=%22600%22/%3E%3Ccircle cx=%22200%22 cy=%22100%22 r=%2280%22 fill=%22%236b7485%22 opacity=%220.5%22/%3E%3Ccircle cx=%221000%22 cy=%22500%22 r=%22150%22 fill=%22%236b7485%22 opacity=%220.3%22/%3E%3Crect x=%22400%22 y=%22250%22 width=%22400%22 height=%22200%22 fill=%22%236b7485%22 opacity=%220.2%22 rx=%2220%22/%3E%3C/svg%3E")'
+        }}>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white"></div>
+        
+        <div className="relative text-center text-white px-4 z-10">
+          <h1 className="text-5xl md:text-6xl font-black leading-tight mb-6">
+            Build Your Dream Team<br />
+            <span className="text-lime-200">on the #1 church staffing site.</span>
           </h1>
-          <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-            Connect with talented preachers and evangelists to fill your pulpit. Post your opportunity and receive applications from verified candidates aligned with your church's mission.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Link
+            href="/auth/signup?type=church"
+            className="inline-block bg-lime-400 hover:bg-lime-500 text-green-900 px-10 py-4 rounded-full font-bold text-lg transition transform hover:scale-105 shadow-lg"
+          >
+            START HERE →
+          </Link>
+        </div>
+      </section>
+
+      {/* Value Proposition Section */}
+      <section className="py-20 bg-gray-50 relative">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="bg-white rounded-2xl shadow-lg p-12 text-center">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              Let's grow your team together.
+            </h2>
+            <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
+              With the help of hiring tools from Proclaim Canada, you'll reach hundreds of job seekers who are not only talented and qualified, but also aligned with your mission.
+            </p>
             <Link
-              href="/auth/signup?type=church"
-              className="inline-block bg-lime-500 hover:bg-lime-600 text-gray-900 px-8 py-4 rounded-lg font-bold text-lg transition transform hover:scale-105"
+              href="/listings/pricing"
+              className="inline-block bg-green-500 hover:bg-green-600 text-white px-10 py-4 rounded-lg font-bold text-lg transition transform hover:scale-105"
             >
-              Get Started Free →
+              POST YOUR LISTING NOW!
             </Link>
-            <a
-              href="#how-it-works"
-              className="inline-block border-2 border-lime-500 text-lime-400 hover:bg-lime-500 hover:text-gray-900 px-8 py-4 rounded-lg font-bold text-lg transition"
-            >
-              Learn More
-            </a>
           </div>
-          <p className="text-sm text-gray-400 mt-6">
-            ✓ Free 7-day trial • ✓ 1 free posting included • ✓ No credit card required
-          </p>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section id="features" className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
+            Included with your Listing Post
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: '📢',
+                title: 'Listing Syndication',
+                description: 'Reach job seekers through our strategic site partnerships and reach thousands of qualified candidates.'
+              },
+              {
+                icon: '📋',
+                title: 'Candidate Database Access',
+                description: 'Get exclusive access to 500+ qualified preachers and evangelists with advanced filtering options.'
+              },
+              {
+                icon: '📊',
+                title: 'Unlimited Applicants',
+                description: 'Receive application information from interested job seekers for as long as your listing is active.'
+              },
+            ].map((feature, idx) => (
+              <div key={idx} className="text-center">
+                <div className="flex items-center justify-center w-20 h-20 rounded-full bg-blue-100 mx-auto mb-4">
+                  <span className="text-4xl">{feature.icon}</span>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* How It Works */}
-      <section id="how-it-works" className="py-20 bg-white">
+      <section id="how-it-works" className="py-20 bg-gradient-to-b from-green-50 to-white">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
             How It Works
           </h2>
 
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
+          <div className="grid md:grid-cols-4 gap-6">
             {[
               {
-                step: '1',
+                step: 1,
                 title: 'Sign Up',
-                description: 'Create your church account in minutes. Tell us about your congregation and staffing needs.',
-                icon: '📝',
+                description: 'Create your account and set up your church profile in minutes.'
               },
               {
-                step: '2',
-                title: 'Post an Opportunity',
-                description: 'Describe the service, compensation, and requirements. Choose from our flexible pricing plans.',
-                icon: '📢',
+                step: 2,
+                title: 'Post a Listing',
+                description: 'Describe your opportunity and choose from flexible pricing plans.'
               },
               {
-                step: '3',
-                title: 'Review & Hire',
-                description: 'Receive applications from qualified preachers. Message candidates and manage your search in one place.',
-                icon: '✅',
+                step: 3,
+                title: 'Review Applications',
+                description: 'Receive applications and access our candidate database simultaneously.'
               },
-            ].map((item) => (
-              <div key={item.step} className="bg-gray-50 rounded-lg p-8 text-center hover:shadow-lg transition">
-                <div className="text-5xl mb-4">{item.icon}</div>
-                <div className="inline-block bg-lime-500 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold mb-4">
+              {
+                step: 4,
+                title: 'Hire & Connect',
+                description: 'Message candidates, schedule calls, and secure your next preacher.'
+              },
+            ].map((item, idx) => (
+              <div key={idx} className="bg-white rounded-xl shadow hover:shadow-lg transition p-6 border-t-4 border-green-500">
+                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-green-500 text-white font-bold mb-4 text-lg">
                   {item.step}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{item.title}</h3>
-                <p className="text-gray-600">{item.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits */}
-      <section className="py-20 bg-gradient-to-r from-lime-50 to-green-50">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
-            Why Choose Proclaim Canada?
-          </h2>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {[
-              {
-                title: 'Verified Candidates',
-                description: 'Access a curated network of verified preachers and evangelists from across Canada and the US.',
-                icon: '🔒',
-              },
-              {
-                title: 'Mission-Aligned',
-                description: 'Find candidates who share your theological beliefs, worship style, and ecclesiastical vision.',
-                icon: '⛪',
-              },
-              {
-                title: 'Quick Response',
-                description: 'Post an opportunity in minutes. Receive qualified applications within hours.',
-                icon: '⚡',
-              },
-              {
-                title: 'Affordable Plans',
-                description: 'From $50 urgent postings to unlimited yearly subscriptions. Pay only for what you need.',
-                icon: '💰',
-              },
-              {
-                title: 'Full Communication Suite',
-                description: 'Message candidates directly, schedule calls, and manage your entire hiring process in one place.',
-                icon: '💬',
-              },
-              {
-                title: 'Candidate Management',
-                description: 'Track applications, ratings, and history. Build a network for future staffing needs.',
-                icon: '📊',
-              },
-            ].map((benefit, idx) => (
-              <div key={idx} className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition">
-                <div className="text-4xl mb-3">{benefit.icon}</div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{benefit.title}</h3>
-                <p className="text-gray-600">{benefit.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing Preview */}
-      <section className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-4">
-            Simple, Transparent Pricing
-          </h2>
-          <p className="text-center text-gray-600 text-lg mb-16">
-            Choose the plan that fits your church's needs
-          </p>
-
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
-            {[
-              {
-                name: 'Free Trial',
-                price: '$0',
-                duration: '7 days',
-                postings: '1 free posting',
-                highlight: false,
-              },
-              {
-                name: 'One Month',
-                price: '$99',
-                duration: '30 days',
-                postings: 'Unlimited postings',
-                highlight: true,
-              },
-              {
-                name: 'Unlimited Yearly',
-                price: '$1,700',
-                duration: '365 days',
-                postings: 'Unlimited postings',
-                highlight: false,
-              },
-            ].map((plan) => (
-              <div
-                key={plan.name}
-                className={`rounded-lg p-8 text-center transition transform hover:scale-105 ${
-                  plan.highlight
-                    ? 'bg-lime-500 text-white shadow-xl ring-2 ring-lime-600'
-                    : 'bg-gray-50 border border-gray-200 text-gray-900'
-                }`}
-              >
-                <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
-                <p className={`text-sm mb-4 ${plan.highlight ? 'text-lime-100' : 'text-gray-600'}`}>
-                  {plan.duration}
-                </p>
-                <div className="text-4xl font-bold mb-4">{plan.price}</div>
-                <p className={`mb-6 font-semibold ${plan.highlight ? 'text-lime-100' : 'text-gray-700'}`}>
-                  {plan.postings}
-                </p>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
+                <p className="text-gray-600 text-sm">{item.description}</p>
               </div>
             ))}
           </div>
 
-          <div className="text-center">
+          <div className="mt-12 text-center">
+            <p className="text-gray-600 text-lg mb-6">
+              From posting to hiring, Proclaim Canada makes finding your next preacher simple and efficient.
+            </p>
             <Link
-              href="/listings/pricing"
-              className="inline-block text-lime-600 hover:text-lime-700 font-semibold"
+              href="/auth/signup?type=church"
+              className="inline-block bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-lg font-bold"
             >
-              View all plans and pricing →
+              Get Started Today
             </Link>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-slate-800 to-slate-900 text-white">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-6">
-            Ready to Fill Your Pulpit?
+      {/* Pricing Section */}
+      <section id="pricing" className="py-20 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-4">
+            Simple, Flexible Pricing
           </h2>
-          <p className="text-xl text-gray-300 mb-8">
-            Start your free 7-day trial today. No credit card required.
+          <p className="text-center text-gray-600 text-lg mb-16">
+            Whether you need a one-time posting or unlimited access, we have a plan for you.
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                name: 'Single Posting',
+                price: '$69',
+                features: ['1 listing post', 'Candidate database access', '30 days active']
+              },
+              {
+                name: 'Monthly',
+                price: '$299',
+                features: ['Unlimited listings', 'Full candidate database', 'Priority support', '30 days access'],
+                highlight: true
+              },
+              {
+                name: 'Yearly',
+                price: '$2,499',
+                features: ['Unlimited listings', 'Full candidate database', '24/7 support', '365 days access']
+              },
+            ].map((plan, idx) => (
+              <div
+                key={idx}
+                className={`rounded-xl transition transform hover:scale-105 ${
+                  plan.highlight
+                    ? 'bg-gradient-to-br from-green-500 to-green-600 text-white shadow-xl ring-4 ring-green-300 scale-105'
+                    : 'bg-white shadow-lg text-gray-900'
+                }`}
+                style={plan.highlight ? { boxShadow: '0 20px 50px rgba(34, 197, 94, 0.3)' } : {}}
+              >
+                <div className="p-8">
+                  <h3 className={`text-2xl font-bold mb-2 ${plan.highlight ? 'text-white' : ''}`}>
+                    {plan.name}
+                  </h3>
+                  <div className={`text-4xl font-black mb-6 ${plan.highlight ? 'text-lime-200' : 'text-green-600'}`}>
+                    {plan.price}
+                  </div>
+                  <ul className="space-y-3 mb-8">
+                    {plan.features.map((feature, fidx) => (
+                      <li key={fidx} className={`flex items-center gap-3 ${plan.highlight ? 'text-green-50' : 'text-gray-700'}`}>
+                        <span className="text-xl">✓</span>
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link
+                    href="/auth/signup?type=church"
+                    className={`block w-full text-center py-3 rounded-lg font-bold transition ${
+                      plan.highlight
+                        ? 'bg-white text-green-600 hover:bg-lime-50'
+                        : 'bg-green-500 text-white hover:bg-green-600'
+                    }`}
+                  >
+                    Get Started
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 text-center">
+            <Link
+              href="/listings/pricing"
+              className="text-green-600 hover:text-green-700 font-bold text-lg"
+            >
+              View all pricing options →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Call to Action */}
+      <section className="py-20 bg-gradient-to-r from-green-600 to-green-700 text-white text-center">
+        <div className="max-w-4xl mx-auto px-4">
+          <h2 className="text-4xl font-bold mb-6">
+            Ready to Build Your Team?
+          </h2>
+          <p className="text-xl text-green-50 mb-10 max-w-2xl mx-auto">
+            Join hundreds of churches already using Proclaim Canada to find qualified preachers and evangelists.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/auth/signup?type=church"
-              className="inline-block bg-lime-500 hover:bg-lime-600 text-gray-900 px-8 py-4 rounded-lg font-bold text-lg transition"
+              className="bg-lime-400 hover:bg-lime-500 text-green-900 px-8 py-4 rounded-lg font-bold text-lg transition"
             >
               Sign Up Free
             </Link>
             <a
               href="mailto:support@proclaimcanada.com"
-              className="inline-block border-2 border-lime-500 text-lime-400 hover:bg-lime-500 hover:text-gray-900 px-8 py-4 rounded-lg font-bold text-lg transition"
+              className="border-2 border-lime-400 text-lime-300 hover:bg-lime-400 hover:text-green-900 px-8 py-4 rounded-lg font-bold text-lg transition"
             >
-              Contact Us
+              Contact Support
             </a>
           </div>
+          <p className="text-sm text-green-100 mt-8">
+            Free signup • No credit card required • Cancel anytime
+          </p>
         </div>
       </section>
 
@@ -280,7 +317,10 @@ export default function ChurchHomePage() {
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
-              <h4 className="text-white font-bold mb-4">Proclaim Canada</h4>
+              <h4 className="text-white font-bold mb-4 flex items-center gap-2">
+                <span>✝️</span>
+                <span>Proclaim Canada</span>
+              </h4>
               <p className="text-sm">Connecting churches with qualified preachers and evangelists across North America.</p>
             </div>
             <div>
@@ -288,22 +328,21 @@ export default function ChurchHomePage() {
               <ul className="space-y-2 text-sm">
                 <li><Link href="/church-home" className="hover:text-white">Home</Link></li>
                 <li><Link href="/listings/pricing" className="hover:text-white">Pricing</Link></li>
-                <li><Link href="/auth/signup?type=church" className="hover:text-white">Sign Up</Link></li>
+                <li><Link href="#features" className="hover:text-white">Features</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="text-white font-bold mb-4">For Preachers</h4>
               <ul className="space-y-2 text-sm">
-                <li><Link href="/browse" className="hover:text-white">Browse Opportunities</Link></li>
-                <li><Link href="/auth/signup?role=PREACHER" className="hover:text-white">Sign Up</Link></li>
+                <li><Link href="/browse" className="hover:text-white">Browse</Link></li>
+                <li><Link href="/auth/signup?type=preacher" className="hover:text-white">Sign Up</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="text-white font-bold mb-4">Support</h4>
+              <h4 className="text-white font-bold mb-4">Legal</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white">Help Center</a></li>
-                <li><a href="#" className="hover:text-white">Contact</a></li>
-                <li><a href="#" className="hover:text-white">Privacy Policy</a></li>
+                <li><a href="#" className="hover:text-white">Terms</a></li>
+                <li><a href="#" className="hover:text-white">Privacy</a></li>
               </ul>
             </div>
           </div>
@@ -315,3 +354,4 @@ export default function ChurchHomePage() {
     </div>
   )
 }
+
