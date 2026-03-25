@@ -258,7 +258,7 @@ export default function NewListingPage() {
             <p className="text-gray-600 mb-4">Only churches can post opportunities</p>
             <button
               onClick={() => router.push('/browse')}
-              className="text-primary-600 hover:text-primary-700 font-semibold"
+              className="text-green-600 hover:text-green-700 font-semibold"
             >
               Back to Browse
             </button>
@@ -372,9 +372,9 @@ export default function NewListingPage() {
 
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* SECTION 1: CHURCH IDENTITY */}
-            <div className="border-t-4 border-primary-600 pt-6">
+            <div className="border-t-4 border-green-600 pt-6">
               <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
-                <span className="bg-primary-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">1</span>
+                <span className="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">1</span>
                 Church Identity
               </h3>
               
@@ -391,7 +391,7 @@ export default function NewListingPage() {
                     onChange={handleChange}
                     required
                     placeholder="e.g., Grace Community Church"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                   />
                 </div>
                 <div>
@@ -405,7 +405,7 @@ export default function NewListingPage() {
                     value={formData.contactName}
                     onChange={handleChange}
                     placeholder="e.g., Pastor John Smith"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                   />
                 </div>
               </div>
@@ -421,14 +421,14 @@ export default function NewListingPage() {
                     onChange={handleChange}
                     required
                     placeholder="e.g., pastor"
-                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                   />
                   <select
                     id="contactEmailExtension"
                     name="contactEmailExtension"
                     value={formData.contactEmailExtension}
                     onChange={handleChange}
-                    className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 bg-white"
+                    className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 bg-white"
                   >
                     <option value="@gmail.com">@gmail.com</option>
                     <option value="@yahoo.com">@yahoo.com</option>
@@ -452,7 +452,7 @@ export default function NewListingPage() {
                     value={formData.contactPhone}
                     onChange={handleChange}
                     placeholder="e.g., (555) 123-4567"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                   />
                 </div>
                 <div>
@@ -464,7 +464,7 @@ export default function NewListingPage() {
                     name="denomination"
                     value={formData.denomination}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 bg-white"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 bg-white"
                   >
                     <option value="">Select a denomination...</option>
                     <option value="Roman Catholic">Roman Catholic</option>
@@ -499,7 +499,7 @@ export default function NewListingPage() {
                   onChange={handleChange}
                   rows={3}
                   placeholder="Describe your congregation: demographics, spiritual maturity level, worship style, etc."
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                 />
               </div>
 
@@ -515,7 +515,7 @@ export default function NewListingPage() {
                     value={formData.avgAttendance}
                     onChange={handleChange}
                     placeholder="e.g., 250"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                   />
                 </div>
                 <div>
@@ -529,7 +529,7 @@ export default function NewListingPage() {
                     value={formData.neighborhood}
                     onChange={handleChange}
                     placeholder="e.g., Downtown, Suburban, Rural"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                   />
                 </div>
                 <div>
@@ -544,7 +544,7 @@ export default function NewListingPage() {
                     onChange={handleChange}
                     required
                     placeholder="123 Main Street"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                   />
                 </div>
               </div>
@@ -560,7 +560,7 @@ export default function NewListingPage() {
                     value={formData.country}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                   >
                     <option value="Canada">Canada</option>
                     <option value="United States">United States</option>
@@ -578,7 +578,7 @@ export default function NewListingPage() {
                     onChange={handleChange}
                     required
                     disabled={!formData.country || formData.country === 'Other'}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 disabled:bg-gray-100 disabled:cursor-not-allowed"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 disabled:bg-gray-100 disabled:cursor-not-allowed"
                   >
                     <option value="">-- Select Province/State --</option>
                     {formData.country && formData.country !== 'Other' && REGIONS[formData.country as keyof typeof REGIONS] && 
@@ -604,7 +604,7 @@ export default function NewListingPage() {
                     onChange={handleChange}
                     required
                     disabled={!formData.province}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 disabled:bg-gray-100 disabled:cursor-not-allowed"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 disabled:bg-gray-100 disabled:cursor-not-allowed"
                   >
                     <option value="">-- Select City --</option>
                     {formData.country && formData.province && REGIONS[formData.country as keyof typeof REGIONS]?.[formData.province as keyof typeof REGIONS[keyof typeof REGIONS]] &&
@@ -628,7 +628,7 @@ export default function NewListingPage() {
                     onChange={handleChange}
                     required
                     placeholder={formData.country === 'Canada' ? 'M5V 3A8' : formData.country === 'United States' ? '90210' : 'Postal Code'}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                   />
                 </div>
               </div>
@@ -646,16 +646,16 @@ export default function NewListingPage() {
                     onChange={handleChange}
                     required
                     placeholder="Enter country or region"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                   />
                 </div>
               )}
             </div>
 
             {/* SECTION 2: SERVICE POSITION & DESCRIPTION */}
-            <div className="border-t-4 border-primary-600 pt-6">
+            <div className="border-t-4 border-green-600 pt-6">
               <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
-                <span className="bg-primary-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">2</span>
+                <span className="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">2</span>
                 Position & Description
               </h3>
 
@@ -669,7 +669,7 @@ export default function NewListingPage() {
                   value={formData.title}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                 >
                   <option value="">-- Select a position/service type --</option>
                   {Object.entries(SERVICE_TYPE_OPTIONS).map(([category, options]) => (
@@ -697,15 +697,15 @@ export default function NewListingPage() {
                   required
                   rows={6}
                   placeholder="Describe the service, expectations, denomination, themes, audience, and any other details preachers should know..."
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                 />
               </div>
             </div>
 
             {/* SECTION 3: THEOLOGICAL & LITURGICAL STANDARDS */}
-            <div className="border-t-4 border-primary-600 pt-6">
+            <div className="border-t-4 border-green-600 pt-6">
               <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
-                <span className="bg-primary-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">3</span>
+                <span className="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">3</span>
                 Theological & Liturgical Standards
               </h3>
 
@@ -720,7 +720,7 @@ export default function NewListingPage() {
                   value={formData.statementOfFaithUrl}
                   onChange={handleChange}
                   placeholder="https://yourchurch.com/beliefs"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                 />
                 <p className="text-sm text-gray-600 mt-1">Link to your church's statement of faith or doctrinal position</p>
               </div>
@@ -737,7 +737,7 @@ export default function NewListingPage() {
                     value={formData.preferredBibleTranslation}
                     onChange={handleChange}
                     placeholder="e.g., KJV, NKJV, ESV, CSB, NIV"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                   />
                 </div>
                 <div>
@@ -751,7 +751,7 @@ export default function NewListingPage() {
                     value={formData.dresscode}
                     onChange={handleChange}
                     placeholder="e.g., Formal suit, Business casual, Casual"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                   />
                 </div>
               </div>
@@ -767,15 +767,15 @@ export default function NewListingPage() {
                   onChange={handleChange}
                   rows={3}
                   placeholder="e.g., Expository, Topical, Narrative, Highly interactive, Traditional, Contemporary"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                 />
               </div>
             </div>
 
             {/* SECTION 4: SERVICE LOGISTICS */}
-            <div className="border-t-4 border-primary-600 pt-6">
+            <div className="border-t-4 border-green-600 pt-6">
               <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
-                <span className="bg-primary-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">4</span>
+                <span className="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">4</span>
                 Service Logistics
               </h3>
 
@@ -791,7 +791,7 @@ export default function NewListingPage() {
                     value={formData.date}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                   />
                 </div>
 
@@ -805,7 +805,7 @@ export default function NewListingPage() {
                     name="time"
                     value={formData.time}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                   />
                 </div>
               </div>
@@ -821,7 +821,7 @@ export default function NewListingPage() {
                     name="arrivalTime"
                     value={formData.arrivalTime}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                   />
                 </div>
 
@@ -854,7 +854,7 @@ export default function NewListingPage() {
                               const minutes = (parseInt(formData.sermonLength) || 0) % 60
                               setFormData({ ...formData, sermonLength: (hours * 60 + minutes).toString() })
                             }}
-                            className="flex-1 px-2 py-1 text-center border-0 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-600 bg-white font-semibold text-gray-800 w-16"
+                            className="flex-1 px-2 py-1 text-center border-0 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-600 bg-white font-semibold text-gray-800 w-16"
                             min="0"
                           />
                           <button
@@ -896,7 +896,7 @@ export default function NewListingPage() {
                               const hours = Math.floor((parseInt(formData.sermonLength) || 0) / 60)
                               setFormData({ ...formData, sermonLength: (hours * 60 + minutes).toString() })
                             }}
-                            className="flex-1 px-2 py-1 text-center border-0 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-600 bg-white font-semibold text-gray-800 w-16"
+                            className="flex-1 px-2 py-1 text-center border-0 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-600 bg-white font-semibold text-gray-800 w-16"
                             min="0"
                             max="59"
                           />
@@ -934,7 +934,7 @@ export default function NewListingPage() {
                   onChange={handleChange}
                   rows={3}
                   placeholder="e.g., Lead worship, Conduct baptism, Visit hospital patients, Teach Sunday school class"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                 />
               </div>
 
@@ -950,7 +950,7 @@ export default function NewListingPage() {
                     onChange={handleChange}
                     rows={2}
                     placeholder="e.g., Projection system, Wireless microphone, Zoom broadcast capabilities"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                   />
                 </div>
 
@@ -965,16 +965,16 @@ export default function NewListingPage() {
                     onChange={handleChange}
                     rows={2}
                     placeholder="e.g., Must have own slides, Livestreaming capability required"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                   />
                 </div>
               </div>
             </div>
 
             {/* SECTION 5: COMPENSATION & HOSPITALITY */}
-            <div className="border-t-4 border-primary-600 pt-6">
+            <div className="border-t-4 border-green-600 pt-6">
               <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
-                <span className="bg-primary-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">5</span>
+                <span className="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">5</span>
                 Compensation & Hospitality
               </h3>
 
@@ -999,7 +999,7 @@ export default function NewListingPage() {
                         setFormData({ ...formData, honorarium: e.target.value })
                       }
                     }}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                   >
                     <option value="">-- Select Option --</option>
                     <option value="set-amount">Set Amount ($)</option>
@@ -1018,7 +1018,7 @@ export default function NewListingPage() {
                         onChange={(e) => {
                           setFormData({ ...formData, honorarium: e.target.value })
                         }}
-                        className="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                        className="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                       />
                     </div>
                   )}
@@ -1048,7 +1048,7 @@ export default function NewListingPage() {
                         setFormData({ ...formData, mileageReimbursement: '' })
                       }
                     }}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                   >
                     <option value="">-- Select Option --</option>
                     <option value="set-amount">Set Amount ($)</option>
@@ -1068,7 +1068,7 @@ export default function NewListingPage() {
                           const value = e.target.value || '0.00'
                           setFormData({ ...formData, mileageReimbursement: parseFloat(value).toFixed(2) })
                         }}
-                        className="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                        className="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                       />
                     </div>
                   )}
@@ -1093,7 +1093,7 @@ export default function NewListingPage() {
                               const amount = e.target.value || '0.00'
                               setFormData({ ...formData, mileageReimbursement: `${parseFloat(amount).toFixed(2)}/${distance}` })
                             }}
-                            className="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                            className="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                           />
                         </div>
                         <select
@@ -1106,7 +1106,7 @@ export default function NewListingPage() {
                             const amount = formData.mileageReimbursement?.split('/')[0] || '0.00'
                             setFormData({ ...formData, mileageReimbursement: `${amount}/${e.target.value}` })
                           }}
-                          className="px-2 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 bg-white"
+                          className="px-2 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 bg-white"
                         >
                           <option value="km">per km</option>
                           <option value="mi">per mi</option>
@@ -1129,7 +1129,7 @@ export default function NewListingPage() {
                     onChange={handleChange}
                     rows={2}
                     placeholder="e.g., Flight covered, Hotel provided, Preacher arranges own travel"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                   />
                 </div>
 
@@ -1144,16 +1144,16 @@ export default function NewListingPage() {
                     onChange={handleChange}
                     rows={2}
                     placeholder="e.g., Breakfast and lunch, Dinner at pastor's home, None provided"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                   />
                 </div>
               </div>
             </div>
 
             {/* SECTION 6: APPLICANT REQUIREMENTS */}
-            <div className="border-t-4 border-primary-600 pt-6 pb-6">
+            <div className="border-t-4 border-green-600 pt-6 pb-6">
               <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
-                <span className="bg-primary-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">6</span>
+                <span className="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">6</span>
                 Applicant Requirements
               </h3>
 
@@ -1168,7 +1168,7 @@ export default function NewListingPage() {
                   onChange={handleChange}
                   rows={2}
                   placeholder="e.g., Ordination certificate, Theological education documentation, References from previous churches"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                 />
               </div>
 
@@ -1181,7 +1181,7 @@ export default function NewListingPage() {
                   name="backgroundCheckRequired"
                   value={formData.backgroundCheckRequired}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                 >
                   <option value="">-- Select --</option>
                   <option value="Yes">Yes - Criminal record check required</option>
@@ -1195,7 +1195,7 @@ export default function NewListingPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="flex-1 bg-primary-600 text-white py-3 rounded-lg hover:bg-primary-700 disabled:opacity-50 font-semibold text-lg"
+                className="flex-1 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 disabled:opacity-50 font-semibold text-lg"
               >
                 {loading ? 'Creating...' : 'Post Opportunity'}
               </button>
