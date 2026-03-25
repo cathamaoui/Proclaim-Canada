@@ -41,7 +41,7 @@ export async function GET() {
         subscription: {
           planType: subscription.planType,
           postingsRemaining: subscription.postingsRemaining,
-          expiresAt: subscription.endDate,
+          expiresAt: subscription.currentPeriodEnd,
         },
       },
       { status: 200 }

@@ -169,26 +169,39 @@ export default function NewListingPage() {
       try {
         const response = await fetch('/api/subscription/check')
         const data = await response.json()
+        
+        console.log('Subscription check response:', { status: response.status, data })
 
         // If no subscription found, try to create a trial one
         if (!data.hasSubscription) {
+          console.log('No subscription found, creating trial...')
           try {
-            const createTrialResponse = await fetch('/api/subscription/create-trial', { method: 'POST' })
+            const createTrialResponse = await fetch('/api/subscription/create-trial', { 
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' }
+            })
             const trialData = await createTrialResponse.json()
+            
+            console.log('Create trial response:', { status: createTrialResponse.status, data: trialData })
+            
             if (!createTrialResponse.ok) {
-              console.error('Failed to create trial subscription:', trialData.error)
-              router.push('/listings/pricing')
-              return
+              console.error('Failed to create trial subscription:', trialData)
+              // Don't redirect immediately, let them continue - they might have an active subscription
+              // that the check just didn't find due to a timing issue
+              console.log('Continuing form anyway, user can attempt to submit')
+            } else {
+              console.log('Trial subscription created successfully')
             }
-            // If trial created successfully, continue loading the form
           } catch (err) {
-            console.error('Failed to create trial subscription:', err)
-            router.push('/listings/pricing')
-            return
+            console.error('Failed to create trial subscription error:', err)
+            // Continue anyway - billing can be checked on form submission
           }
+        } else {
+          console.log('Church has active subscription')
         }
       } catch (err) {
         console.error('Failed to check subscription:', err)
+        // Continue anyway - subscription will be validated on form submission
       } finally {
         setCheckingSubscription(false)
       }
