@@ -102,7 +102,7 @@ export default function ChurchHomePage() {
     <div className="min-h-screen bg-white">
       {/* Spring Deal Popup */}
       {showPromo && (
-        <div className="fixed bottom-5 right-5 z-40 bg-gradient-to-b from-blue-600 to-blue-700 rounded-xl shadow-2xl p-5 w-72 text-white">
+        <div className="fixed bottom-5 right-5 z-40 bg-gradient-to-b from-slate-800 to-slate-900 rounded-xl shadow-2xl p-5 w-72 text-white">
           <button
             onClick={() => setShowPromo(false)}
             className="absolute top-3 right-3 text-white hover:text-gray-200 text-xl font-bold"
@@ -110,7 +110,7 @@ export default function ChurchHomePage() {
             ✕
           </button>
           <div className="text-center pt-2">
-            <div className="text-xs font-bold text-blue-100 mb-1 tracking-wide">SPRING DEAL</div>
+            <div className="text-xs font-bold text-white mb-1 tracking-wide">SPRING DEAL</div>
             <div className="text-4xl font-black mb-2">$50 OFF</div>
             <div className="text-sm font-semibold mb-3">ANY LISTING POST</div>
             <div className="text-xs bg-white bg-opacity-20 rounded px-2 py-1 inline-block">
@@ -145,7 +145,7 @@ export default function ChurchHomePage() {
               </Link>
               <Link
                 href="/auth/signup?type=church"
-                className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-bold transition"
+                className="bg-slate-800 hover:bg-slate-900 text-white px-5 py-2 rounded-lg font-bold transition"
               >
                 Find Preachers
               </Link>
@@ -168,7 +168,7 @@ export default function ChurchHomePage() {
           </h1>
           <Link
             href="/auth/signup?type=church"
-            className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 rounded-full font-bold text-lg transition transform hover:scale-105 shadow-lg"
+            className="inline-block bg-slate-800 hover:bg-slate-900 text-white px-10 py-4 rounded-full font-bold text-lg transition transform hover:scale-105 shadow-lg"
           >
             Register for free
           </Link>
@@ -259,7 +259,7 @@ export default function ChurchHomePage() {
             </p>
             <Link
               href="/listings/pricing"
-              className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 rounded-lg font-bold text-lg transition transform hover:scale-105"
+              className="inline-block bg-slate-800 hover:bg-slate-900 text-white px-10 py-4 rounded-lg font-bold text-lg transition transform hover:scale-105"
             >
               POST YOUR LISTING NOW!
             </Link>
@@ -293,7 +293,7 @@ export default function ChurchHomePage() {
               },
             ].map((feature, idx) => (
               <div key={idx} className="text-center">
-                <div className="flex items-center justify-center w-20 h-20 rounded-full bg-blue-100 mx-auto mb-4">
+                <div className="flex items-center justify-center w-20 h-20 rounded-full bg-slate-100 mx-auto mb-4">
                   <span className="text-4xl">{feature.icon}</span>
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
@@ -338,7 +338,7 @@ export default function ChurchHomePage() {
               },
             ].map((item, idx) => (
               <div key={idx} className="bg-white rounded-xl shadow hover:shadow-lg transition p-6 border-t-4 border-blue-600">
-                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-600 text-white font-bold mb-4 text-lg">
+                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-slate-800 text-white font-bold mb-4 text-lg">
                   {item.step}
                 </div>
                 <h3 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
@@ -353,7 +353,7 @@ export default function ChurchHomePage() {
             </p>
             <Link
               href="/auth/signup?type=church"
-              className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-bold"
+              className="inline-block bg-slate-800 hover:bg-slate-900 text-white px-8 py-3 rounded-lg font-bold"
             >
               Get Started Today
             </Link>
@@ -406,7 +406,7 @@ export default function ChurchHomePage() {
               >
                 {plan.badge && (
                   <div className={`absolute -top-3 right-6 px-4 py-1 rounded-full text-sm font-bold text-white ${
-                    plan.badge === 'BEST VALUE' ? 'bg-blue-600' : 'bg-red-600'
+                    plan.badge === 'BEST VALUE' ? 'bg-slate-800' : 'bg-red-600'
                   }`}>
                     {plan.badge}
                   </div>
@@ -433,8 +433,8 @@ export default function ChurchHomePage() {
                     href="/listings/pricing"
                     className={`block w-full text-center py-3 rounded-lg font-bold transition ${
                       plan.highlight
-                        ? 'bg-white text-blue-600 hover:bg-slate-50'
-                        : 'bg-blue-600 text-white hover:bg-blue-700'
+                        ? 'bg-white text-slate-800 hover:bg-gray-100'
+                        : 'bg-slate-800 text-white hover:bg-slate-900'
                     }`}
                   >
                     Choose Plan
@@ -504,7 +504,7 @@ export default function ChurchHomePage() {
           </div>
           <button
             onClick={() => window.open('https://donate.example.com', '_blank')}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-bold text-lg transition mb-6"
+            className="bg-slate-800 hover:bg-slate-900 text-white px-8 py-3 rounded-lg font-bold text-lg transition mb-6"
           >
             Support the Mission
           </button>
