@@ -161,6 +161,11 @@ export default function ChurchHomePage() {
         }}>
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white"></div>
         
+        {/* PreacherTicker in top right */}
+        <div className="absolute top-8 right-8 z-20">
+          <PreacherTicker />
+        </div>
+        
         <div className="relative text-center text-white px-4 z-10">
           <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
             Secure Faithful Leadership<br />

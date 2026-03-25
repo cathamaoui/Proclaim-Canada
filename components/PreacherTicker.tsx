@@ -24,7 +24,7 @@ export default function PreacherTicker() {
   }, [])
 
   return (
-    <div className="relative w-32 h-40">
+    <div className="relative w-16 h-20">
       <style>{`
         @keyframes fall {
           0% {
@@ -87,10 +87,10 @@ export default function PreacherTicker() {
       </svg>
       
       {/* Counter with falling animation */}
-      <div className="absolute bottom-8 right-0 counter-fall">
-        <div className="bg-gradient-to-br from-lime-400 to-lime-500 text-white rounded-full w-20 h-20 flex items-center justify-center shadow-2xl ring-4 ring-white hover:shadow-lg transition-shadow">
+      <div className="absolute bottom-2 right-0 counter-fall">
+        <div className="bg-gradient-to-br from-lime-400 to-lime-500 text-white rounded-full w-10 h-10 flex items-center justify-center shadow-2xl ring-2 ring-white hover:shadow-lg transition-shadow">
           <div className="text-center">
-            <p className="text-xl font-bold leading-tight">{loading ? '...' : count}+</p>
+            <p className="text-sm font-bold leading-tight">{loading ? '...' : count}+</p>
           </div>
         </div>
       </div>

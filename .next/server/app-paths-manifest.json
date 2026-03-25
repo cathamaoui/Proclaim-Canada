@@ -1,6 +1,4 @@
 {
-  "/api/stats/preachers/route": "app/api/stats/preachers/route.js",
-  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
   "/church-home/page": "app/church-home/page.js",
   "/page": "app/page.js"
 }
