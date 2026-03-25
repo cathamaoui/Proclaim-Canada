@@ -459,15 +459,32 @@ export default function NewListingPage() {
                   <label htmlFor="denomination" className="block text-sm font-medium text-gray-700 mb-2">
                     Denomination
                   </label>
-                  <input
+                  <select
                     id="denomination"
-                    type="text"
                     name="denomination"
                     value={formData.denomination}
                     onChange={handleChange}
-                    placeholder="e.g., Evangelical, Baptist, Pentecostal"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
-                  />
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 bg-white"
+                  >
+                    <option value="">Select a denomination...</option>
+                    <option value="Roman Catholic">Roman Catholic</option>
+                    <option value="Baptist">Baptist</option>
+                    <option value="Pentecostal">Pentecostal / Assemblies of God</option>
+                    <option value="Methodist">Methodist / United Methodist</option>
+                    <option value="Presbyterian">Presbyterian</option>
+                    <option value="Anglican">Anglican / Episcopal</option>
+                    <option value="Lutheran">Lutheran</option>
+                    <option value="Evangelical">Evangelical</option>
+                    <option value="Mennonite">Mennonite</option>
+                    <option value="Christian and Missionary Alliance">Christian and Missionary Alliance</option>
+                    <option value="Seventh-day Adventist">Seventh-day Adventist</option>
+                    <option value="Nazarene">Church of the Nazarene</option>
+                    <option value="Foursquare">Foursquare</option>
+                    <option value="Wesleyan">Wesleyan</option>
+                    <option value="Open Bible">Open Bible</option>
+                    <option value="Orthodox">Orthodox</option>
+                    <option value="Other">Other</option>
+                  </select>
                 </div>
               </div>
 
