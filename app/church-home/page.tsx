@@ -85,7 +85,7 @@ export default function ChurchHomePage() {
             href="/auth/signup?type=church"
             className="inline-block bg-lime-400 hover:bg-lime-500 text-green-900 px-10 py-4 rounded-full font-bold text-lg transition transform hover:scale-105 shadow-lg"
           >
-            START HERE →
+            Register for free
           </Link>
         </div>
       </section>
