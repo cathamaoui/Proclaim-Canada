@@ -214,7 +214,7 @@ export default function PricingPage() {
                       </span>
                     </div>
                     {'pricePerMonth' in plan && (
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-lime-600 font-semibold">
                         {plan.pricePerMonth}
                       </p>
                     )}
