@@ -149,31 +149,34 @@ export default function ChurchHomePage() {
       {/* How It Works */}
       <section id="how-it-works" className="py-20 bg-gradient-to-b from-green-50 to-white">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-8">
             How It Works
           </h2>
+          <p className="text-center text-gray-700 text-lg mb-16 max-w-3xl mx-auto">
+            Connecting your congregation with inspired leadership is simple. Follow these four steps to start building your church's guest speaker roster.
+          </p>
 
           <div className="grid md:grid-cols-4 gap-6">
             {[
               {
                 step: 1,
-                title: 'Sign Up',
-                description: 'Create your account and set up your church profile in minutes.'
+                title: 'Register your Church for Free',
+                description: 'Create a profile for your church in minutes. It costs nothing to join our community and list your church in our North American directory.'
               },
               {
                 step: 2,
-                title: 'Post a Listing',
-                description: 'Describe your opportunity and choose from flexible pricing plans.'
+                title: 'Browse the Directory',
+                description: 'Search our growing database of ordained pastors and guest speakers across Canada and the U.S. Filter by location, denomination, or preaching style.'
               },
               {
                 step: 3,
-                title: 'Review Applications',
-                description: 'Receive applications and access our candidate database simultaneously.'
+                title: 'Unlock Full Access',
+                description: 'Choose a Premium Subscription to post new opportunities, access full resumes to contact pastors directly through the portal.'
               },
               {
                 step: 4,
-                title: 'Hire & Connect',
-                description: 'Message candidates, schedule calls, and secure your next preacher.'
+                title: 'Post Specific Pulpit Vacancies',
+                description: 'Use our secure platform to message preachers and schedule your next guest speaker!'
               },
             ].map((item, idx) => (
               <div key={idx} className="bg-white rounded-xl shadow hover:shadow-lg transition p-6 border-t-4 border-green-500">
@@ -188,7 +191,7 @@ export default function ChurchHomePage() {
 
           <div className="mt-12 text-center">
             <p className="text-gray-600 text-lg mb-6">
-              From posting to hiring, Proclaim Canada makes finding your next preacher simple and efficient.
+              Post specific pulpit vacancies now! Use our secure platform to message preachers and schedule your next guest speaker.
             </p>
             <Link
               href="/auth/signup?type=church"
