@@ -119,7 +119,8 @@ export default function NewListingPage() {
     // Church Identity
     churchName: '',
     contactName: '',
-    contactEmail: '',
+    contactEmailUsername: '',
+    contactEmailExtension: '@gmail.com',
     contactPhone: '',
     denomination: '',
     congregationProfile: '',
@@ -303,6 +304,8 @@ export default function NewListingPage() {
       ].filter(Boolean)
       const location = locationParts.join(', ')
 
+      const contactEmail = formData.contactEmailUsername + formData.contactEmailExtension
+
       const response = await fetch('/api/listings', {
         method: 'POST',
         headers: {
@@ -317,7 +320,7 @@ export default function NewListingPage() {
           compensation: formData.honorarium,
           churchName: formData.churchName,
           contactName: formData.contactName,
-          contactEmail: formData.contactEmail,
+          contactEmail: contactEmail,
           contactPhone: formData.contactPhone,
           denomination: formData.denomination,
           congregationProfile: formData.congregationProfile,
@@ -407,45 +410,49 @@ export default function NewListingPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <div>
-                  <label htmlFor="contactEmail" className="block text-sm font-medium text-gray-700 mb-2">
-                    Contact Email *
-                  </label>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-2">Contact Email *</label>
+                <div className="flex gap-2">
                   <input
-                    id="contactEmail"
-                    type="email"
-                    name="contactEmail"
-                    value={formData.contactEmail}
+                    id="contactEmailUsername"
+                    type="text"
+                    name="contactEmailUsername"
+                    value={formData.contactEmailUsername}
                     onChange={handleChange}
                     required
-                    placeholder="e.g., pastor@church.com"
-                    list="email-suggestions"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                    placeholder="e.g., pastor"
+                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
                   />
-                  <datalist id="email-suggestions">
-                    <option value="user@gmail.com" />
-                    <option value="user@yahoo.com" />
-                    <option value="user@hotmail.com" />
-                    <option value="user@outlook.com" />
-                    <option value="user@icloud.com" />
-                    <option value="user@protonmail.com" />
-                  </datalist>
-                </div>
-                <div>
-                  <label htmlFor="contactPhone" className="block text-sm font-medium text-gray-700 mb-2">
-                    Contact Phone
-                  </label>
-                  <input
-                    id="contactPhone"
-                    type="tel"
-                    name="contactPhone"
-                    value={formData.contactPhone}
+                  <select
+                    id="contactEmailExtension"
+                    name="contactEmailExtension"
+                    value={formData.contactEmailExtension}
                     onChange={handleChange}
-                    placeholder="e.g., (555) 123-4567"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
-                  />
+                    className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 bg-white"
+                  >
+                    <option value="@gmail.com">@gmail.com</option>
+                    <option value="@yahoo.com">@yahoo.com</option>
+                    <option value="@hotmail.com">@hotmail.com</option>
+                    <option value="@outlook.com">@outlook.com</option>
+                    <option value="@icloud.com">@icloud.com</option>
+                    <option value="@protonmail.com">@protonmail.com</option>
+                  </select>
                 </div>
+              </div>
+
+              <div>
+                <label htmlFor="contactPhone" className="block text-sm font-medium text-gray-700 mb-2">
+                  Contact Phone
+                </label>
+                <input
+                  id="contactPhone"
+                  type="tel"
+                  name="contactPhone"
+                  value={formData.contactPhone}
+                  onChange={handleChange}
+                  placeholder="e.g., (555) 123-4567"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
+                />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
