@@ -155,6 +155,12 @@ export default function PricingPage() {
 
             {/* Right Side - Buttons */}
             <div className="flex items-center gap-4">
+              <a 
+                href="#donate-section" 
+                className="text-lime-400 hover:text-lime-300 text-sm font-medium transition"
+              >
+                Support
+              </a>
               <Link 
                 href="/browse/preachers" 
                 className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded font-semibold transition"
@@ -333,7 +339,7 @@ export default function PricingPage() {
       </div>
 
       {/* Donation Section */}
-      <div className="bg-lime-50 py-16 px-4">
+      <div id="donate-section" className="bg-lime-50 py-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex justify-center mb-6">
             <Logo />

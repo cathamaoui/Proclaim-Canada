@@ -300,13 +300,31 @@ export default function SignupPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center px-4">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center px-4 py-8">
         <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md text-center">
           <div className="text-5xl mb-4">✅</div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome!</h1>
           <p className="text-gray-600 mb-6">
             Your account has been created successfully. Redirecting to login...
           </p>
+          
+          {/* Donation Message */}
+          <div className="bg-lime-50 rounded-lg p-4 mb-6 border border-lime-200">
+            <p className="text-sm text-gray-700 mb-3">
+              We're glad to have you. If you'd like to help us keep this service free for all churches, you can give a one-time gift here.
+            </p>
+            <a 
+              href="#donate"
+              onClick={(e) => {
+                e.preventDefault()
+                window.open('https://donate.example.com', '_blank')
+              }}
+              className="inline-block bg-lime-600 hover:bg-lime-700 text-white px-4 py-2 rounded font-semibold text-sm transition"
+            >
+              Make a Gift
+            </a>
+          </div>
+          
           <Link href="/auth/login" className="text-lime-600 hover:text-lime-700 font-semibold">
             Sign In Now
           </Link>

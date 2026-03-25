@@ -6,6 +6,7 @@ import Logo from '@/components/Logo';
 
 export default function CartPage() {
   const [cartItems] = useState<any[]>([]); // In a real app, this would come from context/state
+  const [donationAmount, setDonationAmount] = useState<string>('');
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -90,6 +91,31 @@ export default function CartPage() {
                   <span className="text-lime-500">$0.00</span>
                 </div>
               </div>
+
+              {/* Donation Box */}
+              <div className="mb-6 p-4 bg-lime-50 rounded-lg border border-lime-200">
+                <div className="flex items-center mb-3">
+                  <input 
+                    type="checkbox"
+                    id="donate-checkbox"
+                    className="w-4 h-4 text-lime-600"
+                  />
+                  <label htmlFor="donate-checkbox" className="ml-2 text-sm text-gray-700 font-medium">
+                    I'd like to support Proclaim Canada's mission
+                  </label>
+                </div>
+                <input
+                  type="number"
+                  placeholder="Enter donation amount"
+                  value={donationAmount}
+                  onChange={(e) => setDonationAmount(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-lime-500"
+                  min="1"
+                  step="0.01"
+                />
+                <p className="text-xs text-gray-600 mt-2">Every gift helps us keep this service free for all churches.</p>
+              </div>
+
               <button className="w-full bg-lime-500 hover:bg-lime-600 text-white font-bold py-3 px-4 rounded-lg transition mb-3">
                 Proceed to Checkout
               </button>
