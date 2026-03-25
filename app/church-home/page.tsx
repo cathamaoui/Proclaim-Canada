@@ -36,7 +36,7 @@ export default function ChurchHomePage() {
       )}
 
       {/* Navigation Bar */}
-      <nav className="bg-gradient-to-r from-green-600 to-green-700 text-white shadow-md sticky top-0 z-50">
+      <nav className="bg-gradient-to-r from-slate-800 to-slate-900 text-white shadow-lg sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex justify-between items-center">
             <Link href="/" className="flex items-center gap-2 text-2xl font-bold">
@@ -44,23 +44,23 @@ export default function ChurchHomePage() {
               <span><span className="text-white">Proclaim </span><span className="text-lime-300">Canada</span></span>
             </Link>
             <div className="hidden md:flex items-center gap-8">
-              <a href="#features" className="text-green-50 hover:text-white transition font-medium">
+              <a href="#features" className="text-slate-100 hover:text-white transition font-medium">
                 Features
               </a>
-              <a href="#how-it-works" className="text-green-50 hover:text-white transition font-medium">
+              <a href="#how-it-works" className="text-slate-100 hover:text-white transition font-medium">
                 How It Works
               </a>
-              <a href="#pricing" className="text-green-50 hover:text-white transition font-medium">
+              <a href="#pricing" className="text-slate-100 hover:text-white transition font-medium">
                 Pricing
               </a>
             </div>
             <div className="flex items-center gap-3">
-              <Link href="/auth/login" className="text-green-50 hover:text-white transition font-medium">
+              <Link href="/auth/login" className="text-slate-100 hover:text-white transition font-medium">
                 Log In
               </Link>
               <Link
                 href="/auth/signup?type=church"
-                className="bg-lime-400 hover:bg-lime-500 text-green-900 px-5 py-2 rounded-lg font-bold transition"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-bold transition"
               >
                 Find Preachers
               </Link>
@@ -72,18 +72,18 @@ export default function ChurchHomePage() {
       {/* Hero Section with Background */}
       <section className="relative h-96 md:h-[500px] bg-cover bg-center overflow-hidden flex items-center justify-center"
         style={{
-          backgroundImage: 'linear-gradient(135deg, rgba(22, 163, 74, 0.7) 0%, rgba(16, 185, 129, 0.7) 100%), url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 600%22%3E%3Crect fill=%22%234b5563%22 width=%221200%22 height=%22600%22/%3E%3Ccircle cx=%22200%22 cy=%22100%22 r=%2280%22 fill=%22%236b7485%22 opacity=%220.5%22/%3E%3Ccircle cx=%221000%22 cy=%22500%22 r=%22150%22 fill=%22%236b7485%22 opacity=%220.3%22/%3E%3Crect x=%22400%22 y=%22250%22 width=%22400%22 height=%22200%22 fill=%22%236b7485%22 opacity=%220.2%22 rx=%2220%22/%3E%3C/svg%3E")'
+          backgroundImage: 'linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(51, 65, 85, 0.7) 100%), url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 600%22%3E%3Crect fill=%22%234b5563%22 width=%221200%22 height=%22600%22/%3E%3Ccircle cx=%22200%22 cy=%22100%22 r=%2280%22 fill=%22%236b7485%22 opacity=%220.5%22/%3E%3Ccircle cx=%221000%22 cy=%22500%22 r=%22150%22 fill=%22%236b7485%22 opacity=%220.3%22/%3E%3Crect x=%22400%22 y=%22250%22 width=%22400%22 height=%22200%22 fill=%22%236b7485%22 opacity=%220.2%22 rx=%2220%22/%3E%3C/svg%3E")'
         }}>
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white"></div>
         
         <div className="relative text-center text-white px-4 z-10">
           <h1 className="text-5xl md:text-6xl font-black leading-tight mb-6">
             Secure Faithful Leadership<br />
-            <span className="text-lime-200">Connecting congregations with called ministers in the U.S. and Canada.</span>
+            <span className="text-blue-300">Connecting congregations with called ministers in the U.S. and Canada.</span>
           </h1>
           <Link
             href="/auth/signup?type=church"
-            className="inline-block bg-lime-400 hover:bg-lime-500 text-green-900 px-10 py-4 rounded-full font-bold text-lg transition transform hover:scale-105 shadow-lg"
+            className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 rounded-full font-bold text-lg transition transform hover:scale-105 shadow-lg"
           >
             Register for free
           </Link>
@@ -102,7 +102,7 @@ export default function ChurchHomePage() {
             </p>
             <Link
               href="/listings/pricing"
-              className="inline-block bg-green-500 hover:bg-green-600 text-white px-10 py-4 rounded-lg font-bold text-lg transition transform hover:scale-105"
+              className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 rounded-lg font-bold text-lg transition transform hover:scale-105"
             >
               POST YOUR LISTING NOW!
             </Link>
@@ -148,7 +148,7 @@ export default function ChurchHomePage() {
       </section>
 
       {/* How It Works */}
-      <section id="how-it-works" className="py-20 bg-gradient-to-b from-green-50 to-white">
+      <section id="how-it-works" className="py-20 bg-gradient-to-b from-slate-50 to-white">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-8">
             How It Works
@@ -180,8 +180,8 @@ export default function ChurchHomePage() {
                 description: 'Use our secure platform to message preachers and schedule your next guest speaker!'
               },
             ].map((item, idx) => (
-              <div key={idx} className="bg-white rounded-xl shadow hover:shadow-lg transition p-6 border-t-4 border-green-500">
-                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-green-500 text-white font-bold mb-4 text-lg">
+              <div key={idx} className="bg-white rounded-xl shadow hover:shadow-lg transition p-6 border-t-4 border-blue-600">
+                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-600 text-white font-bold mb-4 text-lg">
                   {item.step}
                 </div>
                 <h3 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
@@ -196,7 +196,7 @@ export default function ChurchHomePage() {
             </p>
             <Link
               href="/auth/signup?type=church"
-              className="inline-block bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-lg font-bold"
+              className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-bold"
             >
               Get Started Today
             </Link>
@@ -242,10 +242,10 @@ export default function ChurchHomePage() {
                 key={idx}
                 className={`rounded-xl transition transform hover:scale-105 relative ${
                   plan.highlight
-                    ? 'bg-gradient-to-br from-green-500 to-green-600 text-white shadow-xl ring-4 ring-green-300 scale-105'
+                    ? 'bg-gradient-to-br from-blue-600 to-blue-700 text-white shadow-xl ring-4 ring-blue-300 scale-105'
                     : 'bg-white shadow-lg text-gray-900'
                 }`}
-                style={plan.highlight ? { boxShadow: '0 20px 50px rgba(34, 197, 94, 0.3)' } : {}}
+                style={plan.highlight ? { boxShadow: '0 20px 50px rgba(37, 99, 235, 0.3)' } : {}}
               >
                 {plan.badge && (
                   <div className={`absolute -top-3 right-6 px-4 py-1 rounded-full text-sm font-bold text-white ${
@@ -258,15 +258,15 @@ export default function ChurchHomePage() {
                   <h3 className={`text-2xl font-bold mb-2 ${plan.highlight ? 'text-white' : ''}`}>
                     {plan.name}
                   </h3>
-                  <p className={`text-sm mb-4 ${plan.highlight ? 'text-green-50' : 'text-gray-500'}`}>
+                  <p className={`text-sm mb-4 ${plan.highlight ? 'text-blue-50' : 'text-gray-500'}`}>
                     {plan.duration}
                   </p>
-                  <div className={`text-4xl font-black mb-6 ${plan.highlight ? 'text-lime-200' : 'text-green-600'}`}>
+                  <div className={`text-4xl font-black mb-6 ${plan.highlight ? 'text-blue-200' : 'text-blue-600'}`}>
                     {plan.price}
                   </div>
                   <ul className="space-y-3 mb-8">
                     {plan.features.map((feature, fidx) => (
-                      <li key={fidx} className={`flex items-center gap-3 ${plan.highlight ? 'text-green-50' : 'text-gray-700'}`}>
+                      <li key={fidx} className={`flex items-center gap-3 ${plan.highlight ? 'text-blue-50' : 'text-gray-700'}`}>
                         <span className="text-xl">✓</span>
                         <span className="text-sm">{feature}</span>
                       </li>
@@ -276,8 +276,8 @@ export default function ChurchHomePage() {
                     href="/listings/pricing"
                     className={`block w-full text-center py-3 rounded-lg font-bold transition ${
                       plan.highlight
-                        ? 'bg-white text-green-600 hover:bg-lime-50'
-                        : 'bg-green-500 text-white hover:bg-green-600'
+                        ? 'bg-white text-blue-600 hover:bg-slate-50'
+                        : 'bg-blue-600 text-white hover:bg-blue-700'
                     }`}
                   >
                     Choose Plan
@@ -288,10 +288,10 @@ export default function ChurchHomePage() {
           </div>
 
           <div className="mt-16 text-center">
-            <div className="inline-block bg-gradient-to-r from-lime-100 to-emerald-100 rounded-xl p-8 border-2 border-lime-400 shadow-lg">
+            <div className="inline-block bg-gradient-to-r from-blue-50 to-slate-50 rounded-xl p-8 border-2 border-blue-300 shadow-lg">
               <Link
                 href="/listings/pricing"
-                className="inline-flex items-center gap-3 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-8 py-4 rounded-lg font-bold text-lg transition transform hover:scale-105 shadow-md"
+                className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-lg font-bold text-lg transition transform hover:scale-105 shadow-md"
               >
                 View all pricing options & multi-job packs
                 <span className="text-2xl">→</span>
@@ -302,36 +302,36 @@ export default function ChurchHomePage() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-20 bg-gradient-to-r from-green-600 to-green-700 text-white text-center">
+      <section className="py-20 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-center">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-4xl font-bold mb-6">
             Ready to Build Your Team?
           </h2>
-          <p className="text-xl text-green-50 mb-10 max-w-2xl mx-auto">
+          <p className="text-xl text-blue-50 mb-10 max-w-2xl mx-auto">
             Join hundreds of churches already using Proclaim Canada to find qualified preachers and evangelists.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/auth/signup?type=church"
-              className="bg-lime-400 hover:bg-lime-500 text-green-900 px-8 py-4 rounded-lg font-bold text-lg transition"
+              className="bg-white hover:bg-slate-100 text-blue-600 px-8 py-4 rounded-lg font-bold text-lg transition"
             >
               Sign Up Free
             </Link>
             <a
               href="mailto:support@proclaimcanada.com"
-              className="border-2 border-lime-400 text-lime-300 hover:bg-lime-400 hover:text-green-900 px-8 py-4 rounded-lg font-bold text-lg transition"
+              className="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 rounded-lg font-bold text-lg transition"
             >
               Contact Support
             </a>
           </div>
-          <p className="text-sm text-green-100 mt-8">
+          <p className="text-sm text-blue-100 mt-8">
             Free signup • No credit card required • Cancel anytime
           </p>
         </div>
       </section>
 
       {/* Donation Section */}
-      <div className="bg-lime-50 py-16 px-4">
+      <div className="bg-slate-50 py-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex justify-center mb-6">
             <Logo />
@@ -347,7 +347,7 @@ export default function ChurchHomePage() {
           </div>
           <button
             onClick={() => window.open('https://donate.example.com', '_blank')}
-            className="bg-lime-600 hover:bg-lime-700 text-white px-8 py-3 rounded-lg font-bold text-lg transition mb-6"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-bold text-lg transition mb-6"
           >
             Support the Mission
           </button>
