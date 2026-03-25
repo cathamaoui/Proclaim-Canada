@@ -450,10 +450,10 @@ export default function ChurchHomePage() {
           </div>
 
           <div className="mt-12 text-center">
-            <div className="inline-block bg-gradient-to-r from-slate-100 to-slate-50 rounded-xl p-8 border-2 border-slate-300 shadow-lg">
+            <div className="inline-block bg-gradient-to-r from-slate-800 to-slate-700 rounded-xl p-8 border-2 border-slate-600 shadow-lg">
               <Link
                 href="/listings/pricing"
-                className="inline-flex items-center gap-3 bg-gradient-to-r from-slate-800 to-slate-900 hover:from-slate-900 hover:to-slate-950 text-white px-8 py-4 rounded-lg font-bold text-lg transition transform hover:scale-105 shadow-md"
+                className="inline-flex items-center gap-3 bg-gradient-to-r from-slate-700 to-slate-600 hover:from-slate-600 hover:to-slate-500 text-white px-8 py-4 rounded-lg font-bold text-lg transition transform hover:scale-105 shadow-md"
               >
                 View all pricing options & multi-job packs
                 <span className="text-2xl">→</span>
@@ -493,13 +493,13 @@ export default function ChurchHomePage() {
       </section>
 
       {/* Donation Section */}
-      <div className="bg-slate-50 py-10 px-4">
+      <div className="bg-slate-900 py-10 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex justify-center mb-6">
             <Logo />
           </div>
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">Keep the Pulpit Filled</h2>
-          <div className="text-gray-700 space-y-4 mb-8">
+          <h2 className="text-4xl font-bold text-white mb-6">Keep the Pulpit Filled</h2>
+          <div className="text-slate-300 space-y-4 mb-8">
             <p>
               We believe every congregation deserves access to inspired leadership, which is why we've made church registration 100% free.
             </p>
@@ -511,12 +511,12 @@ export default function ChurchHomePage() {
             href="https://donate.example.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-slate-800 hover:text-slate-900 font-bold text-lg transition mb-6"
+            className="inline-flex items-center gap-2 text-lime-400 hover:text-lime-300 font-bold text-lg transition mb-6"
           >
             Support the Mission
             <span className="text-2xl font-bold text-lime-500 animate-pulse drop-shadow-lg" style={{textShadow: '0 0 10px rgba(132, 204, 22, 0.8)'}}>→</span>
           </a>
-          <p className="text-gray-700 text-lg font-medium">
+          <p className="text-slate-300 text-lg font-medium">
             Thank you for being a vital part of this community.
           </p>
         </div>
