@@ -509,7 +509,7 @@ export default function ChurchHomePage() {
             className="inline-flex items-center gap-2 text-slate-800 hover:text-slate-900 font-bold text-lg transition mb-6"
           >
             Support the Mission
-            <span className="text-lime-500">→</span>
+            <span className="text-2xl font-bold text-lime-500 animate-pulse drop-shadow-lg" style={{textShadow: '0 0 10px rgba(132, 204, 22, 0.8)'}}>→</span>
           </a>
           <p className="text-gray-700 text-lg font-medium">
             Thank you for being a vital part of this community.
