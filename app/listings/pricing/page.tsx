@@ -156,12 +156,6 @@ export default function PricingPage() {
 
             {/* Right Side - Buttons */}
             <div className="flex items-center gap-4">
-              <a 
-                href="#donate-section" 
-                className="text-lime-400 hover:text-lime-300 text-sm font-medium transition"
-              >
-                Support
-              </a>
               <Link 
                 href="/browse/preachers" 
                 className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded font-semibold transition"
@@ -336,33 +330,6 @@ export default function PricingPage() {
               We accept all major credit cards, PayPal, and bank transfers for large orders.
             </p>
           </div>
-        </div>
-      </div>
-
-      {/* Donation Section */}
-      <div id="donate-section" className="bg-lime-50 py-16 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="flex justify-center mb-6">
-            <Logo />
-          </div>
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">Keep the Pulpit Filled</h2>
-          <div className="text-gray-700 space-y-4 mb-8">
-            <p>
-              We believe every congregation deserves access to inspired leadership, which is why we've made church registration 100% free.
-            </p>
-            <p>
-              If our platform has helped you find a voice for your pulpit or build your roster, would you consider partnering with us? Your gift ensures that even the smallest churches can continue using these tools to connect with pastors across North America.
-            </p>
-          </div>
-          <button
-            onClick={() => window.open('https://donate.example.com', '_blank')}
-            className="bg-lime-600 hover:bg-lime-700 text-white px-8 py-3 rounded-lg font-bold text-lg transition mb-6"
-          >
-            Support the Mission
-          </button>
-          <p className="text-gray-700 text-lg font-medium">
-            Thank you for being a vital part of this community.
-          </p>
         </div>
       </div>
 
