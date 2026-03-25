@@ -190,12 +190,12 @@ export default function PricingPage() {
               {section.plans.map((plan, planIdx) => (
                 <div
                   key={planIdx}
-                  className={`relative flex flex-col bg-white border rounded-lg p-4 shadow-sm hover:shadow-md transition min-h-full ${
+                  className={`relative flex flex-col bg-white border rounded-lg p-4 shadow-sm hover:shadow-md transition min-h-full pt-12 ${
                     'badge' in plan && plan.badge === 'BEST VALUE' ? 'border-blue-500 border-2' : 'badge' in plan ? 'border-lime-500 border-2' : 'border-gray-200'
                   }`}
                 >
                   {('badge' in plan) && (
-                    <div className={`absolute top-0 right-0 ${('badgeColor' in plan) ? plan.badgeColor : 'bg-lime-500'} text-white px-3 py-1 rounded-bl-lg text-sm font-bold`}>
+                    <div className={`absolute top-2 right-2 ${('badgeColor' in plan) ? plan.badgeColor : 'bg-lime-500'} text-white px-4 py-2 rounded-bl-lg text-sm font-bold`}>
                       {plan.badge}
                     </div>
                   )}
