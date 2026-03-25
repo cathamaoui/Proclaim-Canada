@@ -98,19 +98,6 @@ const PRICING_PLANS = [
   },
 ]
 
-const ADD_ONS = [
-  {
-    title: 'Highlight Job for 30 Days',
-    price: '$40',
-    description: 'Make your posting stand out in search results',
-  },
-  {
-    title: 'Share on ChristianJobs.ca',
-    price: '$140',
-    description: 'Reach 75,000+ additional job seekers',
-  },
-]
-
 const FEATURES = [
   {
     icon: '📡',
@@ -261,33 +248,6 @@ export default function PricingPage() {
           <p className="text-sm text-gray-600">
             All subscriptions automatically renew at the end of your billing period. You can cancel anytime from your account settings.
           </p>
-        </div>
-      </div>
-
-      {/* Add-ons Section */}
-      <div className="bg-gray-50 py-16 px-4">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
-            Upgrade Your Posting
-          </h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            {ADD_ONS.map((addon, idx) => (
-              <div
-                key={idx}
-                className="bg-white border border-gray-200 rounded-lg p-6 flex flex-col justify-between hover:shadow-md transition"
-              >
-                <div>
-                  <h3 className="font-bold text-gray-900 mb-2">{addon.title}</h3>
-                  <p className="text-gray-600 text-sm">{addon.description}</p>
-                </div>
-                <div className="mt-4">
-                  <span className="text-3xl font-bold text-lime-600">
-                    {addon.price}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
 
