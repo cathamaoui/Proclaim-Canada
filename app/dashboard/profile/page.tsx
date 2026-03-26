@@ -34,6 +34,11 @@ export default function ProfilePage() {
     elevatorPitch: null as File | null,
     elevatorPitchPreview: '' as string,
     resume: null as File | null,
+    sermonVideo: null as File | null,
+    sermonVideoPreview: '' as string,
+    worshipVideo: null as File | null,
+    worshipVideoPreview: '' as string,
+    theologyStatement: '',
   })
 
   // Load existing profile data on mount
@@ -224,6 +229,60 @@ export default function ProfilePage() {
     }))
   }
 
+  const handleVideoUpload = (e: React.ChangeEvent<HTMLInputElement>, videoType: 'sermon' | 'worship') => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    // Validate video type
+    const validTypes = ['video/mp4', 'video/webm', 'video/quicktime']
+    if (!validTypes.includes(file.type)) {
+      setError('Please upload an MP4, WebM, or MOV video file')
+      return
+    }
+
+    // Validate file size (max 500MB for videos)
+    if (file.size > 500 * 1024 * 1024) {
+      setError('Video file must be less than 500MB')
+      return
+    }
+
+    const reader = new FileReader()
+    reader.onload = (ev) => {
+      const preview = ev.target?.result as string
+      if (videoType === 'sermon') {
+        setFormData(prev => ({
+          ...prev,
+          sermonVideo: file,
+          sermonVideoPreview: preview
+        }))
+      } else {
+        setFormData(prev => ({
+          ...prev,
+          worshipVideo: file,
+          worshipVideoPreview: preview
+        }))
+      }
+      setError('')
+    }
+    reader.readAsDataURL(file)
+  }
+
+  const clearVideo = (videoType: 'sermon' | 'worship') => {
+    if (videoType === 'sermon') {
+      setFormData(prev => ({
+        ...prev,
+        sermonVideo: null,
+        sermonVideoPreview: ''
+      }))
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        worshipVideo: null,
+        worshipVideoPreview: ''
+      }))
+    }
+  }
+
   // Camera functions
   const startCamera = useCallback(async () => {
     try {
@@ -318,6 +377,7 @@ export default function ProfilePage() {
       formDataToSubmit.append('serviceTypes', JSON.stringify(formData.serviceTypes))
       formDataToSubmit.append('customService', formData.customService)
       formDataToSubmit.append('certificates', formData.certificates)
+      formDataToSubmit.append('theologyStatement', formData.theologyStatement)
       if (isDraft) formDataToSubmit.append('isDraft', 'true')
 
       if (photoFile) {
@@ -328,6 +388,12 @@ export default function ProfilePage() {
       }
       if (formData.resume) {
         formDataToSubmit.append('resume', formData.resume)
+      }
+      if (formData.sermonVideo) {
+        formDataToSubmit.append('sermonVideo', formData.sermonVideo)
+      }
+      if (formData.worshipVideo) {
+        formDataToSubmit.append('worshipVideo', formData.worshipVideo)
       }
 
       const response = await fetch('/api/preacher/profile', {
@@ -664,6 +730,128 @@ export default function ProfilePage() {
                   </label>
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* Video Samples Section */}
+          <div className="pb-6 border-b border-gray-200">
+            <h2 className="text-xl font-bold text-gray-900 mb-4">🎥 Video Samples (Optional)</h2>
+            <p className="text-sm text-gray-600 mb-4">
+              Upload sample videos to let churches see your preaching and ministry style.
+            </p>
+
+            <div className="space-y-4">
+              {/* Sermon Video */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Sample Sermon Video
+                </label>
+                <p className="text-xs text-gray-500 mb-3">
+                  Upload a sample sermon (MP4, WebM, or MOV - max 500MB). 3-5 minutes recommended.
+                </p>
+
+                {formData.sermonVideoPreview ? (
+                  <div className="space-y-2">
+                    <div className="bg-lime-50 border border-lime-200 rounded-lg p-4">
+                      <p className="text-sm text-lime-700 font-medium mb-2">✓ Video uploaded</p>
+                      <video
+                        src={formData.sermonVideoPreview}
+                        controls
+                        className="w-full rounded-lg max-h-64"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => clearVideo('sermon')}
+                        className="mt-2 text-sm text-lime-600 hover:text-lime-700 font-medium"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <label className="flex items-center justify-center gap-3 px-6 py-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-lime-500 hover:bg-lime-50 transition cursor-pointer">
+                    <span className="text-2xl">🎬</span>
+                    <div className="text-left">
+                      <p className="font-semibold text-gray-700">Click to Upload Sermon Video</p>
+                      <p className="text-sm text-gray-500">MP4, WebM, or MOV (max 500MB)</p>
+                    </div>
+                    <input
+                      type="file"
+                      accept="video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov"
+                      onChange={(e) => handleVideoUpload(e, 'sermon')}
+                      className="hidden"
+                    />
+                  </label>
+                )}
+              </div>
+
+              {/* Worship Video */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Worship/Music Sample Video
+                </label>
+                <p className="text-xs text-gray-500 mb-3">
+                  Upload a sample of you leading worship or music ministry (MP4, WebM, or MOV - max 500MB).
+                </p>
+
+                {formData.worshipVideoPreview ? (
+                  <div className="space-y-2">
+                    <div className="bg-lime-50 border border-lime-200 rounded-lg p-4">
+                      <p className="text-sm text-lime-700 font-medium mb-2">✓ Video uploaded</p>
+                      <video
+                        src={formData.worshipVideoPreview}
+                        controls
+                        className="w-full rounded-lg max-h-64"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => clearVideo('worship')}
+                        className="mt-2 text-sm text-lime-600 hover:text-lime-700 font-medium"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <label className="flex items-center justify-center gap-3 px-6 py-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-lime-500 hover:bg-lime-50 transition cursor-pointer">
+                    <span className="text-2xl">🎵</span>
+                    <div className="text-left">
+                      <p className="font-semibold text-gray-700">Click to Upload Worship Video</p>
+                      <p className="text-sm text-gray-500">MP4, WebM, or MOV (max 500MB)</p>
+                    </div>
+                    <input
+                      type="file"
+                      accept="video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov"
+                      onChange={(e) => handleVideoUpload(e, 'worship')}
+                      className="hidden"
+                    />
+                  </label>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Theology & Beliefs Section */}
+          <div className="pb-6 border-b border-gray-200">
+            <h2 className="text-xl font-bold text-gray-900 mb-4">⛪ Theology & Beliefs (Optional)</h2>
+            <p className="text-sm text-gray-600 mb-4">
+              Share your theological beliefs and ministry philosophy. This helps churches find a good fit.
+            </p>
+
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Statement of Faith / Ministry Philosophy
+              </label>
+              <textarea
+                value={formData.theologyStatement}
+                onChange={(e) => setFormData(prev => ({ ...prev, theologyStatement: e.target.value }))}
+                placeholder="Share your core beliefs, theological perspectives, and how they shape your ministry approach..."
+                rows={4}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-500 text-sm"
+              />
+              <p className="mt-2 text-xs text-gray-500">
+                {formData.theologyStatement.length}/500 characters
+              </p>
             </div>
           </div>
 
