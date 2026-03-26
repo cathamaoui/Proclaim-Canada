@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import Logo from '@/components/Logo'
-import PreacherTicker from '@/components/PreacherTicker'
 import Footer from '@/components/Footer'
 
 export default function Home() {
@@ -87,11 +86,6 @@ export default function Home() {
             </Link>
           </div>
         </div>
-      </div>
-
-      {/* Preacher Ticker Section */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <PreacherTicker />
       </div>
 
       {/* CTA Section */}
