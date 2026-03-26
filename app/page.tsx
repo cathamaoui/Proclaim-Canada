@@ -105,17 +105,17 @@ export default function Home() {
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-lime-600">Completely Free. No Strings Attached.</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white rounded-lg shadow-md p-8 text-center">
-              <div className="text-5xl mb-4">🎯</div>
+              <div className="text-5xl mb-4">⭐</div>
               <h3 className="text-xl font-bold mb-3 text-gray-900">No Cost to Join</h3>
               <p className="text-gray-600">Start connecting with churches and evangelists at no charge. It's free to create your profile and begin your ministry journey.</p>
             </div>
             <div className="bg-white rounded-lg shadow-md p-8 text-center">
-              <div className="text-5xl mb-4">👁️</div>
+              <div className="text-5xl mb-4">👀</div>
               <h3 className="text-xl font-bold mb-3 text-gray-900">No Cost to View</h3>
               <p className="text-gray-600">Browse all available opportunities and church profiles. Search, filter, and explore without any fees or hidden costs.</p>
             </div>
             <div className="bg-white rounded-lg shadow-md p-8 text-center">
-              <div className="text-5xl mb-4">📝</div>
+              <div className="text-5xl mb-4">✍️</div>
               <h3 className="text-xl font-bold mb-3 text-gray-900">No Cost to Post</h3>
               <p className="text-gray-600">Share your resume, availability, and ministry information for free.</p>
             </div>
@@ -129,22 +129,22 @@ export default function Home() {
           <h2 className="text-4xl font-bold text-center mb-12">How It Works</h2>
           <div className="grid md:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="text-5xl mb-4">📝</div>
+              <div className="text-5xl mb-4">�</div>
               <h3 className="text-xl font-bold mb-2 text-gray-900">Join</h3>
               <p className="text-gray-600">Sign up as an evangelist and create your profile</p>
             </div>
             <div className="text-center">
-              <div className="text-5xl mb-4">📅</div>
+              <div className="text-5xl mb-4">🗓️</div>
               <h3 className="text-xl font-bold mb-2 text-gray-900">Build Your Calendar</h3>
               <p className="text-gray-600">Evangelists share availability and service preferences</p>
             </div>
             <div className="text-center">
-              <div className="text-5xl mb-4">🔍</div>
+              <div className="text-5xl mb-4">🤝</div>
               <h3 className="text-xl font-bold mb-2 text-gray-900">Find & Connect</h3>
               <p className="text-gray-600">Search and apply for opportunities</p>
             </div>
             <div className="text-center">
-              <div className="text-5xl mb-4">😊</div>
+              <div className="text-5xl mb-4">🎉</div>
               <h3 className="text-xl font-bold mb-2 text-gray-900">Confirm & Serve</h3>
               <p className="text-gray-600">Receive messages from churches with opportunities, review offers, accept, and prepare for the service</p>
             </div>
