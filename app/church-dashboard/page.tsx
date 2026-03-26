@@ -90,7 +90,7 @@ export default function ChurchDashboardPage() {
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 mb-12">
           <Link href="/listings/new" className="block">
             <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition border-t-4 border-green-600 cursor-pointer hover:translate-y-[-4px]">
               <div className="text-4xl mb-3">📝</div>
@@ -129,6 +129,14 @@ export default function ChurchDashboardPage() {
               <div className="text-4xl mb-3">🔍</div>
               <h2 className="text-xl font-bold text-gray-900 mb-2">Find Candidates</h2>
               <p className="text-gray-600 text-sm">Search and filter available preachers</p>
+            </div>
+          </Link>
+
+          <Link href="/church-dashboard/analytics" className="block">
+            <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition border-t-4 border-green-600 cursor-pointer hover:translate-y-[-4px]">
+              <div className="text-4xl mb-3">📈</div>
+              <h2 className="text-xl font-bold text-gray-900 mb-2">Analytics</h2>
+              <p className="text-gray-600 text-sm">View recruitment metrics and pipeline</p>
             </div>
           </Link>
         </div>
