@@ -1,10 +1,35 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
 import Logo from '@/components/Logo'
 import Footer from '@/components/Footer'
 
 export default function Home() {
+  const [selectedCountry, setSelectedCountry] = useState('')
+
+  const canadianProvinces = [
+    'Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador',
+    'Northwest Territories', 'Nova Scotia', 'Nunavut', 'Ontario', 'Prince Edward Island',
+    'Quebec', 'Saskatchewan', 'Yukon'
+  ]
+
+  const usStates = [
+    'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut',
+    'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa',
+    'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan',
+    'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
+    'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio',
+    'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota',
+    'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia',
+    'Wisconsin', 'Wyoming'
+  ]
+
+  const getRegions = () => {
+    if (selectedCountry === 'canada') return canadianProvinces
+    if (selectedCountry === 'usa') return usStates
+    return []
+  }
   return (
     <main className="min-h-screen bg-gray-50">
       {/* Navigation Bar */}
@@ -81,17 +106,24 @@ export default function Home() {
           <div className="bg-white rounded-lg shadow-lg p-6 mb-12 max-w-4xl mx-auto">
             <div className="flex flex-col md:flex-row gap-3">
               <select 
+                value={selectedCountry}
+                onChange={(e) => setSelectedCountry(e.target.value)}
                 className="px-4 py-3 text-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white border border-gray-300"
               >
                 <option value="">Select Country</option>
                 <option value="canada">Canada</option>
                 <option value="usa">United States</option>
               </select>
-              <select 
-                className="px-4 py-3 text-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white border border-gray-300"
-              >
-                <option value="">State or Province</option>
-              </select>
+              {selectedCountry && (
+                <select 
+                  className="px-4 py-3 text-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white border border-gray-300"
+                >
+                  <option value="">Select {selectedCountry === 'canada' ? 'Province' : 'State'}</option>
+                  {getRegions().map((region) => (
+                    <option key={region} value={region}>{region}</option>
+                  ))}
+                </select>
+              )}
               <input 
                 type="text" 
                 placeholder="Search Jobs" 
