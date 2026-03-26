@@ -7,6 +7,7 @@ import Footer from '@/components/Footer'
 
 export default function Home() {
   const [selectedCountry, setSelectedCountry] = useState('')
+  const [selectedRegion, setSelectedRegion] = useState('')
 
   const canadianProvinces = [
     'Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador',
@@ -25,10 +26,83 @@ export default function Home() {
     'Wisconsin', 'Wyoming'
   ]
 
+  const citiesByRegion = {
+    // Canadian Provinces
+    'Alberta': ['Calgary', 'Edmonton', 'Red Deer', 'Lethbridge', 'Medicine Hat', 'Grande Prairie', 'Airdrie', 'Cochrane', 'Canmore', 'Fort McMurray'],
+    'British Columbia': ['Vancouver', 'Victoria', 'Burnaby', 'Coquitlam', 'Surrey', 'Kelowna', 'Kamloops', 'Nanaimo', 'Prince George', 'Vernon'],
+    'Manitoba': ['Winnipeg', 'Brandon', 'Missoula', 'Steinbach', 'Selkirk', 'Dauphin', 'Thompson', 'Winkler', 'Morden', 'Portage la Prairie'],
+    'New Brunswick': ['Saint John', 'Fredericton', 'Moncton', 'Bathurst', 'Miramichi', 'Edmundston', 'Saint-Basile', 'Shediac', 'Dieppe', 'Campbellton'],
+    'Newfoundland and Labrador': ['St. John\'s', 'Corner Brook', 'Grand Falls-Windsor', 'Gander', 'Happy Valley-Goose Bay', 'Labrador City', 'Conception Bay South', 'Carbonear', 'Stephenville', 'Bonavista'],
+    'Northwest Territories': ['Yellowknife', 'Hay River', 'Inuvik', 'Fort Smith', 'Dettah', 'Behchoko', 'Rae Lakes', 'Tuktoyaktuk', 'Norman Wells', 'Aklavik'],
+    'Nova Scotia': ['Halifax', 'Cape Breton', 'Sydney', 'Glace Bay', 'New Glasgow', 'Truro', 'Dartmouth', 'Amherst', 'Antigonish', 'Bridgewater'],
+    'Nunavut': ['Iqaluit', 'Rankin Inlet', 'Arviat', 'Baker Lake', 'Whale Cove', 'Chesterfield Inlet', 'Cambridge Bay', 'Kugluktuk', 'Yellowknife', 'Grise Fiord'],
+    'Ontario': ['Toronto', 'Ottawa', 'Hamilton', 'London', 'Mississauga', 'Brampton', 'Kingston', 'Thunder Bay', 'Kitchener', 'Windsor'],
+    'Prince Edward Island': ['Charlottetown', 'Summerside', 'Stratford', 'Montague', 'Souris', 'Alberton', 'Kensington', 'Georgetown', 'Tignish', 'Brackley'],
+    'Quebec': ['Montreal', 'Quebec City', 'Gatineau', 'Laval', 'Longueuil', 'Sherbrooke', 'Trois-Rivières', 'Terrebonne', 'Saint-Jérôme', 'Rimouski'],
+    'Saskatchewan': ['Saskatoon', 'Regina', 'Prince Albert', 'Moose Jaw', 'Yorkton', 'Swift Current', 'North Battleford', 'Estevan', 'Melfort', 'Kindersley'],
+    'Yukon': ['Whitehorse', 'Dawson City', 'Watson Lake', 'Haines Junction', 'Carmacks', 'Mayo', 'Faro', 'Carcross', 'Teslin', 'Old Crow'],
+    
+    // US States
+    'Alabama': ['Birmingham', 'Montgomery', 'Mobile', 'Huntsville', 'Tuscaloosa', 'Auburn', 'Dothan', 'Gadsden', 'Anniston', 'Florence'],
+    'Alaska': ['Anchorage', 'Juneau', 'Fairbanks', 'Kodiak', 'Palmer', 'Sitka', 'Ketchikan', 'Wasilla', 'Valdez', 'Homer'],
+    'Arizona': ['Phoenix', 'Mesa', 'Chandler', 'Scottsdale', 'Glendale', 'Gilbert', 'Tempe', 'Peoria', 'Surprise', 'Tucson'],
+    'Arkansas': ['Little Rock', 'Fort Smith', 'Fayetteville', 'Springdale', 'Jonesboro', 'Conway', 'Rogers', 'Pine Bluff', 'Bentonville', 'Texarkana'],
+    'California': ['Los Angeles', 'San Francisco', 'San Diego', 'Sacramento', 'Oakland', 'Long Beach', 'Fresno', 'San Jose', 'Anaheim', 'Riverside'],
+    'Colorado': ['Denver', 'Colorado Springs', 'Aurora', 'Fort Collins', 'Lakewood', 'Pueblo', 'Boulder', 'Greeley', 'Broomfield', 'Trinidad'],
+    'Connecticut': ['Bridgeport', 'New Haven', 'Waterbury', 'Stamford', 'Norwalk', 'Hartford', 'New Britain', 'West Hartford', 'Danbury', 'Torrington'],
+    'Delaware': ['Wilmington', 'Dover', 'Newark', 'Smyrna', 'Middletown', 'Milford', 'DuPont', 'Elsmere', 'New Castle', 'Laurel'],
+    'Florida': ['Jacksonville', 'Miami', 'Tampa', 'Orlando', 'St. Petersburg', 'Hialeah', 'Fort Lauderdale', 'Palm Bay', 'Tallahassee', 'Fort Myers'],
+    'Georgia': ['Atlanta', 'Augusta', 'Columbus', 'Savannah', 'Athens', 'Macon', 'Marietta', 'Johns Creek', 'Alpharetta', 'Sandy Springs'],
+    'Hawaii': ['Honolulu', 'Hilo', 'Kailua', 'Kaneohe', 'Wailuku', 'Lahaina', 'Kaunakakai', 'Kapaa', 'Lihue', 'Mililani'],
+    'Idaho': ['Boise', 'Nampa', 'Meridian', 'Idaho Falls', 'Pocatello', 'Caldwell', 'Coeur d\'Alene', 'Twin Falls', 'Lewiston', 'Moscow'],
+    'Illinois': ['Chicago', 'Aurora', 'Rockford', 'Joliet', 'Naperville', 'Springfield', 'Peoria', 'Elgin', 'Cicero', 'Champaign'],
+    'Indiana': ['Indianapolis', 'Fort Wayne', 'Evansville', 'South Bend', 'Bloomington', 'Gary', 'Muncie', 'Carmel', 'Fishers', 'Marion'],
+    'Iowa': ['Des Moines', 'Cedar Rapids', 'Davenport', 'Iowa City', 'Dubuque', 'Waterloo', 'Council Bluffs', 'Ames', 'Sioux City', 'Cedar Falls'],
+    'Kansas': ['Wichita', 'Overland Park', 'Kansas City', 'Topeka', 'Olathe', 'Lawrence', 'Shawnee', 'Manhattan', 'Salina', 'Hutchinson'],
+    'Kentucky': ['Louisville', 'Lexington', 'Bowling Green', 'Owensboro', 'Covington', 'Hopkinsville', 'Richmond', 'Paducah', 'Florence', 'Georgetown'],
+    'Louisiana': ['New Orleans', 'Baton Rouge', 'Shreveport', 'Lafayette', 'Lake Charles', 'Monroe', 'Alexandria', 'Houma', 'Kenner', 'Metairie'],
+    'Maine': ['Portland', 'Lewiston', 'Bangor', 'Augusta', 'South Portland', 'Auburn', 'Biddeford', 'Sanford', 'Westbrook', 'Waterville'],
+    'Maryland': ['Baltimore', 'Columbia', 'Towson', 'Gaithersburg', 'Bowie', 'Frederick', 'Rockville', 'Annapolis', 'Silver Spring', 'Salisbury'],
+    'Massachusetts': ['Boston', 'Worcester', 'Springfield', 'Lowell', 'Cambridge', 'New Bedford', 'Brockton', 'Quincy', 'Lynn', 'Fall River'],
+    'Michigan': ['Detroit', 'Grand Rapids', 'Warren', 'Sterling Heights', 'Ann Arbor', 'Lansing', 'Flint', 'Dearborn', 'Livonia', 'Kalamazoo'],
+    'Minnesota': ['Minneapolis', 'St. Paul', 'Rochester', 'Duluth', 'Bloomington', 'Plymouth', 'St. Cloud', 'Moorhead', 'Minnetonka', 'Burnsville'],
+    'Mississippi': ['Jackson', 'Gulfport', 'Biloxi', 'Hattiesburg', 'Meridian', 'Madison', 'Greenville', 'Vicksburg', 'Laurel', 'Tupelo'],
+    'Missouri': ['Kansas City', 'St. Louis', 'Springfield', 'Independence', 'Columbia', 'Jefferson City', 'Joplin', 'Lee\'s Summit', 'O\'Fallon', 'Saint Joseph'],
+    'Montana': ['Billings', 'Missoula', 'Great Falls', 'Bozeman', 'Butte', 'Helena', 'Kalispell', 'Havre', 'Miles City', 'Anaconda'],
+    'Nebraska': ['Omaha', 'Lincoln', 'Bellevue', 'Grand Island', 'Kearney', 'Fremont', 'Hastings', 'North Platte', 'Columbus', 'Papillion'],
+    'Nevada': ['Las Vegas', 'Henderson', 'Reno', 'Paradise', 'North Las Vegas', 'Sparks', 'Carson City', 'Elko', 'Winnemucca', 'Mesquite'],
+    'New Hampshire': ['Manchester', 'Nashua', 'Concord', 'Portsmouth', 'Derry', 'Rochester', 'Dover', 'Hudson', 'Salem', 'Laconia'],
+    'New Jersey': ['Newark', 'Jersey City', 'Paterson', 'Elizabeth', 'Trenton', 'Clifton', 'Camden', 'Atlantic City', 'Irvington', 'Toms River'],
+    'New Mexico': ['Albuquerque', 'Las Cruces', 'Rio Rancho', 'Santa Fe', 'Roswell', 'Gallup', 'Clovis', 'Hobbs', 'Farmington', 'Carlsbad'],
+    'New York': ['New York City', 'Buffalo', 'Rochester', 'Yonkers', 'Syracuse', 'Albany', 'New Rochelle', 'Utica', 'Mount Vernon', 'Schenectady'],
+    'North Carolina': ['Charlotte', 'Raleigh', 'Greensboro', 'Durham', 'Winston-Salem', 'Fayetteville', 'Cary', 'Wilmington', 'High Point', 'Greenville'],
+    'North Dakota': ['Bismarck', 'Fargo', 'Grand Forks', 'Minot', 'Williston', 'Dickinson', 'Mandan', 'Jamestown', 'Watford City', 'Valley City'],
+    'Ohio': ['Columbus', 'Cleveland', 'Cincinnati', 'Toledo', 'Akron', 'Dayton', 'Parma', 'Canton', 'Youngstown', 'Lorain'],
+    'Oklahoma': ['Oklahoma City', 'Tulsa', 'Norman', 'Broken Arrow', 'Lawton', 'Edmond', 'Moore', 'Midwest City', 'Enid', 'Stillwater'],
+    'Oregon': ['Portland', 'Eugene', 'Salem', 'Gresham', 'Hillsboro', 'Bend', 'Medford', 'Springfield', 'Corvallis', 'Grants Pass'],
+    'Pennsylvania': ['Philadelphia', 'Pittsburgh', 'Allentown', 'Erie', 'Reading', 'Scranton', 'Bethlehem', 'Lancaster', 'Harrisburg', 'Altoona'],
+    'Rhode Island': ['Providence', 'Warwick', 'Cranston', 'Pawtucket', 'Newport', 'Woonsocket', 'North Providence', 'West Warwick', 'Coventry', 'Middletown'],
+    'South Carolina': ['Charleston', 'Columbia', 'Greenville', 'Spartanburg', 'Sumter', 'Florence', 'Goose Creek', 'Rock Hill', 'Hilton Head Island', 'Beaufort'],
+    'South Dakota': ['Sioux Falls', 'Rapid City', 'Aberdeen', 'Brookings', 'Watertown', 'Mitchell', 'Pierre', 'Yankton', 'Huron', 'Spearfish'],
+    'Tennessee': ['Memphis', 'Nashville', 'Knoxville', 'Chattanooga', 'Clarksville', 'Murfreesboro', 'Jackson', 'Johnson City', 'Franklin', 'Bartlett'],
+    'Texas': ['Houston', 'Dallas', 'San Antonio', 'Austin', 'Fort Worth', 'El Paso', 'Arlington', 'Corpus Christi', 'Plano', 'Laredo'],
+    'Utah': ['Salt Lake City', 'Provo', 'West Jordan', 'Orem', 'Sandy', 'Ogden', 'St. George', 'Layton', 'Draper', 'Lehi'],
+    'Vermont': ['Burlington', 'Rutland', 'Montpelier', 'Barre', 'Bennington', 'St. Albans', 'Brattleboro', 'Winooski', 'Middlebury', 'South Burlington'],
+    'Virginia': ['Virginia Beach', 'Richmond', 'Arlington', 'Alexandria', 'Roanoke', 'Blacksburg', 'Charlottesville', 'Leesburg', 'Harrisonburg', 'Christiansburg'],
+    'Washington': ['Seattle', 'Spokane', 'Tacoma', 'Vancouver', 'Bellevue', 'Kent', 'Everett', 'Renton', 'Bellingham', 'Federal Way'],
+    'West Virginia': ['Charleston', 'Huntington', 'Parkersburg', 'Wheeling', 'Weirton', 'Fairmont', 'Martinsburg', 'Morgantown', 'Beckley', 'Princeton'],
+    'Wisconsin': ['Milwaukee', 'Madison', 'Green Bay', 'Kenosha', 'Racine', 'Appleton', 'Waukesha', 'Eau Claire', 'Oshkosh', 'Janesville'],
+    'Wyoming': ['Cheyenne', 'Laramie', 'Casper', 'Gillette', 'Rock Springs', 'Sheridan', 'Jackson', 'Powell', 'Cody', 'Riverton']
+  }
+
   const getRegions = () => {
     if (selectedCountry === 'canada') return canadianProvinces
     if (selectedCountry === 'usa') return usStates
     return []
+  }
+
+  const getCities = () => {
+    return citiesByRegion[selectedRegion] || []
   }
   return (
     <main className="min-h-screen bg-gray-50">
@@ -103,11 +177,14 @@ export default function Home() {
           <p className="text-lg md:text-xl text-lime-200 text-center mb-12">Discover church jobs across Canada and the United States.</p>
 
           {/* Search Box */}
-          <div className="bg-white rounded-lg shadow-lg p-6 mb-12 max-w-4xl mx-auto">
+          <div className="bg-white rounded-lg shadow-lg p-6 mb-12 max-w-5xl mx-auto">
             <div className="flex flex-col md:flex-row gap-3">
               <select 
                 value={selectedCountry}
-                onChange={(e) => setSelectedCountry(e.target.value)}
+                onChange={(e) => {
+                  setSelectedCountry(e.target.value)
+                  setSelectedRegion('')
+                }}
                 className="px-4 py-3 text-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white border border-gray-300"
               >
                 <option value="">Select Country</option>
@@ -116,11 +193,23 @@ export default function Home() {
               </select>
               {selectedCountry && (
                 <select 
+                  value={selectedRegion}
+                  onChange={(e) => setSelectedRegion(e.target.value)}
                   className="px-4 py-3 text-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white border border-gray-300"
                 >
                   <option value="">Select {selectedCountry === 'canada' ? 'Province' : 'State'}</option>
                   {getRegions().map((region) => (
                     <option key={region} value={region}>{region}</option>
+                  ))}
+                </select>
+              )}
+              {selectedRegion && (
+                <select 
+                  className="px-4 py-3 text-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white border border-gray-300"
+                >
+                  <option value="">Select City, Town</option>
+                  {getCities().map((city) => (
+                    <option key={city} value={city}>{city}</option>
                   ))}
                 </select>
               )}
