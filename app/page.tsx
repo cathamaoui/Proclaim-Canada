@@ -91,11 +91,11 @@ export default function Home() {
       </div>
 
       {/* CTA Section */}
-      <div className="bg-gradient-to-r from-lime-300 to-lime-400 text-white py-12">
+      <div className="bg-gradient-to-r from-lime-100 to-lime-50 text-gray-900 py-12">
         <div className="max-w-6xl mx-auto text-center px-4">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">Ready to Share Your Calling?</h2>
-          <p className="text-lg md:text-xl mb-8 text-lime-100">Whether you're an evangelist, preacher, or worship leader, let us help you reach the churches that need you.</p>
-          <Link href="/auth/signup?type=preacher" className="inline-block bg-white hover:bg-gray-100 text-lime-600 px-8 py-4 rounded-lg font-bold transition text-lg">
+          <p className="text-lg md:text-xl mb-8 text-gray-700">Whether you're an evangelist, preacher, or worship leader, let us help you reach the churches that need you.</p>
+          <Link href="/auth/signup?type=preacher" className="inline-block bg-lime-600 hover:bg-lime-700 text-white px-8 py-4 rounded-lg font-bold transition text-lg">
             Join as Evangelist
           </Link>
         </div>
