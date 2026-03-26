@@ -173,7 +173,7 @@ export default function Home() {
           <h1 className="text-5xl md:text-7xl font-bold text-white text-center mb-6 leading-tight drop-shadow-lg">
             Proclaim. Evangelize. Serve.
           </h1>
-          <p className="text-xl md:text-2xl text-lime-100 text-center mb-6 font-semibold drop-shadow-md">Your Next Ministry Assignment Starts Here.</p>
+          <p className="text-xl md:text-2xl text-white text-center mb-6 font-semibold drop-shadow-md">Your Next Ministry Assignment Starts Here.</p>
           <p className="text-base md:text-lg text-lime-200 text-center mb-16 drop-shadow-sm">Discover church jobs across Canada and the United States.</p>
 
           {/* Search Box */}
