@@ -21,3 +21,16 @@ a {
 button {
   @apply transition-all;
 }
+
+@keyframes glow-border {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(132, 204, 22, 0.5), inset 0 0 5px rgba(132, 204, 22, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(132, 204, 22, 0.8), inset 0 0 10px rgba(132, 204, 22, 0.4);
+  }
+}
+
+.glow-border {
+  animation: glow-border 2s ease-in-out infinite;
+}

@@ -139,7 +139,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-center mb-12">How It Works</h2>
           <div className="grid md:grid-cols-4 gap-8">
-            <Link href="/auth/signup?type=preacher" className="text-center hover:scale-105 transition-transform border-2 border-lime-500 rounded-lg p-6">
+            <Link href="/auth/signup?type=preacher" className="text-center hover:scale-105 transition-transform border-2 border-lime-500 rounded-lg p-6 glow-border">
               <svg className="w-16 h-16 mx-auto mb-4 text-lime-600" fill="none" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <path d="M50 15L35 50v35h30V50z" fill="currentColor" opacity="0.2" stroke="currentColor" strokeWidth="2"/>
                 <path d="M50 20v30M40 35h20M45 55h10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
