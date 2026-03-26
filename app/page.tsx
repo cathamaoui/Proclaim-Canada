@@ -77,6 +77,20 @@ export default function Home() {
           <p className="text-2xl md:text-3xl text-white text-center mb-4 font-semibold">Your Next Ministry Assignment Starts Here.</p>
           <p className="text-lg md:text-xl text-lime-200 text-center mb-12">Discover church jobs across Canada and the United States.</p>
 
+          {/* Search Box */}
+          <div className="bg-white rounded-lg shadow-lg p-6 mb-12 max-w-2xl mx-auto">
+            <div className="flex flex-col md:flex-row gap-3">
+              <input 
+                type="text" 
+                placeholder="Search Jobs" 
+                className="flex-1 px-4 py-3 text-gray-700 placeholder-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded font-semibold transition whitespace-nowrap">
+                Search Church Jobs
+              </button>
+            </div>
+          </div>
+
           {/* CTA Button */}
           <div className="flex justify-center">
             <Link
