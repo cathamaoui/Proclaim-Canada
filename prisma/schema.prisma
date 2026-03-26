@@ -310,23 +310,25 @@ enum ListingStatus {
 }
 
 model Application {
-  id          String   @id @default(cuid())
-  listingId   String
-  applicantId String
-  status      ApplicationStatus @default(PENDING)
-  coverLetter String?  @db.Text
-  appliedAt   DateTime @default(now())
-  respondedAt DateTime?
-  updatedAt   DateTime @updatedAt
+  id              String   @id @default(cuid())
+  listingId       String
+  applicantId     String
+  status          ApplicationStatus @default(PENDING)
+  pipelineStatus  PipelineStatus @default(APPLIED)
+  coverLetter     String?  @db.Text
+  appliedAt       DateTime @default(now())
+  respondedAt     DateTime?
+  updatedAt       DateTime @updatedAt
 
-  listing     ChurchListing @relation(fields: [listingId], references: [id], onDelete: Cascade)
-  applicant   User          @relation(fields: [applicantId], references: [id], onDelete: Cascade)
-  answers     ApplicationAnswer[]
+  listing         ChurchListing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  applicant       User          @relation(fields: [applicantId], references: [id], onDelete: Cascade)
+  answers         ApplicationAnswer[]
 
   @@unique([listingId, applicantId])
   @@index([listingId])
   @@index([applicantId])
   @@index([status])
+  @@index([pipelineStatus])
 }
 
 model ApplicationQuestion {
@@ -367,6 +369,16 @@ model ApplicationAnswer {
 enum ApplicationStatus {
   PENDING
   ACCEPTED
+  REJECTED
+  WITHDRAWN
+}
+
+enum PipelineStatus {
+  APPLIED
+  REVIEWED
+  INTERVIEWED
+  OFFERED
+  HIRED
   REJECTED
   WITHDRAWN
 }
