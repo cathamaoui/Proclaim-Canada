@@ -8,6 +8,38 @@ import Logo from '@/components/Logo'
 import PreacherTicker from '@/components/PreacherTicker'
 import Footer from '@/components/Footer'
 
+const PRICING_PLANS = [
+  {
+    id: 'multi-3-months',
+    duration: '3 months',
+    days: '90 days - unlimited postings',
+    price: '$285',
+    pricePerMonth: '$95/month',
+    description: 'For active recruiting seasons',
+    incentive: '+ 3 Months Full Access\n✓ Includes Free Registration\n✓ Unlimited Job Postings',
+  },
+  {
+    id: 'multi-6-months',
+    duration: '6 months',
+    days: '180 days - unlimited postings',
+    price: '$510',
+    pricePerMonth: '$85/month',
+    description: 'Great for ongoing needs',
+    incentive: '+ 6 Months Full Access\n✓ Includes Free Registration\n✓ Unlimited Job Postings',
+  },
+  {
+    id: 'multi-yearly',
+    duration: 'Annual Unlimited',
+    days: '365 days - unlimited postings',
+    price: '$900',
+    badge: 'BEST VALUE',
+    badgeColor: 'bg-lime-600',
+    pricePerMonth: '$75/month',
+    description: 'Maximum flexibility for your church',
+    incentive: '+ 12 Months Full Access\n✓ Includes Free Registration\n✓ Unlimited Job Postings',
+  },
+]
+
 const REGIONS = {
   'Canada': {
     'Alberta': ['Calgary', 'Edmonton', 'Red Deer', 'Lethbridge', 'Airdrie', 'Okotoks', 'Fort McMurray', 'Grande Prairie', 'Lacombe', 'Camrose', 'Banff', 'Canmore', 'Brooks', 'Medicine Hat', 'Drumheller', 'Strathmore'],
@@ -121,12 +153,12 @@ export default function ChurchHomePage() {
       )}
 
       {/* Navigation Bar */}
-      <nav className="bg-gradient-to-r from-slate-800 to-slate-900 text-white shadow-lg sticky top-0 z-50">
+      <nav className="bg-gradient-to-r from-lime-500 to-lime-600 text-white shadow-lg sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex justify-between items-center">
             <Link href="/" className="flex items-center gap-2 text-2xl font-bold">
               <Logo />
-              <span><span className="text-white">Proclaim </span><span className="text-lime-300">Canada</span></span>
+              <span><span className="text-white">Proclaim </span><span className="text-slate-900">Canada</span></span>
             </Link>
             <div className="hidden md:flex items-center gap-8">
               <a href="#features" className="text-slate-100 hover:text-white transition font-medium">
@@ -155,7 +187,7 @@ export default function ChurchHomePage() {
       </nav>
 
       {/* Hero Section with Background */}
-      <section className="relative min-h-screen bg-cover bg-center overflow-hidden flex items-center justify-center"
+      <section className="relative py-16 px-4 sm:px-6 lg:px-8 bg-cover bg-center overflow-hidden"
         style={{
           backgroundImage: 'linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(51, 65, 85, 0.7) 100%), url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 600%22%3E%3Crect fill=%22%234b5563%22 width=%221200%22 height=%22600%22/%3E%3Ccircle cx=%22200%22 cy=%22100%22 r=%2280%22 fill=%22%236b7485%22 opacity=%220.5%22/%3E%3Ccircle cx=%221000%22 cy=%22500%22 r=%22150%22 fill=%22%236b7485%22 opacity=%220.3%22/%3E%3Crect x=%22400%22 y=%22250%22 width=%22400%22 height=%22200%22 fill=%22%236b7485%22 opacity=%220.2%22 rx=%2220%22/%3E%3C/svg%3E")'
         }}>
@@ -177,103 +209,29 @@ export default function ChurchHomePage() {
           >
             Register for free
           </Link>
-
-          {/* Search Form */}
-          <form onSubmit={handleSearch} className="bg-white rounded-lg shadow-xl p-6 mt-8 max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-4 gap-4 items-end">
-              {/* Country Dropdown */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Country</label>
-                <select
-                  value={country}
-                  onChange={(e) => {
-                    setCountry(e.target.value)
-                    setRegion('')
-                    setCity('')
-                  }}
-                  className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  <option value="">Select a Country</option>
-                  <option value="Canada">Canada</option>
-                  <option value="United States">United States</option>
-                </select>
-              </div>
-
-              {/* State/Province Dropdown */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  {country === 'Canada' ? 'Province' : country === 'United States' ? 'State' : 'Region'}
-                </label>
-                <select
-                  value={region}
-                  onChange={(e) => {
-                    setRegion(e.target.value)
-                    setCity('')
-                  }}
-                  disabled={!country}
-                  className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
-                >
-                  <option value="">Select a {country === 'Canada' ? 'Province' : country === 'United States' ? 'State' : 'Region'}</option>
-                  {regions.map((r) => (
-                    <option key={r} value={r}>
-                      {r}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* City Dropdown */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">City</label>
-                <select
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  disabled={!region}
-                  className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
-                >
-                  <option value="">Select a City</option>
-                  {cities.map((c) => (
-                    <option key={c} value={c}>
-                      {c}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Search Button */}
-              <button
-                type="submit"
-                className="bg-lime-500 hover:bg-lime-600 text-white px-6 py-3 rounded font-bold transition h-12"
-              >
-                Find Preachers
-              </button>
-            </div>
-          </form>
         </div>
       </section>
 
       {/* Value Proposition Section */}
-      <section className="py-12 bg-slate-900 relative">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="bg-slate-800 rounded-2xl shadow-lg p-8 text-center">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Let's grow your team together.
-            </h2>
-            <p className="text-xl text-slate-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-              With the help of hiring tools from Proclaim Canada, you'll reach hundreds of job seekers who are not only talented and qualified, but also aligned with your mission.
-            </p>
-            <Link
-              href="/listings/pricing"
-              className="inline-block bg-slate-800 hover:bg-slate-900 text-white px-10 py-4 rounded-lg font-bold text-lg transition transform hover:scale-105"
-            >
-              POST YOUR LISTING NOW!
-            </Link>
-          </div>
+      <section className="py-12 -mt-12 bg-gradient-to-b from-slate-700 to-slate-800 relative">
+        <div className="max-w-6xl mx-auto px-4 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            Let's grow your team together.
+          </h2>
+          <p className="text-xl text-slate-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+            With the help of hiring tools from Proclaim Canada, you'll reach hundreds of job seekers who are not only talented and qualified, but also aligned with your mission.
+          </p>
+          <Link
+            href="/listings/pricing"
+            className="inline-block bg-slate-800 hover:bg-slate-800 text-white px-10 py-4 rounded-lg font-bold text-lg transition shadow-lg hover:shadow-2xl hover:shadow-lime-500/50"
+          >
+            POST YOUR LISTING NOW!
+          </Link>
         </div>
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-12 bg-slate-900">
+      <section id="features" className="py-8 bg-slate-900">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-4xl font-bold text-center text-white mb-8">
             Included with your Listing Post
@@ -310,7 +268,7 @@ export default function ChurchHomePage() {
       </section>
 
       {/* How It Works */}
-      <section id="how-it-works" className="py-12 bg-slate-900">
+      <section id="how-it-works" className="py-8 bg-slate-900">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-4xl font-bold text-center text-white mb-8">
             How It Works
@@ -367,7 +325,7 @@ export default function ChurchHomePage() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-12 bg-slate-900">
+      <section id="pricing" className="py-8 bg-slate-900">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-4xl font-bold text-center text-white mb-4">
             View A Few Simple Plans
@@ -376,95 +334,69 @@ export default function ChurchHomePage() {
             Whether you need an urgent posting or year-round staffing, we have a plan for you.
           </p>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                badge: 'URGENT',
-                name: 'Immediate Call',
-                duration: '3 days',
-                price: '$50',
-                features: ['Quick turnaround', 'Job post distribution', 'Application management']
-              },
-              {
-                name: '1 Month',
-                duration: '30 days',
-                price: '$99',
-                features: ['30-day listing', 'Job post distribution', 'Application management', '1 Month Browse Access'],
-                highlight: true
-              },
-              {
-                badge: 'BEST VALUE',
-                name: 'Unlimited Yearly',
-                duration: '365 days',
-                price: '$1,700',
-                features: ['Unlimited postings', 'Full year access', 'Job post distribution', '12 Months Browse Access']
-              },
-            ].map((plan, idx) => (
+          <div className="grid md:grid-cols-3 gap-6">
+            {PRICING_PLANS.map((plan, idx) => (
               <div
                 key={idx}
-                className={`rounded-xl transition transform hover:scale-105 relative ${
-                  plan.highlight
-                    ? 'bg-gradient-to-br from-slate-700 to-slate-800 text-white shadow-xl ring-4 ring-slate-600 scale-105'
-                    : 'bg-slate-800 shadow-lg text-white'
+                className={`relative flex flex-col bg-white border rounded-lg p-4 shadow-sm hover:shadow-md transition min-h-full pt-12 ${
+                  plan.badge === 'BEST VALUE' ? 'border-lime-600 border-2' : 'border-gray-200'
                 }`}
-                style={plan.highlight ? { boxShadow: '0 20px 50px rgba(30, 41, 59, 0.5)' } : {}}
               >
                 {plan.badge && (
-                  <div className={`absolute -top-3 right-6 px-4 py-1 rounded-full text-sm font-bold text-white ${
-                    plan.badge === 'BEST VALUE' ? 'bg-slate-800' : 'bg-red-600'
-                  }`}>
+                  <div className={`absolute top-2 right-2 ${plan.badgeColor || 'bg-lime-500'} text-white px-4 py-2 rounded-bl-lg text-sm font-bold`}>
                     {plan.badge}
                   </div>
                 )}
-                <div className="p-8">
-                  <h3 className={`text-2xl font-bold mb-2 ${plan.highlight ? 'text-white' : 'text-white'}`}>
-                    {plan.name}
-                  </h3>
-                  <p className={`text-sm mb-4 ${plan.highlight ? 'text-slate-300' : 'text-slate-400'}`}>
+                <div className="mb-3">
+                  <h3 className="text-xl font-bold text-gray-900 mb-1">
                     {plan.duration}
+                  </h3>
+                  <p className="text-sm text-gray-600 mb-2">
+                    {plan.days}
                   </p>
-                  <div className={`text-4xl font-black mb-6 ${plan.highlight ? 'text-white' : 'text-slate-800'}`}>
-                    {plan.price}
+                  <div className="mb-1">
+                    <span className="text-3xl font-bold text-lime-600">
+                      {plan.price}
+                    </span>
                   </div>
-                  <ul className="space-y-3 mb-8">
-                    {plan.features.map((feature, fidx) => (
-                      <li key={fidx} className={`flex items-center gap-3 ${plan.highlight ? 'text-slate-200' : 'text-slate-300'}`}>
-                        <span className="text-xl">✓</span>
-                        <span className="text-sm">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Link
-                    href="/listings/pricing"
-                    className={`block w-full text-center py-3 rounded-lg font-bold transition ${
-                      plan.highlight
-                        ? 'bg-lime-500 text-white hover:bg-lime-600'
-                        : 'bg-slate-700 text-white hover:bg-slate-600'
-                    }`}
-                  >
-                    Choose Plan
-                  </Link>
+                  {plan.pricePerMonth && (
+                    <p className="text-sm text-lime-600 font-semibold">
+                      {plan.pricePerMonth}
+                    </p>
+                  )}
                 </div>
+                <p className="text-sm text-gray-600 mb-3 flex-1">
+                  {plan.description}
+                </p>
+                {plan.incentive && (
+                  <p className="text-sm text-lime-600 font-semibold mb-3 whitespace-pre-line">
+                    {plan.incentive}
+                  </p>
+                )}
+                <button
+                  onClick={() => window.location.href = `/auth/church-checkout?plan=${plan.id}`}
+                  className="w-full bg-lime-500 hover:bg-lime-600 text-white py-2 rounded-lg font-semibold transition"
+                >
+                  Choose Plan
+                </button>
               </div>
             ))}
           </div>
 
           <div className="mt-12 text-center">
-            <div className="inline-block bg-gradient-to-r from-slate-800 to-slate-700 rounded-xl p-8 border-2 border-slate-600 shadow-lg">
-              <Link
-                href="/listings/pricing"
-                className="inline-flex items-center gap-3 bg-gradient-to-r from-slate-700 to-slate-600 hover:from-slate-600 hover:to-slate-500 text-white px-8 py-4 rounded-lg font-bold text-lg transition transform hover:scale-105 shadow-md"
-              >
-                View all pricing options & multi-job packs
-                <span className="text-2xl">→</span>
-              </Link>
-            </div>
+            <Link
+              href="/listings/pricing"
+              className="inline-flex items-center gap-3 text-white hover:text-lime-400 font-bold text-lg transition"
+            >
+              View all pricing options & multi-job packs
+              <span className="text-2xl">→</span>
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Call to Action */}
-      <section className="py-12 bg-gradient-to-r from-slate-800 to-slate-900 text-white text-center">
+      <section className="py-8 bg-gradient-to-r from-slate-800 to-slate-900 text-white text-center">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-4xl font-bold mb-6">
             Ready to Build Your Team?
@@ -493,7 +425,7 @@ export default function ChurchHomePage() {
       </section>
 
       {/* Donation Section */}
-      <div className="bg-slate-900 py-10 px-4">
+      <div className="bg-slate-900 py-8 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex justify-center mb-6">
             <Logo />

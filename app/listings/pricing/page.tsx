@@ -21,15 +21,15 @@ const PRICING_PLANS = [
       {
         id: 'single-1-month',
         duration: '1 month',
-        days: '30 days',
         price: '$99',
+        totalPrice: '$99',
+        pricePerMonth: '$99/month',
         description: 'Perfect for one-time opportunities',
         incentive: '+ 1 Month Full Access\n✓ Includes Free Registration',
       },
       {
         id: 'single-2-months',
         duration: '2 months',
-        days: '60 days',
         pricePerMonth: '$92.50/month',
         totalPrice: '$185',
         description: 'Extended visibility',
@@ -38,7 +38,6 @@ const PRICING_PLANS = [
       {
         id: 'single-3-months',
         duration: '3 months',
-        days: '90 days',
         pricePerMonth: '$85/month',
         totalPrice: '$255',
         description: 'Better reach',
@@ -47,7 +46,6 @@ const PRICING_PLANS = [
       {
         id: 'single-6-months',
         duration: '6 months',
-        days: '180 days',
         pricePerMonth: '$75/month',
         totalPrice: '$450',
         description: 'Maximum exposure',
@@ -56,7 +54,6 @@ const PRICING_PLANS = [
       {
         id: 'unlimited-yearly',
         duration: 'Unlimited Yearly',
-        days: '365 days - unlimited postings',
         price: '$840',
         badge: 'BEST VALUE',
         badgeColor: 'bg-blue-600',
@@ -66,12 +63,11 @@ const PRICING_PLANS = [
     ],
   },
   {
-    category: 'Ongoing Unlimited Posting Subscriptions',
+    category: 'Unlimited Access Subscriptions',
     plans: [
       {
         id: 'multi-3-months',
         duration: '3 months',
-        days: '90 days - unlimited postings',
         price: '$285',
         pricePerMonth: '$95/month',
         description: 'For active recruiting seasons',
@@ -80,7 +76,6 @@ const PRICING_PLANS = [
       {
         id: 'multi-6-months',
         duration: '6 months',
-        days: '180 days - unlimited postings',
         price: '$510',
         pricePerMonth: '$85/month',
         description: 'Great for ongoing needs',
@@ -89,7 +84,6 @@ const PRICING_PLANS = [
       {
         id: 'multi-yearly',
         duration: 'Annual Unlimited',
-        days: '365 days - unlimited postings',
         price: '$900',
         badge: 'BEST VALUE',
         badgeColor: 'bg-blue-600',
@@ -188,47 +182,61 @@ export default function PricingPage() {
             <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
               {section.category}
             </h2>
-            <div className={`grid grid-cols-1 ${section.category === 'Subscription Options (1 Job Posting)' ? 'md:grid-cols-3 lg:grid-cols-6' : 'md:grid-cols-3'} gap-6 auto-rows-fr`}>
+            <div className={`grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-fr`}>
               {section.plans.map((plan, planIdx) => (
                 <div
                   key={planIdx}
-                  className={`relative flex flex-col bg-white border rounded-lg p-4 shadow-sm hover:shadow-md transition min-h-full pt-12 ${
+                  className={`relative flex flex-col bg-white border rounded-lg p-3 shadow-sm hover:shadow-md transition min-h-full pt-8 ${
                     'badge' in plan && plan.badge === 'BEST VALUE' ? 'border-blue-500 border-2' : 'badge' in plan ? 'border-lime-500 border-2' : 'border-gray-200'
                   }`}
                 >
                   {('badge' in plan) && (
-                    <div className={`absolute top-2 right-2 ${('badgeColor' in plan) ? plan.badgeColor : 'bg-lime-500'} text-white px-4 py-2 rounded-bl-lg text-sm font-bold`}>
+                    <div className={`absolute top-2 right-2 ${('badgeColor' in plan) ? plan.badgeColor : 'bg-lime-500'} text-white px-3 py-1 rounded-bl-lg text-xs font-bold`}>
                       {plan.badge}
                     </div>
                   )}
-                  <div className="mb-3">
+                  <div className="mb-2">
                     <h3 className="text-xl font-bold text-gray-900 mb-1">
-                      {'duration' in plan ? plan.duration : 'jobCount' in plan ? plan.jobCount : ''}
+                      {('duration' in plan && typeof plan.duration === 'string') ? plan.duration : ''}
                     </h3>
-                    <p className="text-sm text-gray-600 mb-2">
-                      {'days' in plan ? plan.days : ''}
-                    </p>
-                    <div className="mb-1">
-                      <span className="text-3xl font-bold text-lime-600">
-                        {'price' in plan ? plan.price : ''}
-                      </span>
-                    </div>
-                    {'pricePerMonth' in plan && (
-                      <p className="text-sm text-lime-600 font-semibold">
-                        {plan.pricePerMonth}
+                    {'days' in plan && (
+                      <p className="text-sm text-gray-600 mb-2">
+                        {'days' in plan ? plan.days : ''}
                       </p>
                     )}
+                    <div className="mb-1">
+                      <span className="text-3xl font-bold text-lime-600">
+                        {'totalPrice' in plan ? plan.totalPrice : ('price' in plan ? plan.price : '')}
+                      </span>
+                    </div>
                     {'pricePerPosting' in plan && (
                       <p className="text-sm text-gray-600">
-                        {plan.pricePerPosting}
+                        {String(plan.pricePerPosting)}
                       </p>
                     )}
                   </div>
-                  <p className="text-sm text-gray-600 mb-3 flex-1">
+                  <p className="text-sm text-gray-600 mb-2 flex-1">
                     {plan.description}
                   </p>
+                  <div className="mb-3 py-3 border-t border-gray-200">
+                    <p className="text-xs font-semibold text-gray-700 mb-2">What's Included:</p>
+                    <ul className="space-y-1">
+                      <li className="text-xs text-gray-600 flex items-start gap-2">
+                        <span className="text-lime-600 font-bold">✓</span>
+                        <span>Access to resumes</span>
+                      </li>
+                      <li className="text-xs text-gray-600 flex items-start gap-2">
+                        <span className="text-lime-600 font-bold">✓</span>
+                        <span>Access to pastor's contact info</span>
+                      </li>
+                      <li className="text-xs text-gray-600 flex items-start gap-2">
+                        <span className="text-lime-600 font-bold">✓</span>
+                        <span>{sectionIdx === 0 ? 'Posting 1 job opportunity' : 'Posting opportunities'}</span>
+                      </li>
+                    </ul>
+                  </div>
                   {'incentive' in plan && (
-                    <p className="text-sm text-lime-600 font-semibold mb-3 whitespace-pre-line">
+                    <p className="text-sm text-lime-600 font-semibold mb-2 whitespace-pre-line">
                       {plan.incentive}
                     </p>
                   )}
@@ -282,7 +290,7 @@ export default function PricingPage() {
           <div className="flex gap-4 justify-center flex-wrap">
             <button
               onClick={() => {
-                if (session?.user.role === 'CHURCH') {
+                if (session && session.user && 'role' in session.user && session.user.role === 'CHURCH') {
                   router.push('/listings/new')
                 } else {
                   router.push('/auth/signup?type=church&message=free-month')
