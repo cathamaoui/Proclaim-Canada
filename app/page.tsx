@@ -86,7 +86,7 @@ export default function Home() {
               Answer the Call
             </Link>
           </div>
-          <p className="text-sm text-white text-center mt-6">Looking to post a job? <Link href="/listings/pricing" className="underline hover:text-lime-200 transition">Click here</Link></p>
+          <p className="text-sm text-white text-center mt-6">Looking to post a job? <Link href="/listings/pricing" className="text-white underline hover:text-lime-200 transition">Click here</Link></p>
         </div>
       </div>
 
