@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import NotificationBell from '@/components/NotificationBell'
+import ProfileCompletionBanner from '@/components/ProfileCompletionBanner'
 
 export default function DashboardLayout({
   children,
@@ -167,6 +168,7 @@ export default function DashboardLayout({
 
           {/* Main Content */}
           <div className="md:col-span-3">
+            <ProfileCompletionBanner />
             {children}
           </div>
         </div>

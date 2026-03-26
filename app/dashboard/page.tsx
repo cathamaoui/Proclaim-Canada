@@ -3,6 +3,7 @@
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import ProfileCompletionWidget from '@/components/ProfileCompletionWidget'
 
 interface ListingStats {
   totalListings: number
@@ -141,6 +142,9 @@ export default function Dashboard() {
         <h1 className="text-2xl font-bold text-gray-900">
           Welcome back, {session.user.name || 'Evangelist'} 👋
         </h1>
+        
+        <ProfileCompletionWidget />
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-white rounded-lg shadow p-6">
             <div className="text-gray-600 text-sm font-semibold mb-2">Total Applications</div>

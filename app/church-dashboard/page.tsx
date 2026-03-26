@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react'
 import Logo from '@/components/Logo'
 import PreacherTicker from '@/components/PreacherTicker'
 import NotificationBell from '@/components/NotificationBell'
+import ProfileCompletionWidget from '@/components/ProfileCompletionWidget'
 
 export default function ChurchDashboardPage() {
   const { data: session } = useSession()
@@ -87,6 +88,11 @@ export default function ChurchDashboardPage() {
         {/* Preacher Ticker */}
         <div className="mb-12">
           <PreacherTicker />
+        </div>
+
+        {/* Profile Completion Widget */}
+        <div className="mb-12">
+          <ProfileCompletionWidget />
         </div>
 
         {/* Quick Actions */}
