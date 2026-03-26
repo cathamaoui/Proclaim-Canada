@@ -127,7 +127,12 @@ export default function Home() {
       <div id="how-it-works" className="bg-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-center mb-12">How It Works</h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-4 gap-8">
+            <div className="text-center">
+              <div className="text-5xl mb-4">📝</div>
+              <h3 className="text-xl font-bold mb-2 text-gray-900">Join</h3>
+              <p className="text-gray-600">Sign up as an evangelist and create your profile</p>
+            </div>
             <div className="text-center">
               <div className="text-5xl mb-4">📅</div>
               <h3 className="text-xl font-bold mb-2 text-gray-900">Build Your Calendar</h3>
@@ -136,12 +141,12 @@ export default function Home() {
             <div className="text-center">
               <div className="text-5xl mb-4">🔍</div>
               <h3 className="text-xl font-bold mb-2 text-gray-900">Find & Connect</h3>
-              <p className="text-gray-600">Churches search and connect with available speakers</p>
+              <p className="text-gray-600">Search and apply for opportunities</p>
             </div>
             <div className="text-center">
-              <div className="text-5xl mb-4">✅</div>
+              <div className="text-5xl mb-4">😊</div>
               <h3 className="text-xl font-bold mb-2 text-gray-900">Confirm & Serve</h3>
-              <p className="text-gray-600">Complete details and prepare for the service</p>
+              <p className="text-gray-600">Receive messages from churches with opportunities, review offers, accept, and prepare for the service</p>
             </div>
           </div>
         </div>
