@@ -1,51 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-
-const style = `
-  @keyframes fall {
-    0% {
-      transform: translateY(-100px);
-      opacity: 0;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-  .counter-fall {
-    animation: fall 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-  }
-`
-
 export default function PreacherTicker() {
-  const [count, setCount] = useState(0)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const fetchCount = async () => {
-      try {
-        const response = await fetch('/api/stats/preachers')
-        const data = await response.json()
-        setCount(data.count || 0)
-      } catch (error) {
-        console.error('Failed to fetch preacher count:', error)
-        setCount(0)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchCount()
-  }, [])
-
   return (
-    <>
-      <style>{style}</style>
-      <div className="relative w-16 h-20">
+    <div className="relative w-16 h-20">
         {/* Bible */}
         <svg className="absolute inset-0" viewBox="0 0 100 140" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -87,16 +44,6 @@ export default function PreacherTicker() {
           <line x1="68" y1="6" x2="68" y2="134" stroke="#5a6a7a" strokeWidth="3" opacity="0.7"/>
           <circle cx="68" cy="70" r="2.5" fill="#a0b0c0" opacity="0.5"/>
         </svg>
-        
-        {/* Counter with falling animation */}
-        <div className="absolute bottom-2 right-0 counter-fall">
-          <div className="bg-gradient-to-br from-lime-400 to-lime-500 text-white rounded-full w-10 h-10 flex items-center justify-center shadow-2xl ring-2 ring-white hover:shadow-lg transition-shadow">
-            <div className="text-center">
-              <p className="text-sm font-bold leading-tight">{loading ? '...' : count}+</p>
-            </div>
-          </div>
-        </div>
       </div>
-    </>
-  )
+    )
 }
