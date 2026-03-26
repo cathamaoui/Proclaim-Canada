@@ -117,7 +117,7 @@ export default function Home() {
             <div className="bg-white rounded-lg shadow-md p-8 text-center">
               <div className="text-5xl mb-4">📝</div>
               <h3 className="text-xl font-bold mb-3 text-gray-900">No Cost to Post</h3>
-              <p className="text-gray-600">Share your resume, availability, and ministry information for free. Churches can post opportunities at no charge either.</p>
+              <p className="text-gray-600">Share your resume, availability, and ministry information for free.</p>
             </div>
           </div>
         </div>
