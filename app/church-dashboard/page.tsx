@@ -114,19 +114,19 @@ export default function ChurchDashboardPage() {
             </div>
           </Link>
 
-          <Link href="/church-dashboard?tab=settings" className="block">
+          <Link href="/church-dashboard/messages" className="block">
             <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition border-t-4 border-green-600 cursor-pointer hover:translate-y-[-4px]">
-              <div className="text-4xl mb-3">⚙️</div>
-              <h2 className="text-xl font-bold text-gray-900 mb-2">Settings</h2>
-              <p className="text-gray-600 text-sm">Manage your church profile</p>
+              <div className="text-4xl mb-3">💬</div>
+              <h2 className="text-xl font-bold text-gray-900 mb-2">Messages</h2>
+              <p className="text-gray-600 text-sm">Send/receive messages with preachers</p>
             </div>
           </Link>
 
-          <Link href="/browse/preachers" className="block">
+          <Link href="/church-dashboard/candidates" className="block">
             <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition border-t-4 border-green-600 cursor-pointer hover:translate-y-[-4px]">
               <div className="text-4xl mb-3">🔍</div>
-              <h2 className="text-xl font-bold text-gray-900 mb-2">Search Resume Database</h2>
-              <p className="text-gray-600 text-sm">Find pastors by name or location</p>
+              <h2 className="text-xl font-bold text-gray-900 mb-2">Find Candidates</h2>
+              <p className="text-gray-600 text-sm">Search and filter available preachers</p>
             </div>
           </Link>
         </div>

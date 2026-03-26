@@ -148,6 +148,12 @@ export default function DashboardLayout({
                   </>
                 )}
                 <Link
+                  href="/dashboard/messages"
+                  className="block px-4 py-2 rounded-lg hover:bg-primary-50 text-gray-700 hover:text-primary-600"
+                >
+                  Messages
+                </Link>
+                <Link
                   href="/dashboard/profile"
                   className="block px-4 py-2 rounded-lg hover:bg-primary-50 text-gray-700 hover:text-primary-600"
                 >

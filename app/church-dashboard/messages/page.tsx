@@ -26,7 +26,7 @@ interface Conversation {
   unreadCount: number
 }
 
-export default function MessagesPage() {
+export default function ChurchMessagesPage() {
   const { data: session } = useSession()
   const router = useRouter()
   
