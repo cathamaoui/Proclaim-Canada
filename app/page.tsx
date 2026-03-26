@@ -74,7 +74,8 @@ export default function Home() {
           <h1 className="text-5xl md:text-6xl font-bold text-white text-center mb-4">
             Proclaim. Evangelize. Serve.
           </h1>
-          <p className="text-2xl md:text-3xl text-white text-center mb-12 font-semibold">Your Next Ministry Assignment Starts Here.</p>
+          <p className="text-2xl md:text-3xl text-white text-center mb-4 font-semibold">Your Next Ministry Assignment Starts Here.</p>
+          <p className="text-lg md:text-xl text-lime-200 text-center mb-12">Discover church jobs across Canada and the United States.</p>
 
           {/* CTA Button */}
           <div className="flex justify-center">
