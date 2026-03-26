@@ -191,28 +191,26 @@ export default function Home() {
                 <option value="canada">Canada</option>
                 <option value="usa">United States</option>
               </select>
-              {selectedCountry && (
-                <select 
-                  value={selectedRegion}
-                  onChange={(e) => setSelectedRegion(e.target.value)}
-                  className="px-4 py-3 text-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white border border-gray-300 min-w-[140px]"
-                >
-                  <option value="">Select {selectedCountry === 'canada' ? 'Province' : 'State'}</option>
-                  {getRegions().map((region) => (
-                    <option key={region} value={region}>{region}</option>
-                  ))}
-                </select>
-              )}
-              {selectedRegion && (
-                <select 
-                  className="px-4 py-3 text-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white border border-gray-300 min-w-[140px]"
-                >
-                  <option value="">Select City, Town</option>
-                  {getCities().map((city) => (
-                    <option key={city} value={city}>{city}</option>
-                  ))}
-                </select>
-              )}
+              <select 
+                value={selectedRegion}
+                onChange={(e) => setSelectedRegion(e.target.value)}
+                disabled={!selectedCountry}
+                className="px-4 py-3 text-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white border border-gray-300 min-w-[140px] disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
+              >
+                <option value="">Select {selectedCountry === 'canada' ? 'Province' : selectedCountry === 'usa' ? 'State' : 'Province/State'}</option>
+                {getRegions().map((region) => (
+                  <option key={region} value={region}>{region}</option>
+                ))}
+              </select>
+              <select 
+                disabled={!selectedRegion}
+                className="px-4 py-3 text-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white border border-gray-300 min-w-[140px] disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
+              >
+                <option value="">Select City, Town</option>
+                {getCities().map((city) => (
+                  <option key={city} value={city}>{city}</option>
+                ))}
+              </select>
               <input 
                 type="text" 
                 placeholder="Search Jobs" 
