@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import Logo from '@/components/Logo'
 import PreacherTicker from '@/components/PreacherTicker'
+import NotificationBell from '@/components/NotificationBell'
 
 export default function ChurchDashboardPage() {
   const { data: session } = useSession()
@@ -64,6 +65,7 @@ export default function ChurchDashboardPage() {
             </Link>
             <div className="flex items-center gap-6">
               <span className="text-green-50">Welcome, {session?.user?.name || 'Church'}</span>
+              <NotificationBell />
               <button
                 onClick={() => router.push('/auth/login')}
                 className="bg-lime-400 hover:bg-lime-500 text-green-900 px-5 py-2 rounded-lg font-bold transition"

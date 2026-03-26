@@ -4,6 +4,7 @@ import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import NotificationBell from '@/components/NotificationBell'
 
 export default function DashboardLayout({
   children,
@@ -86,6 +87,7 @@ export default function DashboardLayout({
                   Post Opening
                 </Link>
               )}
+              <NotificationBell />
               <div className="flex items-center space-x-4">
                 <span className="text-sm text-gray-600">
                   {session.user.name}
