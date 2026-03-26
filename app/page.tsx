@@ -78,8 +78,15 @@ export default function Home() {
           <p className="text-lg md:text-xl text-lime-200 text-center mb-12">Discover church jobs across Canada and the United States.</p>
 
           {/* Search Box */}
-          <div className="bg-white rounded-lg shadow-lg p-6 mb-12 max-w-2xl mx-auto">
+          <div className="bg-white rounded-lg shadow-lg p-6 mb-12 max-w-3xl mx-auto">
             <div className="flex flex-col md:flex-row gap-3">
+              <select 
+                className="px-4 py-3 text-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white border border-gray-300"
+              >
+                <option value="">Select Country</option>
+                <option value="canada">Canada</option>
+                <option value="usa">United States</option>
+              </select>
               <input 
                 type="text" 
                 placeholder="Search Jobs" 
