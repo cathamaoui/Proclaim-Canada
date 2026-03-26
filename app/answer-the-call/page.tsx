@@ -238,29 +238,7 @@ export default function AnswerTheCall() {
         </div>
       </div>
 
-      {/* Benefits Section */}
-      <div className="bg-white py-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-slate-900">Why Churches Choose Proclaim Canada</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-gradient-to-br from-lime-50 to-white rounded-lg p-8 border border-lime-200 shadow-md">
-              <div className="text-5xl mb-4">🎯</div>
-              <h3 className="text-xl font-bold mb-3 text-slate-900">Direct Connections</h3>
-              <p className="text-gray-600">Connect directly with verified evangelists and preachers ready to serve your congregation.</p>
-            </div>
-            <div className="bg-gradient-to-br from-lime-50 to-white rounded-lg p-8 border border-lime-200 shadow-md">
-              <div className="text-5xl mb-4">📅</div>
-              <h3 className="text-xl font-bold mb-3 text-slate-900">Flexible Scheduling</h3>
-              <p className="text-gray-600">Browse opportunities by date, location, and service type. Find the perfect match for your needs.</p>
-            </div>
-            <div className="bg-gradient-to-br from-lime-50 to-white rounded-lg p-8 border border-lime-200 shadow-md">
-              <div className="text-5xl mb-4">⭐</div>
-              <h3 className="text-xl font-bold mb-3 text-slate-900">Verified Profiles</h3>
-              <p className="text-gray-600">All evangelists have complete profiles with credentials, experience, and reviews from churches.</p>
-            </div>
-          </div>
-        </div>
-      </div>
+
 
       {/* How It Works for Evangelists */}
       <div id="how-it-works" className="bg-gradient-to-br from-slate-50 to-gray-50 py-16">
