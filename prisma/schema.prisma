@@ -106,6 +106,12 @@ model PreacherProfile {
   profilePhotoUrl String?
   resumeUrl       String?
   elevatorPitchUrl String? // Audio recording URL
+  sermonVideoUrl  String?  // Sample sermon video
+  worshipVideoUrl String?  // Sample worship/music video
+  
+  // Theology & Beliefs
+  theologyStatement String? @db.Text // Beliefs, theology statement
+  preferredDenominations String[] @default([]) // Multiple denominations they work with
   
   // Availability & Location
   availability    String[] @default([]) // e.g., ["weekends", "summer", "flexible"]
@@ -281,6 +287,7 @@ model ChurchListing {
 
   user            User            @relation(fields: [createdBy], references: [id], onDelete: Cascade)
   applications    Application[]
+  customQuestions ApplicationQuestion[]
 
   @@index([createdBy])
   @@index([date])
@@ -314,11 +321,47 @@ model Application {
 
   listing     ChurchListing @relation(fields: [listingId], references: [id], onDelete: Cascade)
   applicant   User          @relation(fields: [applicantId], references: [id], onDelete: Cascade)
+  answers     ApplicationAnswer[]
 
   @@unique([listingId, applicantId])
   @@index([listingId])
   @@index([applicantId])
   @@index([status])
+}
+
+model ApplicationQuestion {
+  id          String   @id @default(cuid())
+  listingId   String
+  questionText String  @db.Text
+  questionType String  // "text", "textarea", "radio", "checkbox", "file"
+  options     String[]? // For radio/checkbox questions
+  required    Boolean @default(true)
+  order       Int     @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  listing     ChurchListing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  answers     ApplicationAnswer[]
+
+  @@index([listingId])
+}
+
+model ApplicationAnswer {
+  id          String   @id @default(cuid())
+  applicationId String
+  questionId  String
+  answerText  String?  @db.Text // Text/textarea answer
+  answerFile  String?  // File URL
+  answerOptions String[]? // Selected options for radio/checkbox
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  application Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  question    ApplicationQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([applicationId, questionId])
+  @@index([applicationId])
+  @@index([questionId])
 }
 
 enum ApplicationStatus {
