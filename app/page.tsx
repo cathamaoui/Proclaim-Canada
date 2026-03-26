@@ -83,7 +83,7 @@ export default function Home() {
               href="/answer-the-call"
               className="bg-lime-500 hover:bg-lime-600 text-white px-8 py-4 rounded font-bold transition text-lg"
             >
-              Answer the Call
+              Register as a Visiting Minister
             </Link>
           </div>
           <p className="text-sm text-white text-center mt-6">Looking to post a job? <Link href="/listings/pricing" className="text-white underline hover:text-lime-200 transition">Click here</Link></p>
