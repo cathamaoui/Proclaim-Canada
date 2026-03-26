@@ -14,24 +14,24 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-bold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/browse/preachers" className="hover:text-lime-400 transition">Browse</Link></li>
-              <li><Link href="/listings/pricing" className="hover:text-lime-400 transition">Pricing</Link></li>
-              <li><Link href="/listings/new" className="hover:text-lime-400 transition">Post Job</Link></li>
+              <li><Link href="/browse/preachers" className="text-white hover:text-lime-400 transition">Browse</Link></li>
+              <li><Link href="/listings/pricing" className="text-white hover:text-lime-400 transition">Pricing</Link></li>
+              <li><Link href="/listings/new" className="text-white hover:text-lime-400 transition">Post Job</Link></li>
             </ul>
           </div>
           <div>
             <h4 className="text-white font-bold mb-4">Company</h4>
             <ul className="space-y-2 text-sm">
-              <li><a href="#" className="hover:text-lime-400 transition">About</a></li>
-              <li><a href="#" className="hover:text-lime-400 transition">Contact</a></li>
-              <li><a href="#" className="hover:text-lime-400 transition">Help</a></li>
+              <li><a href="#" className="text-white hover:text-lime-400 transition">About</a></li>
+              <li><a href="#" className="text-white hover:text-lime-400 transition">Contact</a></li>
+              <li><a href="#" className="text-white hover:text-lime-400 transition">Help</a></li>
             </ul>
           </div>
           <div>
             <h4 className="text-white font-bold mb-4">Support</h4>
             <ul className="space-y-2 text-sm">
-              <li><a href="#" className="hover:text-lime-400 transition">Privacy</a></li>
-              <li><a href="#" className="hover:text-lime-400 transition">Terms</a></li>
+              <li><a href="#" className="text-white hover:text-lime-400 transition">Privacy</a></li>
+              <li><a href="#" className="text-white hover:text-lime-400 transition">Terms</a></li>
               <li>
                 <a 
                   href="#"
@@ -39,7 +39,7 @@ export default function Footer() {
                     e.preventDefault()
                     window.open('https://donate.example.com', '_blank')
                   }}
-                  className="hover:text-lime-400 transition"
+                  className="text-white hover:text-lime-400 transition"
                   title="Support our mission"
                 >
                   Donate
