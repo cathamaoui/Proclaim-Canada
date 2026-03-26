@@ -178,14 +178,14 @@ export default function Home() {
 
           {/* Search Box */}
           <div className="bg-white rounded-lg shadow-lg p-6 mb-12 max-w-5xl mx-auto">
-            <div className="flex flex-col md:flex-row gap-3">
+            <div className="flex flex-col md:flex-row gap-3 items-end">
               <select 
                 value={selectedCountry}
                 onChange={(e) => {
                   setSelectedCountry(e.target.value)
                   setSelectedRegion('')
                 }}
-                className="px-4 py-3 text-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white border border-gray-300"
+                className="px-4 py-3 text-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white border border-gray-300 min-w-[140px]"
               >
                 <option value="">Select Country</option>
                 <option value="canada">Canada</option>
@@ -195,7 +195,7 @@ export default function Home() {
                 <select 
                   value={selectedRegion}
                   onChange={(e) => setSelectedRegion(e.target.value)}
-                  className="px-4 py-3 text-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white border border-gray-300"
+                  className="px-4 py-3 text-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white border border-gray-300 min-w-[140px]"
                 >
                   <option value="">Select {selectedCountry === 'canada' ? 'Province' : 'State'}</option>
                   {getRegions().map((region) => (
@@ -205,7 +205,7 @@ export default function Home() {
               )}
               {selectedRegion && (
                 <select 
-                  className="px-4 py-3 text-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white border border-gray-300"
+                  className="px-4 py-3 text-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white border border-gray-300 min-w-[140px]"
                 >
                   <option value="">Select City, Town</option>
                   {getCities().map((city) => (
@@ -216,7 +216,7 @@ export default function Home() {
               <input 
                 type="text" 
                 placeholder="Search Jobs" 
-                className="flex-1 px-4 py-3 text-gray-700 placeholder-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex-1 px-4 py-3 text-gray-700 placeholder-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[120px]"
               />
               <button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded font-semibold transition whitespace-nowrap">
                 Search Church Jobs
