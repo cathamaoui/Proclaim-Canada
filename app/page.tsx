@@ -105,17 +105,28 @@ export default function Home() {
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-lime-600">Completely Free. No Strings Attached.</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white rounded-lg shadow-md p-8 text-center">
-              <div className="text-5xl mb-4">⭐</div>
+              <svg className="w-16 h-16 mx-auto mb-4 text-lime-600" fill="none" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M30 20v60c0 3.3 2.7 6 6 6h28c3.3 0 6-2.7 6-6v-60M36 35h28M36 50h28M36 65h28" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+                <path d="M50 10L40 25h20z" fill="currentColor"/>
+              </svg>
               <h3 className="text-xl font-bold mb-3 text-gray-900">No Cost to Join</h3>
               <p className="text-gray-600">Start connecting with churches and evangelists at no charge. It's free to create your profile and begin your ministry journey.</p>
             </div>
             <div className="bg-white rounded-lg shadow-md p-8 text-center">
-              <div className="text-5xl mb-4">👀</div>
+              <svg className="w-16 h-16 mx-auto mb-4 text-lime-600" fill="none" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="30" r="12" stroke="currentColor" strokeWidth="2.5"/>
+                <path d="M50 45v35M35 55c0-8.3 6.7-15 15-15s15 6.7 15 15" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+                <path d="M65 75L85 95M35 75L15 95" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+              </svg>
               <h3 className="text-xl font-bold mb-3 text-gray-900">No Cost to View</h3>
               <p className="text-gray-600">Browse all available opportunities and church profiles. Search, filter, and explore without any fees or hidden costs.</p>
             </div>
             <div className="bg-white rounded-lg shadow-md p-8 text-center">
-              <div className="text-5xl mb-4">✍️</div>
+              <svg className="w-16 h-16 mx-auto mb-4 text-lime-600" fill="none" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M40 15h20v70H40z" fill="currentColor" opacity="0.3"/>
+                <path d="M50 20L40 35h20z" fill="currentColor"/>
+                <path d="M45 50h10M40 60h20M40 72h20" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
               <h3 className="text-xl font-bold mb-3 text-gray-900">No Cost to Post</h3>
               <p className="text-gray-600">Share your resume, availability, and ministry information for free.</p>
             </div>
@@ -129,22 +140,38 @@ export default function Home() {
           <h2 className="text-4xl font-bold text-center mb-12">How It Works</h2>
           <div className="grid md:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="text-5xl mb-4">�</div>
+              <svg className="w-16 h-16 mx-auto mb-4 text-lime-600" fill="none" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 15L35 50v35h30V50z" fill="currentColor" opacity="0.2" stroke="currentColor" strokeWidth="2"/>
+                <path d="M50 20v30M40 35h20M45 55h10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+                <circle cx="50" cy="30" r="6" fill="currentColor"/>
+              </svg>
               <h3 className="text-xl font-bold mb-2 text-gray-900">Join</h3>
               <p className="text-gray-600">Sign up as an evangelist and create your profile</p>
             </div>
             <div className="text-center">
-              <div className="text-5xl mb-4">🗓️</div>
+              <svg className="w-16 h-16 mx-auto mb-4 text-lime-600" fill="none" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <rect x="30" y="20" width="40" height="50" rx="3" stroke="currentColor" strokeWidth="2.5"/>
+                <path d="M40 30h20M40 42h20M40 54h20" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                <path d="M50 65L45 75l10-5 5 10" fill="currentColor" opacity="0.5"/>
+              </svg>
               <h3 className="text-xl font-bold mb-2 text-gray-900">Build Your Calendar</h3>
               <p className="text-gray-600">Evangelists share availability and service preferences</p>
             </div>
             <div className="text-center">
-              <div className="text-5xl mb-4">🤝</div>
+              <svg className="w-16 h-16 mx-auto mb-4 text-lime-600" fill="none" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="35" cy="40" r="12" stroke="currentColor" strokeWidth="2.5"/>
+                <circle cx="65" cy="40" r="12" stroke="currentColor" strokeWidth="2.5"/>
+                <path d="M47 40h6M35 55v15M65 55v15" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+              </svg>
               <h3 className="text-xl font-bold mb-2 text-gray-900">Find & Connect</h3>
               <p className="text-gray-600">Search and apply for opportunities</p>
             </div>
             <div className="text-center">
-              <div className="text-5xl mb-4">🎉</div>
+              <svg className="w-16 h-16 mx-auto mb-4 text-lime-600" fill="none" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 20L40 35h8v35c0 2.2 1.8 4 4 4h16c2.2 0 4-1.8 4-4V35h8z" fill="currentColor" opacity="0.2" stroke="currentColor" strokeWidth="2"/>
+                <path d="M35 50s5-8 15-8 15 8 15 8" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+                <path d="M30 75L70 75" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+              </svg>
               <h3 className="text-xl font-bold mb-2 text-gray-900">Confirm & Serve</h3>
               <p className="text-gray-600">Receive messages from churches with opportunities, review offers, accept, and prepare for the service</p>
             </div>
