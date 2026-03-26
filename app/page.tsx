@@ -93,14 +93,9 @@ export default function Home() {
         <div className="max-w-6xl mx-auto text-center px-4">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">Ready to Share Your Calling?</h2>
           <p className="text-lg md:text-xl mb-8 text-lime-100">Whether you're an evangelist, preacher, or worship leader, let us help you reach the churches that need you.</p>
-          <div className="flex gap-4 justify-center flex-wrap">
-            <Link href="/auth/signup?type=preacher" className="bg-white hover:bg-gray-100 text-lime-600 px-8 py-4 rounded-lg font-bold transition text-lg">
-              Join as Evangelist
-            </Link>
-            <Link href="/church-home" className="border-2 border-white text-white hover:bg-white hover:text-lime-600 px-8 py-4 rounded-lg font-bold transition text-lg">
-              Join as Church
-            </Link>
-          </div>
+          <Link href="/auth/signup?type=preacher" className="inline-block bg-white hover:bg-gray-100 text-lime-600 px-8 py-4 rounded-lg font-bold transition text-lg">
+            Join as Evangelist
+          </Link>
         </div>
       </div>
 
