@@ -1,15 +1,15 @@
 # Test Credentials & Accounts
 
-## Current Test Accounts
+## Quick Reference
 
 ### Preacher Account (Basic)
 ```
 Email: test.preacher@example.com
 Password: password123
 Role: PREACHER
-Status: Created - Profile 0% complete
+Status: 0% profile complete
 ```
-**Use for:** Testing basic preacher dashboard, profile completion flow
+**Use for:** Testing basic preacher features, dashboard, navigation
 
 ---
 
@@ -18,30 +18,37 @@ Status: Created - Profile 0% complete
 Email: test.church@example.com
 Password: password123
 Role: CHURCH
-Status: Created - Profile 0% complete
+Status: 0% profile complete
 ```
-**Use for:** Testing basic church dashboard, profile completion flow
+**Use for:** Testing church dashboard, listings, church features
 
 ---
 
-### Full Preacher Account (Complete Profile)
+### Complete Pastor Account ⭐ RECOMMENDED
 ```
-Email: full.preacher@example.com
-Password: preacher123
+Email: pastor.complete@example.com
+Password: pastor2026
+Name: Dr. Michael Richardson
 Role: PREACHER
-Status: Ready (pending creation script fix)
+Status: ✅ FULLY VERIFIED & COMPLETE
 ```
-**Details:**
-- Name: Rev. John Smith
-- Experience: 15 years
-- Denomination: Evangelical Free Church
-- Status: Ordained & Verified
-- Rating: 4.8/5 (12 ratings)
-- Profile Completion: 100%
-- Languages: English, Spanish
-- Travel Distance: 500 miles
 
-**Use for:** Testing advanced features (messaging, applications, matching)
+**Profile Details:**
+- **Experience:** 20+ years ordained
+- **Denomination:** Evangelical Free Church
+- **Rating:** 4.9/5 (28 verified ratings)
+- **Speaking Events:** 156 completed engagements
+- **Languages:** English, Spanish, Portuguese
+- **Travel Range:** 1,000+ miles (1,600 km)
+- **Fee Range:** $800-$2,000 per event
+- **Verification Status:** ✅ Fully Verified & Ordained
+- **Specialization:** Revival, Evangelism & Conference Ministry
+- **Resume/CV:** Included (resumeUrl field)
+- **Profile Photo:** Included (profilePhotoUrl field)
+- **Education:** M.Div (Southern Baptist Seminary) + B.A (Boyce College)
+- **Availability:** 5 calendar slots configured
+
+**Use for:** Testing advanced features, complete profile viewing, applications, matching algorithms
 
 ---
 
