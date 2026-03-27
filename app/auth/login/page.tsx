@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { signIn } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import Logo from '@/components/Logo'
@@ -10,13 +10,14 @@ export default function LoginPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const isChurch = searchParams.get('type') === 'church'
+  const { data: session } = useSession()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
-  const handleSubmit = async (e: React.FormEvent) {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     setError('')
@@ -33,7 +34,15 @@ export default function LoginPage() {
         return
       }
 
-      router.push('/dashboard')
+      // Get updated session to check user role
+      const newSession = await fetch('/api/auth/session').then(res => res.json())
+      
+      // Redirect based on user role
+      if (newSession?.user?.role === 'CHURCH') {
+        router.push('/church-dashboard')
+      } else {
+        router.push('/dashboard')
+      }
     } catch (err) {
       setError('Failed to sign in. Please try again.')
     } finally {

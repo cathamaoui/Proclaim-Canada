@@ -172,6 +172,9 @@ export default function ChurchHomePage() {
               </a>
             </div>
             <div className="flex items-center gap-3">
+              <Link href="/" className="text-slate-100 hover:text-white transition font-medium text-sm">
+                For Preachers
+              </Link>
               <Link href="/auth/login" className="text-slate-100 hover:text-white transition font-medium">
                 Log In
               </Link>
@@ -179,7 +182,7 @@ export default function ChurchHomePage() {
                 href="/auth/signup?type=church"
                 className="bg-slate-800 hover:bg-slate-900 text-white px-5 py-2 rounded-lg font-bold transition"
               >
-                Find Preachers
+                Register
               </Link>
             </div>
           </div>

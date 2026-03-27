@@ -121,32 +121,19 @@ export default function Home() {
 
             {/* Menu Items */}
             <div className="hidden md:flex items-center gap-8">
-              <Link href="/browse/preachers" className="text-white text-sm font-medium hover:text-lime-400 transition duration-200">Find Evangelists</Link>
-              <Link href="/listings" className="text-white text-sm font-medium hover:text-lime-400 transition duration-200">Browse Opportunities</Link>
+              <a href="#opportunities" className="text-white text-sm font-medium hover:text-lime-400 transition duration-200">Browse Opportunities</a>
               <a href="#how-it-works" className="text-white text-sm font-medium hover:text-lime-400 transition duration-200">How It Works</a>
             </div>
 
             {/* Right Side - Buttons & Icons */}
             <div className="flex items-center gap-4">
               <Link 
-                href="/admin/profiles" 
-                className="bg-yellow-400 hover:bg-yellow-500 text-slate-900 px-3 py-1.5 rounded-lg font-semibold transition duration-200 text-xs"
-              >
-                Admin
-              </Link>
-              <Link 
                 href="/church-home" 
-                className="bg-lime-500 hover:bg-lime-600 text-slate-900 px-3 py-1.5 rounded-lg font-semibold transition duration-200 text-sm"
+                className="bg-lime-500 hover:bg-lime-600 text-slate-900 px-4 py-1.5 rounded-lg font-semibold transition duration-200 text-sm"
               >
-                Church Home
+                For Churches
               </Link>
-              <Link 
-                href="/listings/pricing" 
-                className="text-white hover:text-lime-300 transition duration-200 text-sm font-medium hidden sm:block"
-              >
-                Post Opportunity
-              </Link>
-              <Link href="/auth/login" className="text-white hover:text-lime-400 transition duration-200" title="Sign In">
+              <Link href="/auth/login" className="text-white hover:text-lime-400 transition duration-200 text-sm font-medium">Sign In</Link>
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                 </svg>
@@ -171,10 +158,10 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           {/* Main Heading */}
           <h1 className="text-5xl md:text-7xl font-bold text-white text-center mb-6 leading-tight drop-shadow-lg">
-            Proclaim. Evangelize. Serve.
+            Find Your Next Ministry Opportunity
           </h1>
-          <p className="text-2xl md:text-3xl text-white text-center mb-6 font-semibold drop-shadow-md">Your Next Ministry Assignment Starts Here.</p>
-          <p className="text-base md:text-lg text-lime-200 text-center mb-16 drop-shadow-sm">Discover church jobs across Canada and the United States.</p>
+          <p className="text-2xl md:text-3xl text-white text-center mb-6 font-semibold drop-shadow-md">Connect with churches seeking calling speakers and evangelists.</p>
+          <p className="text-base md:text-lg text-lime-200 text-center mb-16 drop-shadow-sm">Discover paid ministry opportunities across Canada and the United States.</p>
 
           {/* Search Box */}
           <div className="bg-white rounded-xl shadow-2xl p-8 mb-12 max-w-5xl mx-auto">
@@ -234,15 +221,23 @@ export default function Home() {
             </div>
           </div>
 
-          {/* CTA Button */}
-          <div className="flex flex-col items-center gap-4">
-            <Link
-              href="/answer-the-call"
-              className="bg-lime-500 hover:bg-lime-600 active:bg-lime-700 text-white px-10 py-4 rounded-xl font-bold transition duration-200 text-lg shadow-lg hover:shadow-xl transform hover:scale-105 inline-block"
-            >
-              Register as a Visiting Minister
-            </Link>
-            <p className="text-sm text-lime-100 text-center">Looking to post a job? <Link href="/listings/pricing" className="text-white font-semibold underline hover:text-lime-200 transition">Click here</Link></p>
+          {/* CTA Buttons */}
+          <div className="flex flex-col items-center gap-6">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/browse/preachers"
+                className="bg-lime-500 hover:bg-lime-600 active:bg-lime-700 text-white px-10 py-4 rounded-xl font-bold transition duration-200 text-lg shadow-lg hover:shadow-xl transform hover:scale-105"
+              >
+                Browse Opportunities
+              </Link>
+              <Link
+                href="/auth/signup?type=preacher"
+                className="bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white px-10 py-4 rounded-xl font-bold transition duration-200 text-lg shadow-lg hover:shadow-xl"
+              >
+                Get Started Free
+              </Link>
+            </div>
+            <p className="text-sm text-lime-100 text-center">Are you a church? <Link href="/church-home" className="text-white font-semibold underline hover:text-lime-200 transition">Find qualified preachers</Link></p>
           </div>
         </div>
       </div>
