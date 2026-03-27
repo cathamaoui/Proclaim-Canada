@@ -46,10 +46,20 @@
       "static/chunks/main-app.js",
       "static/chunks/app/page.js"
     ],
-    "/_not-found/page": [
+    "/church-home/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/chunks/app/church-home/page.js"
+    ],
+    "/auth/login/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/auth/login/page.js"
+    ],
+    "/church-dashboard/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/church-dashboard/page.js"
     ]
   }
 }

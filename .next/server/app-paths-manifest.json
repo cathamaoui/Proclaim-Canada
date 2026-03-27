@@ -1,8 +1,11 @@
 {
-  "/api/notifications/route": "app/api/notifications/route.js",
   "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/api/notifications/route": "app/api/notifications/route.js",
   "/api/listings/route": "app/api/listings/route.js",
   "/api/profile-completion/route": "app/api/profile-completion/route.js",
-  "/api/applications/route": "app/api/applications/route.js",
+  "/page": "app/page.js",
+  "/church-home/page": "app/church-home/page.js",
+  "/auth/login/page": "app/auth/login/page.js",
+  "/church-dashboard/page": "app/church-dashboard/page.js",
   "/dashboard/page": "app/dashboard/page.js"
 }
