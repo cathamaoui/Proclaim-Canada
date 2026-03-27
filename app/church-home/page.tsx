@@ -175,7 +175,7 @@ export default function ChurchHomePage() {
               <Link href="/" className="text-slate-100 hover:text-white transition font-medium text-sm">
                 For Preachers
               </Link>
-              <Link href="/auth/login" className="text-slate-100 hover:text-white transition font-medium">
+              <Link href="/auth/login?type=church" className="text-slate-100 hover:text-white transition font-medium">
                 Log In
               </Link>
               <Link

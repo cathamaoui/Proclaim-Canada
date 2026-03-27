@@ -327,7 +327,7 @@ export default function SignupPage() {
             </a>
           </div>
           
-          <Link href="/auth/login" className="text-lime-600 hover:text-lime-700 font-semibold">
+          <Link href={`/auth/login${type === 'church' ? '?type=church' : ''}`} className="text-lime-600 hover:text-lime-700 font-semibold">
             Sign In Now
           </Link>
         </div>
@@ -348,7 +348,7 @@ export default function SignupPage() {
               <span><span className="text-white">Proclaim </span><span className="text-lime-300">Canada</span></span>
             </Link>
             <div className="flex items-center gap-4">
-              <Link href="/auth/login" className="text-green-50 hover:text-white transition font-medium">
+              <Link href={`/auth/login${type === 'church' ? '?type=church' : ''}`} className="text-green-50 hover:text-white transition font-medium">
                 Log In
               </Link>
             </div>
@@ -807,7 +807,7 @@ export default function SignupPage() {
         <div className="mt-6 text-center">
           <p className="text-gray-600">
             Already have an account?{' '}
-            <Link href="/auth/login" className="text-lime-600 hover:text-lime-700 font-semibold">
+            <Link href={`/auth/login${type === 'church' ? '?type=church' : ''}`} className="text-lime-600 hover:text-lime-700 font-semibold">
               Sign In
             </Link>
           </p>
