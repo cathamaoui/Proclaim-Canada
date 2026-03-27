@@ -66,6 +66,12 @@ export default function DashboardLayout({
     return null
   }
 
+  // Redirect non-preacher users away from preacher dashboard
+  if (session && session.user.role !== 'PREACHER') {
+    router.push('/browse')
+    return null
+  }
+
   const handleSignOut = async () => {
     await signOut({ redirect: true, callbackUrl: '/' })
   }

@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { signIn, useSession } from 'next-auth/react'
+import { signIn, signOut, useSession } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import Logo from '@/components/Logo'
@@ -37,6 +37,19 @@ export default function LoginPage() {
       // Get updated session to check user role
       const newSession = await fetch('/api/auth/session').then(res => res.json())
       
+      // Validate role matches login type
+      if (isChurch && newSession?.user?.role !== 'CHURCH') {
+        await signOut({ redirect: false })
+        setError('This account is not registered as a church organization. Please use the preacher login or create a church account.')
+        return
+      }
+
+      if (!isChurch && newSession?.user?.role === 'CHURCH') {
+        await signOut({ redirect: false })
+        setError('This account is registered as a church organization. Please use the church login or create a preacher account.')
+        return
+      }
+
       // Redirect based on user role
       if (newSession?.user?.role === 'CHURCH') {
         router.push('/church-dashboard')
