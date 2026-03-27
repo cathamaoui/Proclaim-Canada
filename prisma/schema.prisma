@@ -336,7 +336,7 @@ model ApplicationQuestion {
   listingId   String
   questionText String  @db.Text
   questionType String  // "text", "textarea", "radio", "checkbox", "file"
-  options     String[]? // For radio/checkbox questions
+  options     String[] @default([]) // For radio/checkbox questions
   required    Boolean @default(true)
   order       Int     @default(0)
   createdAt   DateTime @default(now())
@@ -354,7 +354,7 @@ model ApplicationAnswer {
   questionId  String
   answerText  String?  @db.Text // Text/textarea answer
   answerFile  String?  // File URL
-  answerOptions String[]? // Selected options for radio/checkbox
+  answerOptions String[] @default([]) // Selected options for radio/checkbox
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 

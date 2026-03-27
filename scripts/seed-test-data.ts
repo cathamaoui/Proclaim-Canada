@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/client'
-import bcrypt from 'bcryptjs'
 
 const prisma = new PrismaClient()
 
@@ -84,12 +83,11 @@ async function createPreachers() {
   for (let i = 0; i < 25; i++) {
     const name = PREACHER_NAMES[i]
     const email = `preacher${i + 1}@test.com`
-    const hashedPassword = await bcrypt.hash('password123', 10)
 
     const user = await prisma.user.create({
       data: {
         email,
-        password: hashedPassword,
+        password: 'password123', // Test password - not hashed for simplicity
         name,
         role: 'PREACHER',
         emailVerified: new Date()
@@ -116,7 +114,7 @@ async function createPreachers() {
         totalRatings: Math.floor(Math.random() * 50),
         travelRadiusKm: [50, 100, 150, 250][Math.floor(Math.random() * 4)],
         specializations: ['Preaching', i % 2 === 0 ? 'Youth Ministry' : 'Worship Leadership'],
-        ordination_status: ['ordained', 'licensed', 'commissioned'][Math.floor(Math.random() * 3)]
+        ordinationStatus: ['ordained', 'licensed', 'commissioned'][Math.floor(Math.random() * 3)]
       }
     })
 
@@ -134,12 +132,11 @@ async function createChurches() {
   for (let i = 0; i < 8; i++) {
     const name = CHURCH_NAMES[i]
     const email = `church${i + 1}@test.com`
-    const hashedPassword = await bcrypt.hash('password123', 10)
 
     const user = await prisma.user.create({
       data: {
         email,
-        password: hashedPassword,
+        password: 'password123', // Test password - not hashed for simplicity
         name,
         role: 'CHURCH',
         emailVerified: new Date()

@@ -1,5 +1,10 @@
 // tests/setup.ts
+import dotenv from 'dotenv'
+import path from 'path'
 import { db } from '@/lib/db'
+
+// Load environment variables from .env.local
+dotenv.config({ path: path.resolve(__dirname, '../.env.local') })
 
 // Global test configuration
 beforeAll(async () => {
