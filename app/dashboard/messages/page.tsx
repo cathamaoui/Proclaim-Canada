@@ -9,20 +9,27 @@ interface Message {
   content: string
   senderRole: 'PREACHER' | 'CHURCH'
   senderName: string
-  senderEmail: string
+  senderId: string
+  receiverId: string
   createdAt: string
+  read?: boolean
+}
+
+interface Partner {
+  id: string
+  name: string
+  image?: string
+  role: 'PREACHER' | 'CHURCH'
+  denomination?: string
 }
 
 interface Conversation {
-  id: string
-  otherUser: {
-    id: string
-    name: string
-    email: string
+  partnerId: string
+  partner: Partner
+  lastMessage: {
+    content: string
+    createdAt: string
   }
-  otherRole: 'PREACHER' | 'CHURCH'
-  lastMessage?: string
-  lastMessageTime?: string
   unreadCount: number
 }
 
@@ -121,7 +128,7 @@ export default function MessagesPage() {
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
   }
 
-  const selectedConv = conversations.find(c => c.id === selectedConversation)
+  const selectedConv = conversations.find(c => c.partnerId === selectedConversation)
 
   return (
     <div className="max-w-6xl mx-auto py-8 px-4">
@@ -149,25 +156,25 @@ export default function MessagesPage() {
             <div className="overflow-y-auto flex-1">
               {conversations.map((conv) => (
                 <button
-                  key={conv.id}
-                  onClick={() => setSelectedConversation(conv.id)}
+                  key={conv.partnerId}
+                  onClick={() => setSelectedConversation(conv.partnerId)}
                   className={`w-full text-left px-4 py-3 border-b border-gray-100 hover:bg-gray-50 transition ${
-                    selectedConversation === conv.id ? 'bg-lime-50' : ''
+                    selectedConversation === conv.partnerId ? 'bg-lime-50' : ''
                   }`}
                 >
                   <div className="flex items-start justify-between mb-1">
-                    <p className="font-semibold text-gray-900 text-sm">{conv.otherUser.name}</p>
+                    <p className="font-semibold text-gray-900 text-sm">{conv.partner?.name || 'Unknown'}</p>
                     {conv.unreadCount > 0 && (
                       <span className="px-1.5 py-0.5 bg-lime-500 text-white text-xs rounded-full">
                         {conv.unreadCount}
                       </span>
                     )}
                   </div>
-                  <p className="text-gray-500 text-xs truncate">{conv.otherUser.email}</p>
+                  <p className="text-gray-500 text-xs truncate">{conv.partner?.role === 'CHURCH' ? 'Church' : 'Preacher'}</p>
                   {conv.lastMessage && (
                     <>
-                      <p className="text-gray-600 text-xs mt-1 truncate">{conv.lastMessage}</p>
-                      <p className="text-gray-400 text-xs">{conv.lastMessageTime && formatTime(conv.lastMessageTime)}</p>
+                      <p className="text-gray-600 text-xs mt-1 truncate">{conv.lastMessage.content}</p>
+                      <p className="text-gray-400 text-xs">{conv.lastMessage.createdAt && formatTime(conv.lastMessage.createdAt)}</p>
                     </>
                   )}
                 </button>
@@ -182,8 +189,8 @@ export default function MessagesPage() {
             <>
               {/* Header */}
               <div className="p-4 border-b border-gray-200">
-                <h3 className="font-bold text-gray-900">{selectedConv.otherUser.name}</h3>
-                <p className="text-xs text-gray-500">{selectedConv.otherUser.email}</p>
+                <h3 className="font-bold text-gray-900">{selectedConv.partner?.name || 'Unknown'}</h3>
+                <p className="text-xs text-gray-500">{selectedConv.partner?.role === 'CHURCH' ? 'Church' : 'Preacher'}</p>
               </div>
 
               {/* Messages */}
@@ -197,12 +204,12 @@ export default function MessagesPage() {
                     <div
                       key={msg.id}
                       className={`flex ${
-                        session?.user?.email === msg.senderEmail ? 'justify-end' : 'justify-start'
+                        (session?.user as any)?.id === msg.senderId ? 'justify-end' : 'justify-start'
                       }`}
                     >
                       <div
                         className={`max-w-xs px-4 py-2 rounded-lg ${
-                          session?.user?.email === msg.senderEmail
+                          (session?.user as any)?.id === msg.senderId
                             ? 'bg-lime-500 text-white'
                             : 'bg-gray-100 text-gray-900'
                         }`}
@@ -210,7 +217,7 @@ export default function MessagesPage() {
                         <p className="text-sm break-words">{msg.content}</p>
                         <p
                           className={`text-xs mt-1 ${
-                            session?.user?.email === msg.senderEmail
+                            (session?.user as any)?.id === msg.senderId
                               ? 'text-lime-100'
                               : 'text-gray-500'
                           }`}
