@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Logo from '@/components/Logo';
 import Footer from '@/components/Footer';
-import TestimonialCarousel from '@/components/TestimonialCarousel';
 
 const AVAILABLE_PREACHERS = [
   {
@@ -158,15 +157,6 @@ export default function BrowsePreachersPage() {
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 py-12">
-        {/* Testimonial Carousel - Featured Section */}
-        <div className="mb-16">
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold text-slate-900 mb-2">What Churches Are Saying</h2>
-            <p className="text-slate-600">Hear from pastors and leaders who've found quality preachers through our platform</p>
-          </div>
-          <TestimonialCarousel />
-        </div>
-
         <div className="mb-12">
           <h1 className="text-4xl font-bold text-slate-900 mb-2">Browse Available Preachers</h1>
           <p className="text-xl text-slate-600">
