@@ -16,7 +16,7 @@
     "db:studio": "prisma studio",
     "db:generate": "prisma generate",
     "seed": "ts-node scripts/seed-test-data.ts",
-    "seed:all": "node scripts/seed-all-features.js"
+    "seed:all": "node scripts/seed-full-10.js"
   },
   "dependencies": {
     "@prisma/client": "^5.8.0",

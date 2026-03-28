@@ -1,3 +1,20 @@
+const fs = require('fs')
+const path = require('path')
+
+// Load .env.local manually
+const envPath = path.join(__dirname, '..', '.env.local')
+const envContent = fs.readFileSync(envPath, 'utf8')
+envContent.split('\n').forEach(line => {
+  if (line && !line.startsWith('#') && line.includes('=')) {
+    const [key, ...valueParts] = line.split('=')
+    const value = valueParts.join('=').replace(/^"(.*)"$/g, '$1')
+    process.env[key.trim()] = value.trim()
+  }
+})
+
+console.log('✅ Loaded DATABASE_URL:', process.env.DATABASE_URL ? '***SET***' : 'NOT SET')
+
+// Import Prisma AFTER loading env vars
 const { PrismaClient } = require('@prisma/client')
 const bcrypt = require('bcryptjs')
 
