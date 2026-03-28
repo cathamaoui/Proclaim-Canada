@@ -187,15 +187,16 @@ export default function TestimonialCardTemplate({
             {/* Rating */}
             <div className="flex gap-1">
               {[...Array(5)].map((_, i) => (
-                <Star
+                <span
                   key={i}
-                  size={20}
                   className={
                     i < formData.rating
-                      ? `fill-current ${styles.accent}`
-                      : 'text-gray-400'
+                      ? `${styles.accent} text-2xl`
+                      : 'text-gray-400 text-2xl'
                   }
-                />
+                >
+                  ★
+                </span>
               ))}
             </div>
 
