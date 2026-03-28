@@ -12,11 +12,6 @@ export default function AvailabilityPage() {
     return <div className="text-center py-8">Please sign in to manage availability.</div>
   }
 
-  const handleSlotChange = () => {
-    // Refresh calendar when slots are added/removed
-    setRefreshKey(prev => prev + 1)
-  }
-
   return (
     <div className="space-y-8">
       {/* Page Header */}
@@ -80,15 +75,6 @@ export default function AvailabilityPage() {
           </div>
         </div>
       </div>
-    </div>
-  )
-}
-                  </button>
-                </div>
-              ))}
-          </div>
-        </div>
-      )}
     </div>
   )
 }
