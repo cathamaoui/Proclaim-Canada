@@ -1,10 +1,11 @@
 {
   "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
   "/api/preacher/profile/route": "app/api/preacher/profile/route.js",
+  "/api/listings/search/route": "app/api/listings/search/route.js",
   "/api/notifications/route": "app/api/notifications/route.js",
   "/api/profile-completion/route": "app/api/profile-completion/route.js",
   "/api/applications/route": "app/api/applications/route.js",
-  "/api/ratings/route": "app/api/ratings/route.js",
+  "/browse/page": "app/browse/page.js",
   "/dashboard/page": "app/dashboard/page.js",
   "/dashboard/ratings/page": "app/dashboard/ratings/page.js"
 }

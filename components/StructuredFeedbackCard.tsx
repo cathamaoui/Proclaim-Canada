@@ -1,7 +1,6 @@
 'use client'
 
 import { format } from 'date-fns'
-import { Star } from 'lucide-react'
 
 interface FeedbackCategory {
   name: string
@@ -60,11 +59,12 @@ export default function StructuredFeedbackCard({
         {/* Overall Rating Stars */}
         <div className="flex items-center gap-1">
           {[...Array(5)].map((_, i) => (
-            <Star
+            <span
               key={i}
-              size={18}
-              className={i < rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}
-            />
+              className={i < rating ? 'text-yellow-400 text-xl' : 'text-gray-300 text-xl'}
+            >
+              ★
+            </span>
           ))}
         </div>
       </div>

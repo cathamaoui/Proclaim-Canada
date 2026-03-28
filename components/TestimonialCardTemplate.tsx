@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { Star } from 'lucide-react'
 
 interface TestimonialCardTemplateProps {
   preacherName?: string
@@ -136,16 +135,11 @@ export default function TestimonialCardTemplate({
               <button
                 key={star}
                 onClick={() => setFormData({ ...formData, rating: star })}
-                className="transition-transform hover:scale-110"
+                className="transition-transform hover:scale-110 text-2xl"
               >
-                <Star
-                  size={24}
-                  className={
-                    star <= formData.rating
-                      ? 'fill-amber-400 text-amber-400'
-                      : 'text-gray-300'
-                  }
-                />
+                <span className={star <= formData.rating ? 'text-amber-400' : 'text-gray-300'}>
+                  ★
+                </span>
               </button>
             ))}
           </div>

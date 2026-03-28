@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { ChevronLeft, ChevronRight, Star } from 'lucide-react'
 
 interface Testimonial {
   id: string
@@ -95,7 +94,7 @@ export default function TestimonialCarousel({
           {/* Stars */}
           <div className="flex gap-1">
             {[...Array(testimonial.rating)].map((_, i) => (
-              <Star key={i} size={24} className="fill-amber-300 text-amber-300" />
+              <span key={i} className="text-amber-300 text-2xl">★</span>
             ))}
           </div>
 
@@ -137,17 +136,17 @@ export default function TestimonialCarousel({
                 onClick={goToPrevious}
                 onMouseEnter={() => setAutoPlay(false)}
                 onMouseLeave={() => setAutoPlay(true)}
-                className="p-2 bg-white/20 hover:bg-white/30 rounded-full transition-all"
+                className="p-2 bg-white/20 hover:bg-white/30 rounded-full transition-all font-bold text-xl"
               >
-                <ChevronLeft size={20} />
+                ←
               </button>
               <button
                 onClick={goToNext}
                 onMouseEnter={() => setAutoPlay(false)}
                 onMouseLeave={() => setAutoPlay(true)}
-                className="p-2 bg-white/20 hover:bg-white/30 rounded-full transition-all"
+                className="p-2 bg-white/20 hover:bg-white/30 rounded-full transition-all font-bold text-xl"
               >
-                <ChevronRight size={20} />
+                →
               </button>
             </div>
           </div>
