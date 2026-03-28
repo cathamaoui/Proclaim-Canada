@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Logo from '@/components/Logo';
@@ -86,8 +86,30 @@ export default function BrowsePreachersPage() {
   const router = useRouter();
   const [cart, setCart] = useState<typeof AVAILABLE_PREACHERS>([]);
   const [agreed, setAgreed] = useState(false);
+  const [preachers, setPreachers] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const addToCart = (preacher: typeof AVAILABLE_PREACHERS[0]) => {
+  useEffect(() => {
+    const fetchPreachers = async () => {
+      try {
+        const response = await fetch('/api/preachers');
+        const data = await response.json();
+        if (data.success) {
+          setPreachers(data.data);
+        }
+      } catch (error) {
+        console.error('Error fetching preachers:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPreachers();
+  }, []);
+
+  const displayPreachers = preachers.length > 0 ? preachers : AVAILABLE_PREACHERS;
+
+  const addToCart = (preacher: any) => {
     setCart([...cart, preacher]);
   };
 
@@ -270,60 +292,88 @@ export default function BrowsePreachersPage() {
         </div>
 
         {/* Preachers Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {AVAILABLE_PREACHERS.map((preacher) => (
-            <div
-              key={preacher.id}
-              className="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden hover:shadow-xl transition relative"
-            >
-              {/* Free to View Tag */}
-              <div className="absolute top-0 right-0 bg-emerald-500 text-white px-3 py-1 rounded-bl-lg text-xs font-bold">
-                Free to view
-              </div>
-
-              {/* Preacher Image/Avatar */}
-              <div className="bg-gradient-to-br from-lime-50 to-emerald-50 h-40 flex items-center justify-center text-6xl">
-                {preacher.image}
-              </div>
-
-              {/* Content */}
-              <div className="p-6">
-                <h3 className="text-2xl font-bold text-slate-900 mb-1">{preacher.name}</h3>
-                <p className="text-lime-600 font-semibold mb-2">{preacher.title}</p>
-
-                <div className="flex items-center gap-2 mb-4 text-sm text-slate-600">
-                  <span className="font-semibold">{preacher.rating}</span>
-                  <span className="text-yellow-500">★★★★★</span>
-                  <span>({preacher.reviews} reviews)</span>
+        {loading ? (
+          <div className="text-center py-12">
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-lime-500"></div>
+            <p className="mt-4 text-slate-600">Loading preachers...</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            {displayPreachers.map((preacher) => (
+              <div
+                key={preacher.id}
+                className="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden hover:shadow-xl transition"
+              >
+                {/* Preacher Image/Avatar */}
+                <div className="bg-gradient-to-br from-lime-50 to-emerald-50 h-40 flex items-center justify-center text-6xl">
+                  {preacher.image || '👨‍💼'}
                 </div>
 
-                <div className="space-y-3 mb-4 text-sm">
-                  <div>
-                    <span className="font-semibold text-slate-900">Denomination:</span>
-                    <p className="text-slate-600">{preacher.denomination}</p>
+                {/* Content */}
+                <div className="p-6">
+                  <Link href={`/browse/preachers/${preacher.id}`}>
+                    <h3 className="text-2xl font-bold text-slate-900 mb-1 hover:text-lime-600 transition cursor-pointer">
+                      {preacher.name}
+                    </h3>
+                  </Link>
+                  <p className="text-lime-600 font-semibold mb-2">
+                    {preacher.preacherProfile?.yearsOfExperience || 0} years experience
+                  </p>
+
+                  <div className="flex items-center gap-2 mb-4 text-sm text-slate-600">
+                    <span className="font-semibold">
+                      {preacher.preacherProfile?.rating?.toFixed(1) || 'N/A'}
+                    </span>
+                    <span className="text-yellow-500">★</span>
+                    <span>
+                      ({preacher.preacherProfile?.totalRatings || 0} reviews)
+                    </span>
                   </div>
-                  <div>
-                    <span className="font-semibold text-slate-900">Experience:</span>
-                    <p className="text-slate-600">{preacher.experience}</p>
+
+                  <div className="space-y-3 mb-4 text-sm">
+                    <div>
+                      <span className="font-semibold text-slate-900">Denomination:</span>
+                      <p className="text-slate-600">{preacher.preacherProfile?.denomination || 'N/A'}</p>
+                    </div>
                   </div>
-                  <div>
-                    <span className="font-semibold text-slate-900">Specialties:</span>
-                    <p className="text-slate-600">{preacher.specialties.join(', ')}</p>
+
+                  <p className="text-slate-600 text-sm mb-4 line-clamp-2">
+                    {preacher.preacherProfile?.bio || preacher.bio}
+                  </p>
+
+                  {/* Resume Link */}
+                  {preacher.preacherProfile?.resumeUrl && (
+                    <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                      <a
+                        href={preacher.preacherProfile.resumeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 font-semibold text-sm flex items-center gap-2"
+                      >
+                        📄 View Resume
+                      </a>
+                    </div>
+                  )}
+
+                  <div className="flex gap-2">
+                    <Link
+                      href={`/browse/preachers/${preacher.id}`}
+                      className="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-900 font-bold py-2 px-4 rounded-lg transition text-center"
+                    >
+                      View Profile
+                    </Link>
+                    <button
+                      onClick={() => addToCart(preacher)}
+                      className="flex-1 bg-lime-500 hover:bg-lime-600 text-white font-bold py-2 px-4 rounded-lg transition"
+                    >
+                      Add to Cart
+                    </button>
                   </div>
                 </div>
-
-                <p className="text-slate-600 text-sm mb-4 line-clamp-2">{preacher.bio}</p>
-
-                <button
-                  onClick={() => addToCart(preacher)}
-                  className="w-full bg-lime-500 hover:bg-lime-600 text-white font-bold py-2 px-4 rounded-lg transition"
-                >
-                  Add to Cart
-                </button>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         {/* Cart Summary & Checkout */}
         {cart.length > 0 && (
