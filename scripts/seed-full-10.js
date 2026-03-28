@@ -35,16 +35,16 @@ async function main() {
   const churches = []
   
   const preacherNames = [
-    { name: 'Pastor John Smith', denomination: 'Baptist', exp: 25 },
-    { name: 'Rev. Sarah Johnson', denomination: 'Methodist', exp: 18 },
-    { name: 'Pastor Michael Chen', denomination: 'Pentecostal', exp: 22 },
-    { name: 'Rev. Patricia Williams', denomination: 'Presbyterian', exp: 20 },
-    { name: 'Pastor David Rodriguez', denomination: 'Baptist', exp: 15 },
-    { name: 'Rev. Emily Thompson', denomination: 'Anglican', exp: 28 },
-    { name: 'Pastor James Wilson', denomination: 'Methodist', exp: 30 },
-    { name: 'Rev. Maria Garcia', denomination: 'Pentecostal', exp: 16 },
-    { name: 'Pastor Daniel Lee', denomination: 'Evangelical', exp: 19 },
-    { name: 'Rev. Jessica Anderson', denomination: 'Baptist', exp: 24 },
+    { name: 'Pastor John Smith', denomination: 'Baptist', exp: 25, resume: '/resumes/pastor-john-smith-resume.pdf' },
+    { name: 'Rev. Sarah Johnson', denomination: 'Methodist', exp: 18, resume: '/resumes/rev.-sarah-johnson-resume.pdf' },
+    { name: 'Pastor Michael Chen', denomination: 'Pentecostal', exp: 22, resume: '/resumes/pastor-michael-chen-resume.pdf' },
+    { name: 'Rev. Patricia Williams', denomination: 'Presbyterian', exp: 20, resume: '/resumes/rev.-patricia-williams-resume.pdf' },
+    { name: 'Pastor David Rodriguez', denomination: 'Baptist', exp: 15, resume: '/resumes/pastor-david-rodriguez-resume.pdf' },
+    { name: 'Rev. Emily Thompson', denomination: 'Anglican', exp: 28, resume: '/resumes/rev.-emily-thompson-resume.pdf' },
+    { name: 'Pastor James Wilson', denomination: 'Methodist', exp: 30, resume: '/resumes/pastor-james-wilson-resume.pdf' },
+    { name: 'Rev. Maria Garcia', denomination: 'Pentecostal', exp: 16, resume: '/resumes/rev.-maria-garcia-resume.pdf' },
+    { name: 'Pastor Daniel Lee', denomination: 'Evangelical', exp: 19, resume: '/resumes/pastor-daniel-lee-resume.pdf' },
+    { name: 'Rev. Jessica Anderson', denomination: 'Baptist', exp: 24, resume: '/resumes/rev.-jessica-anderson-resume.pdf' },
   ]
 
   const churchNames = [
@@ -125,6 +125,7 @@ async function main() {
                 denomination: preacherData.denomination,
                 ordinationStatus: 'ordained',
                 verified: true,
+                resumeUrl: preacherData.resume,
                 bio: `I am ${preacherData.name}, an experienced preacher with ${preacherData.exp} years in ministry. Passionate about biblical teaching, community outreach, and spiritual growth. Specialized in revival meetings, youth ministry, and pastoral counseling.`,
                 specialization: 'Biblical Teaching',
                 churchAffiliation: preacherData.denomination,
