@@ -6,13 +6,13 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const preacherId = params.id
+    const { id: preacherId } = await params
 
     const preacher = await prisma.user.findUnique({
       where: { id: preacherId },
       include: {
         preacherProfile: true,
-        ratingsReceived: {
+        receivedRatings: {
           include: {
             ratedBy: {
               include: {

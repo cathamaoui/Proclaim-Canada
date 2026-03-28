@@ -29,7 +29,7 @@ interface PreacherData {
     totalRatings: number
     resumeUrl: string | null
   }
-  ratingsReceived: Array<{
+  receivedRatings: Array<{
     id: string
     rating: number
     comment: string
@@ -63,8 +63,8 @@ export default function PreacherDetailPage() {
         setPreacher(data.data)
 
         // Convert ratings to testimonials
-        if (data.data.ratingsReceived) {
-          const convertedTestimonials = data.data.ratingsReceived
+        if (data.data.receivedRatings) {
+          const convertedTestimonials = data.data.receivedRatings
             .filter((r: any) => r.comment && r.comment.trim().length > 0)
             .map((rating: any) => ({
               id: rating.id,
