@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
     // Get ratings for the specified user
     const ratings = await db.rating.findMany({
       where: {
-        ratedUserId: userId,
+        ratedToId: userId,
       },
       include: {
         ratedBy: {
@@ -46,18 +46,6 @@ export async function GET(request: NextRequest) {
             },
           },
         },
-        relatedApplication: {
-          select: {
-            id: true,
-            status: true,
-          },
-        },
-        relatedListing: {
-          select: {
-            id: true,
-            title: true,
-          },
-        },
       },
       orderBy: {
         createdAt: "desc",
@@ -68,7 +56,7 @@ export async function GET(request: NextRequest) {
 
     const total = await db.rating.count({
       where: {
-        ratedUserId: userId,
+        ratedToId: userId,
       },
     });
 
@@ -102,19 +90,12 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const {
-      ratedUserId,
-      rating,
-      review,
-      type,
-      relatedApplicationId,
-      relatedListingId,
-    } = body;
+    const { ratedToId, rating, comment, relatedTo, relatedId } = body;
 
     // Validation
-    if (!ratedUserId || !rating) {
+    if (!ratedToId || rating === undefined) {
       return NextResponse.json(
-        { error: "ratedUserId and rating are required" },
+        { error: "ratedToId and rating are required" },
         { status: 400 }
       );
     }
@@ -127,27 +108,79 @@ export async function POST(request: NextRequest) {
     }
 
     // Prevent self-rating
-    if (session.user.id === ratedUserId) {
+    if (session.user.id === ratedToId) {
       return NextResponse.json(
         { error: "Cannot rate yourself" },
         { status: 400 }
       );
     }
 
-    // Check for duplicate rating (prevent multiple ratings from same person)
+    // Check for duplicate rating
     const existingRating = await db.rating.findFirst({
       where: {
-        AND: [
-          { ratedById: session.user.id },
-          { ratedUserId: ratedUserId },
-          { type: type || "GENERAL" },
-        ],
+        ratedById: session.user.id,
+        ratedToId: ratedToId,
+        relatedTo: relatedTo || "GENERAL",
+        relatedId: relatedId || null,
       },
     });
 
     if (existingRating) {
       return NextResponse.json(
         { error: "You have already rated this user in this context" },
+        { status: 400 }
+      );
+    }
+
+    const newRating = await db.rating.create({
+      data: {
+        ratedById: session.user.id,
+        ratedToId: ratedToId,
+        rating,
+        comment: comment || null,
+        relatedTo: relatedTo || "GENERAL",
+        relatedId: relatedId || null,
+      },
+      include: {
+        ratedBy: {
+          select: {
+            id: true,
+            name: true,
+            image: true,
+          },
+        },
+      },
+    });
+
+    // Update preacher profile average rating
+    const allRatings = await db.rating.findMany({
+      where: { ratedToId: ratedToId, relatedTo: "GENERAL" },
+      select: { rating: true },
+    });
+
+    if (allRatings.length > 0) {
+      const avgRating = allRatings.reduce((sum, r) => sum + r.rating, 0) / allRatings.length;
+      await db.preacherProfile.update({
+        where: { userId: ratedToId },
+        data: {
+          rating: avgRating,
+          totalRatings: allRatings.length,
+        },
+      });
+    }
+
+    return NextResponse.json({ 
+      success: true,
+      rating: newRating 
+    });
+  } catch (error) {
+    console.error("Error creating rating:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}
         { status: 400 }
       );
     }
