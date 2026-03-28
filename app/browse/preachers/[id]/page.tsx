@@ -166,7 +166,7 @@ export default function PreacherDetailPage() {
                 <p className="text-gray-700">
                   <span className="font-semibold">Rating:</span> 
                   <span className="ml-2 text-amber-500">★</span>
-                  {preacherProfile.rating?.toFixed(1) || 'N/A'}/5 
+                  {preacherProfile.rating ? Number(preacherProfile.rating).toFixed(1) : 'N/A'}/5 
                   <span className="text-gray-500"> ({preacherProfile.totalRatings} reviews)</span>
                 </p>
               </div>

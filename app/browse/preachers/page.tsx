@@ -322,7 +322,7 @@ export default function BrowsePreachersPage() {
 
                   <div className="flex items-center gap-2 mb-4 text-sm text-slate-600">
                     <span className="font-semibold">
-                      {preacher.preacherProfile?.rating?.toFixed(1) || 'N/A'}
+                      {preacher.preacherProfile?.rating ? Number(preacher.preacherProfile.rating).toFixed(1) : 'N/A'}
                     </span>
                     <span className="text-yellow-500">★</span>
                     <span>
