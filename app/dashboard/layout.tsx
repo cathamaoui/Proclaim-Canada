@@ -154,6 +154,12 @@ export default function DashboardLayout({
                     >
                       Availability
                     </Link>
+                    <Link
+                      href="/dashboard/ratings"
+                      className="block px-4 py-2 rounded-lg hover:bg-primary-50 text-gray-700 hover:text-primary-600"
+                    >
+                      Ratings & Reviews
+                    </Link>
                   </>
                 )}
                 <Link
