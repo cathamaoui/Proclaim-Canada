@@ -34,6 +34,7 @@ export async function GET(request: NextRequest) {
             id: true,
             email: true,
             name: true,
+            image: true,
             preacherProfile: {
               select: {
                 yearsOfExperience: true,
