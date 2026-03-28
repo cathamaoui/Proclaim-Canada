@@ -41,6 +41,7 @@ export async function GET(request: NextRequest) {
             },
             churchProfile: {
               select: {
+                name: true,
                 denomination: true,
               },
             },
