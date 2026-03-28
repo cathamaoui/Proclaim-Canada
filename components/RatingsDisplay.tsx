@@ -47,11 +47,24 @@ export default function RatingsDisplay({ userId }: RatingsDisplayProps) {
     try {
       const response = await fetch(`/api/ratings?userId=${userId}`)
       const data = await response.json()
-      setRatings(data.ratings)
-      setAverage(data.average)
-      setTotal(data.total)
+      
+      // Defensive checks for API response structure
+      if (data.error) {
+        console.error('API error:', data.error)
+        setRatings([])
+        setAverage(0)
+        setTotal(0)
+        return
+      }
+      
+      setRatings(Array.isArray(data.ratings) ? data.ratings : [])
+      setAverage(typeof data.average === 'number' ? data.average : 0)
+      setTotal(typeof data.total === 'number' ? data.total : 0)
     } catch (error) {
       console.error('Failed to fetch ratings:', error)
+      setRatings([])
+      setAverage(0)
+      setTotal(0)
     } finally {
       setLoading(false)
     }
