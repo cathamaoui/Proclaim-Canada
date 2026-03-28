@@ -71,17 +71,18 @@ export default function RatingsDisplay({ userId }: RatingsDisplayProps) {
     )
   }
 
-  const renderCategoryBar = (score: number, label: string) => {
+  const renderCategoryBar = (score: number | undefined, label: string) => {
+    const safeScore = score || 0
     return (
       <div className="space-y-1">
         <div className="flex items-center justify-between">
           <label className="text-sm font-medium text-gray-700">{label}</label>
-          <span className="text-sm font-semibold text-primary-600">{score.toFixed(1)}/5</span>
+          <span className="text-sm font-semibold text-primary-600">{safeScore.toFixed(1)}/5</span>
         </div>
         <div className="w-full bg-gray-200 rounded-full h-2">
           <div
             className="bg-primary-600 h-2 rounded-full transition-all"
-            style={{ width: `${(score / 5) * 100}%` }}
+            style={{ width: `${(safeScore / 5) * 100}%` }}
           ></div>
         </div>
       </div>
@@ -96,10 +97,10 @@ export default function RatingsDisplay({ userId }: RatingsDisplayProps) {
         
         <div className="flex items-center gap-6">
           <div>
-            <div className="text-4xl font-bold text-gray-900">{average.toFixed(1)}</div>
+            <div className="text-4xl font-bold text-gray-900">{(average || 0).toFixed(1)}</div>
             <div className="flex gap-1 mt-2">
               {[1, 2, 3, 4, 5].map((star) => (
-                <span key={star} className={`text-2xl ${star <= Math.round(average) ? 'text-yellow-400' : 'text-gray-300'}`}>
+                <span key={star} className={`text-2xl ${star <= Math.round(average || 0) ? 'text-yellow-400' : 'text-gray-300'}`}>
                   ★
                 </span>
               ))}
