@@ -6,11 +6,12 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const application = await prisma.application.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         listing: true,
         applicant: {
@@ -44,7 +45,7 @@ export async function GET(
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -53,8 +54,9 @@ export async function PATCH(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
+    const { id } = await params
     const application = await prisma.application.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: { listing: true },
     })
 
@@ -85,7 +87,7 @@ export async function PATCH(
     }
 
     const updatedApplication = await prisma.application.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         status,
         respondedAt: new Date(),
@@ -141,7 +143,7 @@ export async function PATCH(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -150,8 +152,9 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
+    const { id } = await params
     const application = await prisma.application.findUnique({
-      where: { id: params.id },
+      where: { id },
     })
 
     if (!application) {
@@ -166,7 +169,7 @@ export async function DELETE(
     }
 
     await prisma.application.delete({
-      where: { id: params.id },
+      where: { id },
     })
 
     return NextResponse.json({ message: 'Application deleted successfully' })

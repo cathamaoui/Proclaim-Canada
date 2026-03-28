@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, use } from 'react'
 import { useSession } from 'next-auth/react'
 import { format } from 'date-fns'
 import Link from 'next/link'
@@ -23,8 +23,9 @@ interface ConversationDetails {
   }
 }
 
-export default function ConversationPage({ params }: { params: { userId: string } }) {
+export default function ConversationPage({ params }: { params: Promise<{ userId: string }> }) {
   const { data: session } = useSession()
+  const resolvedParams = use(params)
   const [conversation, setConversation] = useState<ConversationDetails | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -32,7 +33,7 @@ export default function ConversationPage({ params }: { params: { userId: string 
   const [sending, setSending] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
-  const userId = params.userId
+  const userId = resolvedParams.userId
 
   useEffect(() => {
     if (session?.user) {

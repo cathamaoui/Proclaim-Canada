@@ -44,11 +44,12 @@ export async function POST(req: NextRequest) {
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const answers = await db.applicationAnswer.findMany({
-      where: { applicationId: params.id },
+      where: { applicationId: id },
       include: { question: true }
     })
 

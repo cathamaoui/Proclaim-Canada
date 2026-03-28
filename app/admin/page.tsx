@@ -37,7 +37,7 @@ interface Statistics {
 }
 
 export default function AdminDashboardPage() {
-  const { data: session, status } = useSession()
+  const { status } = useSession()
   const router = useRouter()
   const [stats, setStats] = useState<Statistics | null>(null)
   const [loading, setLoading] = useState(true)

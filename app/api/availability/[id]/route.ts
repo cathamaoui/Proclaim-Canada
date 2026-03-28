@@ -5,16 +5,17 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions) as any;
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    const { id } = await params;
     const slot = await db.availabilitySlot.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!slot) {
@@ -27,7 +28,7 @@ export async function DELETE(
     }
 
     await db.availabilitySlot.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json(

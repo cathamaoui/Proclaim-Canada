@@ -29,10 +29,10 @@ interface MatchScore {
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await getServerSession(authOptions)
+    const session = await getServerSession(authOptions) as any
     if (!session?.user || session.user.role !== 'CHURCH') {
       return NextResponse.json(
         { error: 'Unauthorized' },
@@ -40,7 +40,8 @@ export async function GET(
       )
     }
 
-    const listingId = params.id
+    const { id } = await params
+    const listingId = id
     const listing = await prisma.churchListing.findUnique({
       where: { id: listingId },
       include: { customQuestions: true }

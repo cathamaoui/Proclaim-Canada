@@ -18,7 +18,7 @@ interface User {
 }
 
 export default function UsersPage() {
-  const { data: session } = useSession()
+  useSession() // Auth check
   const [users, setUsers] = useState<User[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')

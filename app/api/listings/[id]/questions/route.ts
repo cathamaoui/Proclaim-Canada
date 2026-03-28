@@ -4,11 +4,12 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const questions = await db.applicationQuestion.findMany({
-      where: { listingId: params.id },
+      where: { listingId: id },
       orderBy: { order: 'asc' }
     })
 
@@ -24,15 +25,16 @@ export async function GET(
 
 export async function POST(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const body = await req.json()
     const { questionText, questionType, options, required } = body
 
     // Verify listing exists and user is owner
     const listing = await db.churchListing.findUnique({
-      where: { id: params.id }
+      where: { id }
     })
 
     if (!listing) {
@@ -44,13 +46,13 @@ export async function POST(
 
     // Verify user is church owner (would need session check in production)
     const lastQuestion = await db.applicationQuestion.findFirst({
-      where: { listingId: params.id },
+      where: { listingId: id },
       orderBy: { order: 'desc' }
     })
 
     const question = await db.applicationQuestion.create({
       data: {
-        listingId: params.id,
+        listingId: id,
         questionText,
         questionType,
         options: options || [],
@@ -71,7 +73,7 @@ export async function POST(
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const body = await req.json()
@@ -100,7 +102,7 @@ export async function PUT(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { questionId } = await req.json()
