@@ -1,7 +1,10 @@
 {
-  "/church-home/page": "app/church-home/page.js",
-  "/auth/login/page": "app/auth/login/page.js",
-  "/auth/signup/page": "app/auth/signup/page.js",
-  "/dashboard/profile/complete/page": "app/dashboard/profile/complete/page.js",
-  "/dashboard/profile/page": "app/dashboard/profile/page.js"
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/api/preacher/profile/route": "app/api/preacher/profile/route.js",
+  "/api/notifications/route": "app/api/notifications/route.js",
+  "/api/profile-completion/route": "app/api/profile-completion/route.js",
+  "/api/applications/route": "app/api/applications/route.js",
+  "/api/ratings/route": "app/api/ratings/route.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/dashboard/ratings/page": "app/dashboard/ratings/page.js"
 }
