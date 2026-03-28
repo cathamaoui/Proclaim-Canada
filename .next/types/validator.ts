@@ -164,6 +164,15 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../app/checkout/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/checkout">> = Specific
+  const handler = {} as typeof import("../../app/checkout/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../app/church-dashboard/analytics/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/church-dashboard/analytics">> = Specific
@@ -510,6 +519,24 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 {
   type __IsExpected<Specific extends RouteHandlerConfig<"/api/candidates/search">> = Specific
   const handler = {} as typeof import("../../app/api/candidates/search/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/api/checkout/invoice/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/checkout/invoice">> = Specific
+  const handler = {} as typeof import("../../app/api/checkout/invoice/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/api/checkout/paypal/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/checkout/paypal">> = Specific
+  const handler = {} as typeof import("../../app/api/checkout/paypal/route.js")
   type __Check = __IsExpected<typeof handler>
   // @ts-ignore
   type __Unused = __Check
