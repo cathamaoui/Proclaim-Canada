@@ -209,10 +209,28 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../app/dashboard/applications/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/dashboard/applications">> = Specific
+  const handler = {} as typeof import("../../app/dashboard/applications/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../app/dashboard/availability/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/dashboard/availability">> = Specific
   const handler = {} as typeof import("../../app/dashboard/availability/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/dashboard/listings/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/dashboard/listings">> = Specific
+  const handler = {} as typeof import("../../app/dashboard/listings/page.js")
   type __Check = __IsExpected<typeof handler>
   // @ts-ignore
   type __Unused = __Check

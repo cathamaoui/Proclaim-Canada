@@ -1,0 +1,96 @@
+{
+  "churchTestimonials": [
+    {
+      "churchName": "Grace Community Church",
+      "location": "Toronto, Ontario",
+      "quote": "Proclaim Canada helped us find the perfect guest preacher within days. The quality of candidates and ease of use exceeded our expectations!",
+      "contactName": "Pastor Michael Chen",
+      "role": "Lead Pastor",
+      "rating": 5
+    },
+    {
+      "churchName": "First Baptist Church Calgary",
+      "location": "Calgary, Alberta",
+      "quote": "We've used several platforms to find pulpit supply, but Proclaim Canada has by far the best selection of qualified preachers. Highly recommend!",
+      "contactName": "Deacon Robert Williams",
+      "role": "Deacon Board Chair",
+      "rating": 5
+    },
+    {
+      "churchName": "Living Hope Church",
+      "location": "Vancouver, British Columbia",
+      "quote": "The messaging system made communication so easy. We found a Spirit-filled speaker for our revival who delivered beyond what we hoped for.",
+      "contactName": "Pastor Sarah Johnson",
+      "role": "Senior Pastor",
+      "rating": 5
+    },
+    {
+      "churchName": "New Life Community Church",
+      "location": "Dallas, Texas",
+      "quote": "As a large church with multiple campuses, we need reliable pulpit supply regularly. Proclaim Canada has become our go-to platform.",
+      "contactName": "Maria Rodriguez",
+      "role": "Executive Pastor",
+      "rating": 5
+    },
+    {
+      "churchName": "Redeemer Presbyterian Church",
+      "location": "Montreal, Quebec",
+      "quote": "Finding bilingual preachers who understand Reformed theology is challenging. Proclaim Canada made it possible!",
+      "contactName": "Dr. Jean-Pierre Tremblay",
+      "role": "Session Clerk",
+      "rating": 5
+    },
+    {
+      "churchName": "Cornerstone Baptist Church",
+      "location": "Atlanta, Georgia",
+      "quote": "We hosted a men's conference and found our keynote speaker through Proclaim Canada. The process was seamless and the speaker was outstanding!",
+      "contactName": "Tom Anderson",
+      "role": "Men's Ministry Director",
+      "rating": 5
+    }
+  ],
+  "pastorTestimonials": [
+    {
+      "name": "Rev. Dr. James Wilson",
+      "denomination": "Baptist",
+      "location": "Nashville, Tennessee",
+      "quote": "Proclaim Canada connected me with churches I never would have found on my own. I've had 15 speaking engagements in the past year!",
+      "yearsExperience": 25
+    },
+    {
+      "name": "Pastor Maria Santos",
+      "denomination": "Pentecostal",
+      "location": "Toronto, Ontario",
+      "quote": "The platform is so easy to use. I can browse opportunities, apply with one click, and track everything in one place.",
+      "yearsExperience": 12
+    },
+    {
+      "name": "Rev. Daniel Park",
+      "denomination": "Presbyterian",
+      "location": "Vancouver, British Columbia",
+      "quote": "I was skeptical at first, but Proclaim Canada has been a blessing. The matching system connected me with churches that align with my theology.",
+      "yearsExperience": 18
+    },
+    {
+      "name": "Bishop Angela Thompson",
+      "denomination": "Methodist",
+      "location": "Atlanta, Georgia",
+      "quote": "Retirement didn't mean the end of ministry. Proclaim Canada helps me stay active, preaching 2-3 times a month.",
+      "yearsExperience": 35
+    },
+    {
+      "name": "Pastor Emmanuel Okonkwo",
+      "denomination": "Non-Denominational",
+      "location": "Calgary, Alberta",
+      "quote": "As a new pastor in Canada, this platform helped me build connections and gain valuable preaching experience.",
+      "yearsExperience": 8
+    },
+    {
+      "name": "Rev. Jessica Anderson",
+      "denomination": "Non-Denominational",
+      "location": "Toronto, Ontario",
+      "quote": "The best part about Proclaim Canada is the direct messaging with churches. I can ask questions and get a feel for the congregation before applying.",
+      "yearsExperience": 15
+    }
+  ]
+}
