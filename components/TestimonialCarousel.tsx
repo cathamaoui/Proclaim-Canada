@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import ChurchVerificationBadge from './ChurchVerificationBadge'
 
 interface Testimonial {
   id: string
@@ -10,6 +11,8 @@ interface Testimonial {
   denomination: string
   rating: number
   image?: string
+  isVerifiedService?: boolean
+  serviceDate?: Date | string | null
 }
 
 const SAMPLE_TESTIMONIALS: Testimonial[] = [
@@ -104,14 +107,23 @@ export default function TestimonialCarousel({
           </blockquote>
 
           {/* Author */}
-          <div>
-            <p className="font-semibold text-lg">
-              {testimonial.image && <span className="mr-2">{testimonial.image}</span>}
-              {testimonial.author}
-            </p>
-            <p className="text-primary-100 text-sm">
-              {testimonial.churchName} • {testimonial.denomination}
-            </p>
+          <div className="space-y-3">
+            <div>
+              <p className="font-semibold text-lg">
+                {testimonial.image && <span className="mr-2">{testimonial.image}</span>}
+                {testimonial.author}
+              </p>
+              <p className="text-primary-100 text-sm">
+                {testimonial.churchName} • {testimonial.denomination}
+              </p>
+            </div>
+            {/* Church Verification Badge */}
+            {testimonial.isVerifiedService && (
+              <ChurchVerificationBadge
+                isVerified={testimonial.isVerifiedService}
+                serviceDate={testimonial.serviceDate}
+              />
+            )}
           </div>
 
           {/* Navigation */}

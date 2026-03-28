@@ -150,8 +150,8 @@ async function main() {
       }
     }
 
-    // 3. CREATE RATINGS
-    console.log('\n⭐ Creating ratings...')
+    // 3. CREATE RATINGS with CATEGORY RATINGS
+    console.log('\n⭐ Creating ratings with category ratings...')
     const ratingComments = [
       'Excellent sermon with deep biblical insights. Congregation loved it!',
       'Powerful preaching that moved hearts and inspired faith. Highly recommend!',
@@ -170,20 +170,33 @@ async function main() {
     for (let i = 0; i < preachers.length; i++) {
       const preacher = preachers[i]
       const numRatings = 8 + Math.floor(Math.random() * 5) // 8-12 ratings each
-      const ratingValues = Array(numRatings)
-        .fill(0)
-        .map(() => 4 + Math.random()) // 4-5 stars
 
       for (let j = 0; j < numRatings; j++) {
         const ratingChurch = churches[j % churches.length]
-        const rating = Math.round(ratingValues[j] * 10) / 10
+        
+        // Generate category ratings (all between 4-5 stars)
+        const scripturalFidelity = 4 + Math.floor(Math.random() * 2) // 4 or 5
+        const audienceEngagement = 4 + Math.floor(Math.random() * 2) // 4 or 5
+        const professionalism = 4 + Math.floor(Math.random() * 2) // 4 or 5
+        
+        // Overall rating is average of categories
+        const overallRating = Math.round((scripturalFidelity + audienceEngagement + professionalism) / 3)
+        
+        // Generate service date in the past (3-90 days ago)
+        const serviceDate = new Date()
+        serviceDate.setDate(serviceDate.getDate() - (Math.floor(Math.random() * 87) + 3))
 
         try {
           await prisma.rating.create({
             data: {
               ratedById: ratingChurch.id,
               ratedToId: preacher.id,
-              rating: Math.round(rating),
+              rating: overallRating,
+              scripturalFidelity,
+              audienceEngagement,
+              professionalism,
+              isVerifiedService: true,  // Mark as verified service
+              serviceDate,
               comment: ratingComments[j % ratingComments.length],
               relatedTo: 'GENERAL',
               relatedId: preacher.id,
@@ -194,24 +207,32 @@ async function main() {
         }
       }
 
-      // Update preacher's average rating
+      // Update preacher's average rating (from category ratings)
       const allRatings = await prisma.rating.findMany({
         where: { ratedToId: preacher.id },
       })
-      const avgRating =
-        allRatings.length > 0
-          ? Math.round((allRatings.reduce((sum, r) => sum + r.rating, 0) / allRatings.length) * 10) / 10
-          : 0
+      
+      // Calculate category averages
+      let avgScriptural = 0, avgEngagement = 0, avgProfessionalism = 0
+      if (allRatings.length > 0) {
+        avgScriptural = Math.round((allRatings.reduce((sum, r) => sum + (r.scripturalFidelity || 0), 0) / allRatings.length) * 10) / 10
+        avgEngagement = Math.round((allRatings.reduce((sum, r) => sum + (r.audienceEngagement || 0), 0) / allRatings.length) * 10) / 10
+        avgProfessionalism = Math.round((allRatings.reduce((sum, r) => sum + (r.professionalism || 0), 0) / allRatings.length) * 10) / 10
+      }
+      
+      const overallAvg = avgScriptural && avgEngagement && avgProfessionalism 
+        ? Math.round(((avgScriptural + avgEngagement + avgProfessionalism) / 3) * 10) / 10
+        : 0
 
       await prisma.preacherProfile.update({
         where: { userId: preacher.id },
         data: {
-          rating: avgRating,
+          rating: overallAvg,
           totalRatings: allRatings.length,
         },
       })
 
-      console.log(`  ✅ ${preacher.name}: ${allRatings.length} ratings, avg ${avgRating}/5`)
+      console.log(`  ✅ ${preacher.name}: ${allRatings.length} verified ratings, avg ${overallAvg}/5`)
     }
 
     // 4. CREATE AVAILABILITY SLOTS

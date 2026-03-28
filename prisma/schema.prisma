@@ -414,7 +414,17 @@ model Rating {
   ratedToId   String
   relatedTo   RatingType  // APPLICATION, LISTING, etc
   relatedId   String?     // ID of application or listing
-  rating      Int         // 1-5 stars
+  rating      Int         // 1-5 stars (legacy, kept for compatibility)
+  
+  // Category Ratings (1-5 scale)
+  scripturalFidelity   Int?  // Biblical accuracy and theological soundness
+  audienceEngagement   Int?  // Ability to engage and hold audience interest
+  professionalism      Int?  // Preparation, delivery, punctuality
+  
+  // Verification
+  isVerifiedService    Boolean @default(false)  // Actual pulpit supply completed
+  serviceDate          DateTime?  // Date of the actual service
+  
   comment     String?  @db.Text
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -427,6 +437,7 @@ model Rating {
   @@index([ratedToId])
   @@index([rating])
   @@index([createdAt])
+  @@index([isVerifiedService])
 }
 
 enum RatingType {

@@ -6,6 +6,8 @@ import Link from 'next/link'
 import Logo from '@/components/Logo'
 import Footer from '@/components/Footer'
 import TestimonialCarousel from '@/components/TestimonialCarousel'
+import PDFViewerModal from '@/components/PDFViewerModal'
+import CategoryRatings from '@/components/CategoryRatings'
 
 interface Testimonial {
   id: string
@@ -14,6 +16,8 @@ interface Testimonial {
   churchName: string
   denomination: string
   rating: number
+  isVerifiedService?: boolean
+  serviceDate?: string | null
 }
 
 interface PreacherData {
@@ -32,6 +36,11 @@ interface PreacherData {
   receivedRatings: Array<{
     id: string
     rating: number
+    scripturalFidelity?: number | null
+    audienceEngagement?: number | null
+    professionalism?: number | null
+    isVerifiedService?: boolean
+    serviceDate?: string | null
     comment: string
     createdAt: string
     ratedBy: {
@@ -51,6 +60,11 @@ export default function PreacherDetailPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [testimonials, setTestimonials] = useState<Testimonial[]>([])
+  const [categoryRatings, setCategoryRatings] = useState({
+    scriptural: 0,
+    engagement: 0,
+    professionalism: 0,
+  })
 
   useEffect(() => {
     const fetchPreacher = async () => {
@@ -73,8 +87,33 @@ export default function PreacherDetailPage() {
               churchName: rating.ratedBy.churchProfile?.churchName || 'Church',
               denomination: rating.ratedBy.churchProfile?.denomination || 'Evangelical',
               rating: rating.rating,
+              isVerifiedService: rating.isVerifiedService,
+              serviceDate: rating.serviceDate,
             }))
           setTestimonials(convertedTestimonials)
+
+          // Calculate category rating averages
+          const allRatings = data.data.receivedRatings
+          if (allRatings.length > 0) {
+            const avgScriptural = Math.round(
+              (allRatings.reduce((sum: number, r: any) => sum + (r.scripturalFidelity || 0), 0) / 
+              allRatings.length) * 10
+            ) / 10
+            const avgEngagement = Math.round(
+              (allRatings.reduce((sum: number, r: any) => sum + (r.audienceEngagement || 0), 0) / 
+              allRatings.length) * 10
+            ) / 10
+            const avgProfessionalism = Math.round(
+              (allRatings.reduce((sum: number, r: any) => sum + (r.professionalism || 0), 0) / 
+              allRatings.length) * 10
+            ) / 10
+
+            setCategoryRatings({
+              scriptural: avgScriptural,
+              engagement: avgEngagement,
+              professionalism: avgProfessionalism,
+            })
+          }
         }
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred')
@@ -164,23 +203,16 @@ export default function PreacherDetailPage() {
                   <span className="font-semibold">Experience:</span> {preacherProfile.yearsOfExperience} years
                 </p>
                 <p className="text-gray-700">
-                  <span className="font-semibold">Rating:</span> 
-                  <span className="ml-2 text-amber-500">★</span>
-                  {preacherProfile.rating ? Number(preacherProfile.rating).toFixed(1) : 'N/A'}/5 
-                  <span className="text-gray-500"> ({preacherProfile.totalRatings} reviews)</span>
+                  <span className="font-semibold">Total Reviews:</span> {preacherProfile.totalRatings}
                 </p>
               </div>
 
-              {/* Resume Download Button */}
+              {/* Resume Viewer Button */}
               {preacherProfile.resumeUrl && (
-                <a
-                  href={preacherProfile.resumeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold"
-                >
-                  📄 View Resume
-                </a>
+                <PDFViewerModal 
+                  pdfUrl={preacherProfile.resumeUrl}
+                  preacherName={preacher.name}
+                />
               )}
             </div>
           </div>
@@ -193,6 +225,17 @@ export default function PreacherDetailPage() {
             </p>
           </div>
         </div>
+
+        {/* Category Ratings Section */}
+        {(categoryRatings.scriptural || categoryRatings.engagement || categoryRatings.professionalism) && (
+          <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <CategoryRatings
+              scripturalFidelity={categoryRatings.scriptural}
+              audienceEngagement={categoryRatings.engagement}
+              professionalism={categoryRatings.professionalism}
+            />
+          </div>
+        )}
 
         {/* Testimonials Section */}
         {testimonials.length > 0 ? (
