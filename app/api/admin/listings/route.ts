@@ -14,7 +14,7 @@ async function isAdmin(userId: string) {
 
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions) as any;
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
@@ -33,9 +33,9 @@ export async function GET(request: NextRequest) {
 
     // Get listings with filters
     const listings = await db.churchListing.findMany({
-      where: status ? { status } : {},
+      where: status ? { status: status as any } : {},
       include: {
-        church: {
+        user: {
           select: {
             id: true,
             email: true,
@@ -59,7 +59,7 @@ export async function GET(request: NextRequest) {
     });
 
     const total = await db.churchListing.count({
-      where: status ? { status } : {},
+      where: status ? { status: status as any } : {},
     });
 
     return NextResponse.json({
@@ -79,7 +79,7 @@ export async function GET(request: NextRequest) {
 
 export async function PATCH(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions) as any;
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
@@ -91,7 +91,7 @@ export async function PATCH(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { listingId, action, reason } = body;
+    const { listingId, action } = body;
 
     if (!listingId || !action) {
       return NextResponse.json(
@@ -113,21 +113,22 @@ export async function PATCH(request: NextRequest) {
 
     let updateData: any = {};
 
-    if (action === "remove") {
+    // Use valid ListingStatus enum values: OPEN, IN_PROGRESS, FILLED, CANCELLED
+    if (action === "remove" || action === "reject") {
       updateData = {
-        status: "REMOVED",
+        status: "CANCELLED",
       };
-    } else if (action === "approve") {
+    } else if (action === "approve" || action === "open") {
       updateData = {
-        status: "ACTIVE",
+        status: "OPEN",
       };
-    } else if (action === "reject") {
+    } else if (action === "fill") {
       updateData = {
-        status: "REJECTED",
+        status: "FILLED",
       };
     } else {
       return NextResponse.json(
-        { error: "Invalid action. Must be: remove, approve, reject" },
+        { error: "Invalid action. Must be: remove, approve, reject, open, fill" },
         { status: 400 }
       );
     }
@@ -138,19 +139,9 @@ export async function PATCH(request: NextRequest) {
       data: updateData,
     });
 
-    // Create audit log
-    await db.auditLog.create({
-      data: {
-        userId: session.user.id,
-        action: `LISTING_${action.toUpperCase()}`,
-        details: JSON.stringify({
-          listingId,
-          listingTitle: listing.title,
-          churchId: listing.churchId,
-          reason: reason || null,
-        }),
-      },
-    });
+    // TODO: Add audit logging when AuditLog model is implemented
+    // For now, just log to console
+    console.log(`Admin action: ${action} on listing ${listingId} by user ${session.user.id}`);
 
     return NextResponse.json(updatedListing, { status: 200 });
   } catch (error) {

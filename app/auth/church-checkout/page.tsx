@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 
@@ -48,7 +48,16 @@ const PROVINCES_STATES: { [key: string]: string[] } = {
   ],
 }
 
+// Wrapper component to handle Suspense boundary for useSearchParams
 export default function ChurchCheckoutPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <ChurchCheckoutContent />
+    </Suspense>
+  )
+}
+
+function ChurchCheckoutContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const planId = searchParams.get('plan') || 'monthly'

@@ -12,6 +12,8 @@ async function isAdmin(userId: string) {
   return user?.isAdmin || false;
 }
 
+// MVP STUB: AuditLog model not yet implemented
+// TODO: Add AuditLog model to Prisma schema for full audit functionality
 export async function GET(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions) as any;
@@ -27,54 +29,17 @@ export async function GET(request: NextRequest) {
 
     const searchParams = request.nextUrl.searchParams;
     const page = parseInt(searchParams.get("page") || "1");
-    const limit = 50;
-    const skip = (page - 1) * limit;
+    const days = parseInt(searchParams.get("days") || "7");
     const action = searchParams.get("action");
     const userId = searchParams.get("userId");
-    const days = parseInt(searchParams.get("days") || "7");
 
-    // Build filter
-    const where: any = {
-      createdAt: {
-        gte: new Date(Date.now() - days * 24 * 60 * 60 * 1000),
-      },
-    };
-
-    if (action) {
-      where.action = {
-        contains: action,
-        mode: "insensitive",
-      };
-    }
-
-    if (userId) {
-      where.userId = userId;
-    }
-
-    // Get audit logs
-    const logs = await db.auditLog.findMany({
-      where,
-      include: {
-        user: {
-          select: {
-            id: true,
-            email: true,
-            name: true,
-          },
-        },
-      },
-      orderBy: { createdAt: "desc" },
-      take: limit,
-      skip: skip,
-    });
-
-    const total = await db.auditLog.count({ where });
-
+    // Return empty audit logs for MVP (model not yet implemented)
     return NextResponse.json({
-      logs,
-      total,
+      logs: [],
+      total: 0,
       page,
-      pages: Math.ceil(total / limit),
+      pages: 0,
+      message: "Audit logging coming soon - MVP placeholder",
       filters: {
         days,
         action: action || null,
@@ -82,7 +47,7 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("Error fetching audit logs:", error);
+    console.error("Error in audit logs:", error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
