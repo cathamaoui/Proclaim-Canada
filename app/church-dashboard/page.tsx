@@ -104,7 +104,7 @@ export default function ChurchDashboardPage() {
                 Your church exists to take the most important message to your mission field. We're here to help you accomplish God's purposes for your church by finding the ideal candidate.
               </p>
               <Link
-                href="/listings/new"
+                href="/listings/select-plan"
                 className="inline-block bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition"
               >
                 Post a Job
