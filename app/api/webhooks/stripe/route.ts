@@ -1,5 +1,6 @@
 import Stripe from 'stripe'
 import { prisma } from '@/lib/db'
+import { sendPaymentFailedNotification } from '@/lib/email-notifications'
 import { NextRequest, NextResponse } from 'next/server'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
@@ -56,7 +57,10 @@ async function handlePaymentIntentSucceeded(paymentIntent: Stripe.PaymentIntent)
 
 async function handlePaymentIntentFailed(paymentIntent: Stripe.PaymentIntent) {
   try {
-    const { userId } = paymentIntent.metadata as { userId: string }
+    const { userId, planType } = paymentIntent.metadata as {
+      userId: string
+      planType: string
+    }
 
     // Create payment record for failed payment
     await prisma.payment.create({
@@ -66,11 +70,32 @@ async function handlePaymentIntentFailed(paymentIntent: Stripe.PaymentIntent) {
         amount: paymentIntent.amount,
         currency: paymentIntent.currency,
         status: 'failed',
-        metadata: {
-          lastError: paymentIntent.last_payment_error?.message || 'Unknown error',
-        },
+        planType,
+        failureReason: paymentIntent.last_payment_error?.message || 'Unknown error',
       },
     })
+
+    // Send payment failed notification
+    try {
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
+        select: { email: true, name: true },
+      })
+
+      if (user?.email) {
+        const errorMessage = paymentIntent.last_payment_error?.message || 'Your payment could not be processed'
+        
+        await sendPaymentFailedNotification(
+          user.email,
+          user.name || 'Valued Customer',
+          planType,
+          errorMessage,
+          `${process.env.NEXTAUTH_URL}/church-dashboard/settings/subscription`
+        )
+      }
+    } catch (emailError) {
+      console.error('Failed to send payment failed notification:', emailError)
+    }
 
     console.log(`❌ Payment failed for user ${userId}`)
   } catch (error) {

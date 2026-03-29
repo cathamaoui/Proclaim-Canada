@@ -2,6 +2,7 @@ import { getServerSession } from 'next-auth/next'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/db'
 import { sendEmail, emailTemplates } from '@/lib/email'
+import { sendApplicationReceivedNotification } from '@/lib/email-notifications'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(req: NextRequest) {
@@ -159,26 +160,49 @@ export async function POST(req: NextRequest) {
       },
     })
 
-    // Send email notification to church
+    // Send email notifications
     const church = await prisma.user.findUnique({
       where: { id: listing.createdBy },
       select: { email: true, name: true },
     })
 
-    if (church?.email) {
-      const applicationUrl = `${process.env.NEXTAUTH_URL}/dashboard?tab=applications`
-      const emailContent = emailTemplates.applicationReceived(
-        church.name || church.email,
-        session.user.name || 'A preacher',
-        listing.title,
-        applicationUrl
-      )
+    const preacher = await prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: { email: true, name: true },
+    })
 
-      await sendEmail({
-        to: church.email,
-        subject: emailContent.subject,
-        html: emailContent.html,
-      })
+    const applicationUrl = `${process.env.NEXTAUTH_URL}/dashboard?tab=applications`
+
+    // Send to church
+    if (church?.email) {
+      try {
+        await sendApplicationReceivedNotification(
+          'church',
+          church.email,
+          church.name || 'Church',
+          preacher?.name || 'A Preacher',
+          listing.title,
+          applicationUrl
+        )
+      } catch (emailError) {
+        console.error('Failed to send church application notification:', emailError)
+      }
+    }
+
+    // Send to preacher
+    if (preacher?.email) {
+      try {
+        await sendApplicationReceivedNotification(
+          'preacher',
+          preacher.email,
+          preacher.name || 'Preacher',
+          church?.name || 'A Church',
+          listing.title,
+          applicationUrl
+        )
+      } catch (emailError) {
+        console.error('Failed to send preacher application notification:', emailError)
+      }
     }
 
     // Create notification

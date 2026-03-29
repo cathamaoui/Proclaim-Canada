@@ -2,6 +2,7 @@ import { getServerSession } from 'next-auth/next'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/db'
 import { sendEmail, emailTemplates } from '@/lib/email'
+import { sendApplicationAcceptedNotification } from '@/lib/email-notifications'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(
@@ -113,22 +114,35 @@ export async function PATCH(
       })
 
       const churchName = church?.name || 'A church'
-      const statusMessage = status === 'ACCEPTED'
-        ? `${churchName} has accepted your application for ${updatedApplication.listing.title}. Next steps will be shared with you soon.`
-        : `Unfortunately, ${churchName} did not move forward with your application for ${updatedApplication.listing.title}. Keep applying to other opportunities!`
 
-      const emailContent = emailTemplates.applicationStatus(
-        updatedApplication.applicant.name || 'Preacher',
-        status as 'ACCEPTED' | 'REJECTED',
-        churchName,
-        statusMessage
-      )
+      try {
+        if (status === 'ACCEPTED') {
+          await sendApplicationAcceptedNotification(
+            updatedApplication.applicant.email,
+            updatedApplication.applicant.name || 'Preacher',
+            churchName,
+            updatedApplication.listing.title,
+            `${process.env.NEXTAUTH_URL}/dashboard?tab=applications`
+          )
+        } else {
+          // For rejection, keep using the old email template for now
+          const statusMessage = `Unfortunately, ${churchName} did not move forward with your application for ${updatedApplication.listing.title}. Keep applying to other opportunities!`
+          const emailContent = emailTemplates.applicationStatus(
+            updatedApplication.applicant.name || 'Preacher',
+            'REJECTED',
+            churchName,
+            statusMessage
+          )
 
-      await sendEmail({
-        to: updatedApplication.applicant.email,
-        subject: emailContent.subject,
-        html: emailContent.html,
-      })
+          await sendEmail({
+            to: updatedApplication.applicant.email,
+            subject: emailContent.subject,
+            html: emailContent.html,
+          })
+        }
+      } catch (emailError) {
+        console.error('Failed to send application status email:', emailError)
+      }
     }
 
     return NextResponse.json(updatedApplication)

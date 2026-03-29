@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/db'
+import { sendSubscriptionRenewalNotification } from '@/lib/email-notifications'
 
 export async function POST(req: NextRequest) {
   try {
@@ -66,9 +67,9 @@ export async function POST(req: NextRequest) {
 
     // Create or update subscription
     const subscription = await prisma.subscription.upsert({
-      where: { churchProfileId: churchProfile.id },
+      where: { userId: session.user.id },
       create: {
-        churchProfileId: churchProfile.id,
+        userId: session.user.id,
         planType: planType as any,
         status: 'ACTIVE',
         currentPeriodStart: now,
@@ -90,6 +91,33 @@ export async function POST(req: NextRequest) {
         cancelledAt: null,
       },
     })
+
+    // Send welcome/activation email
+    try {
+      const user = await prisma.user.findUnique({
+        where: { id: session.user.id },
+        select: { email: true, name: true },
+      })
+
+      if (user?.email) {
+        const churchProfile = await prisma.churchProfile.findUnique({
+          where: { userId: session.user.id },
+          select: { churchName: true },
+        })
+
+        // Send a welcome/activation email (you could create a separate template for this)
+        await sendSubscriptionRenewalNotification(
+          user.email,
+          churchProfile?.churchName || 'Your Church',
+          planType,
+          endDate,
+          `${process.env.NEXTAUTH_URL}/church-dashboard`
+        )
+      }
+    } catch (emailError) {
+      console.error('Failed to send subscription activation email:', emailError)
+      // Don't fail the request if email fails
+    }
 
     return NextResponse.json(
       {

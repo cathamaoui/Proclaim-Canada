@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/db'
+import { sendResumeViewNotification } from '@/lib/email-notifications'
 
 export async function GET(
   req: NextRequest,
@@ -20,17 +21,14 @@ export async function GET(
 
     const preacherId = params.id
 
-    // Get church profile and subscription
-    const churchProfile = await prisma.churchProfile.findUnique({
+    // Get church/user subscription
+    const subscription = await prisma.subscription.findUnique({
       where: { userId: session.user.id },
-      include: { subscription: true },
     })
 
-    if (!churchProfile || !churchProfile.subscription) {
+    if (!subscription) {
       return NextResponse.json({ error: 'No active subscription' }, { status: 403 })
     }
-
-    const subscription = churchProfile.subscription
 
     // Check if they have unlimited access
     const hasUnlimited =
@@ -112,6 +110,32 @@ export async function GET(
         preacherId: preacherId,
       },
     })
+
+    // Send resume view notification to preacher
+    try {
+      const preacherUser = await prisma.user.findUnique({
+        where: { id: preacherId },
+        select: { email: true, name: true },
+      })
+
+      if (preacherUser?.email) {
+        const churchProfile = await prisma.churchProfile.findUnique({
+          where: { userId: session.user.id },
+          select: { churchName: true },
+        })
+        const churchName = churchProfile?.churchName || 'A Church'
+
+        await sendResumeViewNotification(
+          preacherUser.email,
+          preacherUser.name || 'Preacher',
+          churchName,
+          `${process.env.NEXTAUTH_URL}/dashboard`
+        )
+      }
+    } catch (emailError) {
+      console.error('Failed to send resume view notification:', emailError)
+      // Don't fail the request, just log the error
+    }
 
     // Update usage count if not unlimited
     if (!hasUnlimited) {
