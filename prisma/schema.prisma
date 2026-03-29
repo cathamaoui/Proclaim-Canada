@@ -74,6 +74,7 @@ model User {
   receivedMessages     Message[] @relation("receivedBy")
   givenRatings         Rating[] @relation("ratedBy")
   receivedRatings      Rating[] @relation("ratedTo")
+  resumeViews          ResumeView[]
 
   @@index([email])
   @@index([isAdmin])
@@ -155,6 +156,7 @@ model ChurchProfile {
   denomination    String?
   specifyAffiliation String?
   country         String?
+  state           String?  // Province or state
   street          String?
   address         String?
   city            String?
@@ -165,6 +167,28 @@ model ChurchProfile {
   averageAttendance String?
   founded         Int?
   bio             String?  @db.Text
+  
+  // Contact Person Information
+  contactPerson   String?
+  contactEmail    String?
+  contactPhone    String?
+  
+  // Church Identity & Culture
+  mission         String?  @db.Text
+  worshipStyle    String?  @db.Text
+  theologicalPerspective String? @db.Text
+  strengthsChallenges String? @db.Text
+  ageDistribution String?  @db.Text
+  communityContext String? @db.Text
+  facilities      String?  @db.Text
+  searchProcess   String?  @db.Text
+  
+  // Media & Photos
+  logoUrl         String?
+  introVideoUrl   String?
+  photos          String[] @default([]) // Array of photo URLs
+  staffProfiles   Json?    // [{ name, title, bio, photoUrl }]
+  
   rating          Decimal  @default(0) @db.Decimal(3, 2)
   totalRatings    Int      @default(0)
   verified        Boolean  @default(false)
@@ -177,6 +201,7 @@ model ChurchProfile {
   @@index([userId])
   @@index([city])
   @@index([province])
+  @@index([state])
   @@index([rating])
   @@index([verified])
 }
@@ -191,11 +216,20 @@ model Subscription {
   currentPeriodStart      DateTime
   currentPeriodEnd        DateTime
   postingsRemaining       Int?     // null = unlimited
+  
+  // Resume Access
+  resumeViewsLimit        Int      @default(0)      // Max views per month (0 = no access)
+  resumeViewsUsed         Int      @default(0)      // Views used this month
+  resumeViewsResetDate    DateTime @default(now())  // When counter resets
+  hasUnlimitedResumes     Boolean  @default(false)  // Add-on purchased
+  unlimitedResumesAddOnEnd DateTime? // When unlimited access expires
+  
   createdAt               DateTime @default(now())
   updatedAt               DateTime @updatedAt
   cancelledAt             DateTime?
 
   churchProfile           ChurchProfile @relation(fields: [churchProfileId], references: [id], onDelete: Cascade)
+  resumeViews             ResumeView[]
 
   @@index([churchProfileId])
   @@index([status])
@@ -444,6 +478,20 @@ enum RatingType {
   APPLICATION
   LISTING
   GENERAL
+}
+
+model ResumeView {
+  id              String   @id @default(cuid())
+  subscriptionId  String
+  preacherId      String   // UserId of the preacher whose resume was viewed
+  viewedAt        DateTime @default(now())
+
+  subscription    Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+  preacher        User     @relation(fields: [preacherId], references: [id], onDelete: Cascade)
+
+  @@index([subscriptionId])
+  @@index([preacherId])
+  @@index([viewedAt])
 }
 
 model VerificationToken {

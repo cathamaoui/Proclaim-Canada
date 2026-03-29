@@ -38,6 +38,17 @@ export async function POST(req: NextRequest) {
       UNLIMITED_YEARLY: null, // unlimited
     }
 
+    // Resume views limit per plan
+    const resumeViewsMap: Record<string, number> = {
+      TRIAL: 0,
+      IMMEDIATE_CALL: 10,
+      ONE_MONTH: 25,
+      TWO_MONTHS: 50,
+      THREE_MONTHS: 75,
+      SIX_MONTHS: 150,
+      UNLIMITED_YEARLY: 100,
+    }
+
     // Calculate subscription dates
     const now = new Date()
     const durations: Record<string, number> = {
@@ -63,6 +74,9 @@ export async function POST(req: NextRequest) {
         currentPeriodStart: now,
         currentPeriodEnd: endDate,
         postingsRemaining: postingsMap[planType] ?? null,
+        resumeViewsLimit: resumeViewsMap[planType] ?? 0,
+        resumeViewsUsed: 0,
+        resumeViewsResetDate: now,
       },
       update: {
         planType: planType as any,
@@ -70,6 +84,9 @@ export async function POST(req: NextRequest) {
         currentPeriodStart: now,
         currentPeriodEnd: endDate,
         postingsRemaining: postingsMap[planType] ?? null,
+        resumeViewsLimit: resumeViewsMap[planType] ?? 0,
+        resumeViewsUsed: 0,
+        resumeViewsResetDate: now,
         cancelledAt: null,
       },
     })

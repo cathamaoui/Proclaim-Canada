@@ -12,6 +12,7 @@ const PLANS = [
     description: 'Perfect for getting started',
     price: 'FREE',
     duration: '7 days',
+    resumes: '0 views',
     features: [
       '1 free job posting',
       'Basic applicant filtering',
@@ -27,11 +28,13 @@ const PLANS = [
     description: 'For urgent needs',
     price: '$29',
     duration: 'one-time',
+    resumes: '10 views',
     features: [
       '1 job posting',
       'Priority placement',
       '30-day visibility',
       'Applicant filtering',
+      '10 resume views',
       'Email support',
     ],
     cta: 'Get Started',
@@ -43,16 +46,18 @@ const PLANS = [
     description: 'Most popular for active searches',
     price: '$49',
     duration: '/month',
+    resumes: '25 views/month',
     features: [
       '3 job postings',
       'Priority placement',
       '1-month visibility per posting',
       'Advanced filtering & sorting',
+      '25 resume views per month',
       'Phone & email support',
       'Candidate insights',
     ],
     cta: 'Choose Plan',
-    popular: true,
+    popular: false,
   },
   {
     id: 'THREE_MONTHS',
@@ -60,11 +65,13 @@ const PLANS = [
     description: 'For ongoing recruitment',
     price: '$129',
     duration: '/3 months',
+    resumes: '75 views/month',
     features: [
       '10 job postings',
       'Priority placement',
       '3-month visibility per posting',
       'Advanced filtering & sorting',
+      '75 resume views per month',
       'Phone & email support',
       'Candidate insights',
       'Dedicated account manager',
@@ -78,11 +85,13 @@ const PLANS = [
     description: 'Best value for growing churches',
     price: '$229',
     duration: '/6 months',
+    resumes: '150 views/month',
     features: [
       'Unlimited job postings',
       'Priority placement',
       '6-month visibility per posting',
       'Advanced filtering & sorting',
+      '150 resume views per month',
       'Phone & email support',
       'Candidate insights',
       'Dedicated account manager',
@@ -97,16 +106,19 @@ const PLANS = [
     description: 'Complete access for a year',
     price: '$399',
     duration: '/year',
+    resumes: '100 views/month',
     features: [
       'Unlimited job postings',
       'Priority placement',
       'Unlimited visibility',
       'Advanced filtering & sorting',
+      '100 resume views per month',
       'Priority phone & email support',
       'Candidate insights & analytics',
       'Dedicated account manager',
       'Custom branding',
       'API access',
+      'Add-on: Resume Unlimited (+$99/mo)',
     ],
     cta: 'Choose Plan',
     popular: false,
@@ -210,6 +222,12 @@ export default function SelectPlanPage() {
                   </div>
                 </div>
 
+                {/* Resume Access Badge */}
+                <div className="mb-6 bg-blue-50 border border-blue-200 rounded-lg p-3">
+                  <p className="text-sm font-semibold text-blue-900">📋 Resume Access</p>
+                  <p className="text-lg font-bold text-blue-600">{plan.resumes}</p>
+                </div>
+
                 {/* Features */}
                 <ul className="space-y-3 mb-8">
                   {plan.features.map((feature, idx) => (
@@ -235,6 +253,53 @@ export default function SelectPlanPage() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Add-Ons Section */}
+        <div className="mb-16">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">Premium Add-Ons</h2>
+          <p className="text-gray-600 mb-8">Enhance your plan with optional add-ons to unlock more features</p>
+          
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+              <div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">Resume Unlimited</h3>
+                <p className="text-gray-600 mb-6">Get unlimited access to our resume library. View as many preacher resumes as you need without monthly limits.</p>
+                <ul className="space-y-2 mb-6">
+                  <li className="flex items-center gap-2">
+                    <span className="text-green-600 font-bold">✓</span>
+                    <span className="text-gray-700">Unlimited resume views (no monthly cap)</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-green-600 font-bold">✓</span>
+                    <span className="text-gray-700">Advanced filters (denomination, location, experience)</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-green-600 font-bold">✓</span>
+                    <span className="text-gray-700">Download & share resumes</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-green-600 font-bold">✓</span>
+                    <span className="text-gray-700">Auto-renews monthly (cancel anytime)</span>
+                  </li>
+                </ul>
+                <div className="text-3xl font-bold text-gray-900 mb-4">
+                  $99 <span className="text-lg text-gray-600">/month</span>
+                </div>
+                <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition">
+                  Add to Plan
+                </button>
+              </div>
+              <div className="bg-white rounded-lg p-6 border border-blue-200">
+                <p className="text-sm text-gray-600 mb-4">💡 <strong>Pro Tip:</strong></p>
+                <p className="text-gray-600 mb-4">The Unlimited Yearly plan includes 100 free resume views per month. Add Resume Unlimited to get <strong>unlimited views</strong> for just $99/month.</p>
+                <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                  <p className="font-semibold text-green-800">Best Value</p>
+                  <p className="text-sm text-green-700">Save time finding qualified candidates</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* FAQ Section */}
@@ -266,7 +331,21 @@ export default function SelectPlanPage() {
             <div>
               <h3 className="font-bold text-gray-900 mb-2">Do you have discounts for annual plans?</h3>
               <p className="text-gray-600 text-sm">
-                Yes! Our Unlimited Yearly plan offers the best value, with an effective monthly cost of just $33.
+                Yes! Our Unlimited Yearly plan offers the best value, with an effective monthly cost of just $33, plus 100 free resume views per month.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-bold text-gray-900 mb-2">How do resume views work?</h3>
+              <p className="text-gray-600 text-sm">
+                Each plan includes a certain number of resume views per month. When you view a preacher's resume, one view is counted. Monthly views reset on your billing date. Upgrade to Resume Unlimited for unlimited views.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-bold text-gray-900 mb-2">Can I get more resume views?</h3>
+              <p className="text-gray-600 text-sm">
+                Yes! Add our Resume Unlimited add-on for $99/month to get unlimited resume access. You can add or cancel this add-on anytime in your subscription settings.
               </p>
             </div>
 
