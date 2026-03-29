@@ -75,6 +75,8 @@ model User {
   givenRatings         Rating[] @relation("ratedBy")
   receivedRatings      Rating[] @relation("ratedTo")
   resumeViews          ResumeView[]
+  subscription         Subscription?
+  payments             Payment[]
 
   @@index([email])
   @@index([isAdmin])
@@ -196,7 +198,6 @@ model ChurchProfile {
   updatedAt       DateTime @updatedAt
 
   user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-  subscription     Subscription?
 
   @@index([userId])
   @@index([city])
@@ -208,14 +209,15 @@ model ChurchProfile {
 
 model Subscription {
   id                      String   @id @default(cuid())
-  churchProfileId         String   @unique
-  planType                PlanType @default(TRIAL)
-  status                  SubscriptionStatus @default(ACTIVE)
+  userId                  String   @unique
+  planType                String   @default("trial")
+  status                  String   @default("active")
   stripeCustomerId        String?  @unique
   stripeSubscriptionId    String?  @unique
-  currentPeriodStart      DateTime
-  currentPeriodEnd        DateTime
-  postingsRemaining       Int?     // null = unlimited
+  startDate               DateTime @default(now())
+  renewalDate             DateTime?
+  postingsRemaining       Int      @default(0)
+  postingsLimit           Int      @default(0)
   
   // Resume Access
   resumeViewsLimit        Int      @default(0)      // Max views per month (0 = no access)
@@ -228,13 +230,14 @@ model Subscription {
   updatedAt               DateTime @updatedAt
   cancelledAt             DateTime?
 
-  churchProfile           ChurchProfile @relation(fields: [churchProfileId], references: [id], onDelete: Cascade)
+  user                    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   resumeViews             ResumeView[]
+  payments                Payment[]
 
-  @@index([churchProfileId])
+  @@index([userId])
   @@index([status])
   @@index([planType])
-  @@index([currentPeriodEnd])
+  @@index([renewalDate])
 }
 
 enum PlanType {
@@ -245,6 +248,35 @@ enum PlanType {
   THREE_MONTHS
   SIX_MONTHS
   UNLIMITED_YEARLY
+}
+
+model Payment {
+  id                        String   @id @default(cuid())
+  userId                    String
+  subscriptionId            String
+  stripePaymentIntentId     String?  @unique
+  stripeChargeId            String?  @unique
+  amount                    Int      // Amount in cents
+  currency                  String   @default("cad")
+  status                    String   @default("pending") // pending, succeeded, failed, refunded
+  planType                  String?
+  
+  // Metadata
+  description               String?
+  receiptUrl                String?
+  failureReason             String?
+  
+  createdAt                 DateTime @default(now())
+  updatedAt                 DateTime @updatedAt
+
+  user                      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subscription              Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([subscriptionId])
+  @@index([status])
+  @@index([createdAt])
+  @@index([stripePaymentIntentId])
 }
 
 enum SubscriptionStatus {
