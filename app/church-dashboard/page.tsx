@@ -65,7 +65,7 @@ export default function ChurchDashboardPage() {
       {/* Navigation Bar */}
       <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-6 py-4">
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center mb-4">
             <Link href="/church-home" className="flex items-center gap-2 text-xl font-bold">
               <Logo />
               <span>
@@ -83,6 +83,22 @@ export default function ChurchDashboardPage() {
                 Sign Out
               </button>
             </div>
+          </div>
+
+          {/* Quick Navigation */}
+          <div className="flex gap-6 text-sm font-medium">
+            <Link href="/church-dashboard" className="text-green-600 hover:text-green-700">
+              Dashboard
+            </Link>
+            <Link href="/church-dashboard/browse-resumes" className="text-gray-600 hover:text-gray-900">
+              Browse Resumes
+            </Link>
+            <Link href="/church-dashboard/settings/subscription" className="text-gray-600 hover:text-gray-900">
+              Subscription
+            </Link>
+            <Link href="/church-dashboard/setup" className="text-gray-600 hover:text-gray-900">
+              Setup Profile
+            </Link>
           </div>
         </div>
       </nav>
@@ -161,7 +177,7 @@ export default function ChurchDashboardPage() {
               <p className="text-gray-600 text-sm">
                 Browse resumes of candidates in your denomination specifically aligned with your job. Quickly invite them to apply.
               </p>
-              <button className="text-green-600 hover:text-green-700 font-semibold text-sm mt-4">Learn More →</button>
+              <Link href="/church-dashboard/browse-resumes" className="text-green-600 hover:text-green-700 font-semibold text-sm mt-4 inline-block">Learn More →</Link>
             </div>
 
             {/* Card 3 */}
