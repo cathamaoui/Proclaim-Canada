@@ -5,19 +5,14 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import Logo from '@/components/Logo'
-import PreacherTicker from '@/components/PreacherTicker'
-import NotificationBell from '@/components/NotificationBell'
-import ProfileCompletionWidget from '@/components/ProfileCompletionWidget'
 
 export default function ChurchDashboardPage() {
   const { data: session } = useSession()
   const router = useRouter()
   const [listings, setListings] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
-  const [searchQuery, setSearchQuery] = useState('')
-  const [searchName, setSearchName] = useState('')
-  const [searchCountry, setSearchCountry] = useState('')
-  const [searchState, setSearchState] = useState('')
+  const [churchProfile, setChurchProfile] = useState<any>(null)
+  const [setupComplete, setSetupComplete] = useState(false)
 
   // Redirect non-church users
   if (session && session.user.role !== 'CHURCH') {
@@ -26,50 +21,64 @@ export default function ChurchDashboardPage() {
   }
 
   useEffect(() => {
-    const fetchListings = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch('/api/listings?churchOnly=true')
-        const data = await response.json()
-        setListings(data.listings || [])
+        // Fetch church profile
+        const profileRes = await fetch('/api/profile')
+        const profileData = await profileRes.json()
+        if (profileData.profile) {
+          setChurchProfile(profileData.profile)
+          setSetupComplete(!!profileData.profile.churchName)
+        }
+
+        // Fetch listings
+        const listingsRes = await fetch('/api/listings?churchOnly=true')
+        const listingsData = await listingsRes.json()
+        setListings(listingsData.listings || [])
       } catch (error) {
-        console.error('Failed to fetch listings:', error)
+        console.error('Failed to fetch data:', error)
       } finally {
         setLoading(false)
       }
     }
 
     if (session?.user?.role === 'CHURCH') {
-      fetchListings()
+      fetchData()
     }
   }, [session])
 
-  const getStatusBadge = (status: string) => {
-    const statusStyles: Record<string, { bg: string; text: string }> = {
+  const getStatusColor = (status: string) => {
+    const colors: Record<string, { bg: string; text: string }> = {
       OPEN: { bg: 'bg-green-100', text: 'text-green-800' },
       IN_PROGRESS: { bg: 'bg-blue-100', text: 'text-blue-800' },
       FILLED: { bg: 'bg-gray-100', text: 'text-gray-800' },
       CANCELLED: { bg: 'bg-red-100', text: 'text-red-800' },
     }
-    const style = statusStyles[status] || statusStyles.OPEN
-    return <span className={`px-3 py-1 rounded-full text-sm font-semibold ${style.bg} ${style.text}`}>{status}</span>
+    return colors[status] || colors.OPEN
   }
 
+  const activeListings = listings.filter(l => l.status === 'OPEN').length
+  const totalApplications = listings.reduce((sum, l) => sum + (l._count?.applications || 0), 0)
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
+    <div className="min-h-screen bg-white">
       {/* Navigation Bar */}
-      <nav className="bg-gradient-to-r from-green-600 to-green-700 text-white shadow-lg sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div className="max-w-6xl mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
-            <Link href="/church-home" className="flex items-center gap-2 text-2xl font-bold hover:opacity-80 transition cursor-pointer">
+            <Link href="/church-home" className="flex items-center gap-2 text-xl font-bold">
               <Logo />
-              <span><span className="text-white">Proclaim </span><span className="text-lime-300">Canada</span></span>
+              <span>
+                <span className="text-gray-900">Proclaim</span>
+                <span className="text-lime-600">Canada</span>
+              </span>
             </Link>
-            <div className="flex items-center gap-6">
-              <span className="text-green-50">Welcome, {session?.user?.name || 'Church'}</span>
-              <NotificationBell />
+
+            <div className="flex items-center gap-4">
+              <span className="text-gray-700 font-medium">Welcome, {session?.user?.name || 'Church'}</span>
               <button
                 onClick={() => router.push('/auth/login')}
-                className="bg-lime-400 hover:bg-lime-500 text-green-900 px-5 py-2 rounded-lg font-bold transition"
+                className="text-gray-600 hover:text-gray-900 font-medium"
               >
                 Sign Out
               </button>
@@ -78,145 +87,137 @@ export default function ChurchDashboardPage() {
         </div>
       </nav>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Header Section */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-green-900 mb-2">Church Dashboard</h1>
-          <p className="text-lg text-gray-600">Manage your service opportunities and applications</p>
+      {/* Main Content */}
+      <div className="max-w-6xl mx-auto px-6 py-12">
+        {/* Header */}
+        <div className="mb-12">
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">Your Dashboard</h1>
+          <p className="text-gray-600">Manage your job postings and find the right preacher for your ministry</p>
         </div>
 
-        {/* Preacher Ticker */}
-        <div className="mb-12">
-          <PreacherTicker />
-        </div>
+        {/* Setup Banner */}
+        {!setupComplete && (
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
+            <div className="flex items-start justify-between">
+              <div>
+                <h2 className="text-lg font-bold text-blue-900 mb-1">Complete Your Church Profile</h2>
+                <p className="text-blue-800 mb-4">Add your church details to start posting opportunities</p>
+              </div>
+              <Link
+                href="/church-dashboard/setup"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition whitespace-nowrap"
+              >
+                Complete Profile
+              </Link>
+            </div>
+          </div>
+        )}
 
-        {/* Profile Completion Widget */}
-        <div className="mb-12">
-          <ProfileCompletionWidget />
+        {/* Stats Row */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+          <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
+            <p className="text-gray-600 text-sm font-medium mb-2">Active Postings</p>
+            <p className="text-4xl font-bold text-gray-900">{activeListings}</p>
+            <p className="text-gray-500 text-sm mt-2">Open opportunities</p>
+          </div>
+
+          <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
+            <p className="text-gray-600 text-sm font-medium mb-2">Total Applications</p>
+            <p className="text-4xl font-bold text-gray-900">{totalApplications}</p>
+            <p className="text-gray-500 text-sm mt-2">From preachers</p>
+          </div>
+
+          <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
+            <p className="text-gray-600 text-sm font-medium mb-2">Total Postings</p>
+            <p className="text-4xl font-bold text-gray-900">{listings.length}</p>
+            <p className="text-gray-500 text-sm mt-2">All time</p>
+          </div>
+
+          <Link href="/church-dashboard/setup" className="block">
+            <div className="bg-lime-50 rounded-lg p-6 border border-lime-200 hover:border-lime-400 transition h-full flex flex-col justify-center">
+              <p className="text-lime-600 text-sm font-medium mb-2">Quick Setup</p>
+              <p className="text-gray-900 font-semibold mb-3">Update Profile</p>
+              <span className="text-lime-600 font-semibold text-sm">Go to Settings →</span>
+            </div>
+          </Link>
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 mb-12">
-          <Link href="/listings/new" className="block">
-            <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition border-t-4 border-green-600 cursor-pointer hover:translate-y-[-4px]">
-              <div className="text-4xl mb-3">📝</div>
-              <h2 className="text-xl font-bold text-gray-900 mb-2">Post New Opportunity</h2>
-              <p className="text-gray-600 text-sm">Create a new preacher opportunity</p>
-            </div>
-          </Link>
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">Next Steps</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Link href="/listings/new" className="block">
+              <div className="bg-white border border-gray-200 rounded-lg p-8 hover:border-lime-400 hover:shadow-md transition">
+                <div className="text-4xl mb-4">📝</div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Post a New Job</h3>
+                <p className="text-gray-600 mb-4">Create a service opportunity for preachers in your area</p>
+                <span className="text-lime-600 font-semibold">Get Started →</span>
+              </div>
+            </Link>
 
-          <div className="block">
-            <div className="bg-gradient-to-br from-green-50 to-lime-50 rounded-lg shadow-lg p-6 hover:shadow-xl transition border-t-4 border-lime-500 cursor-pointer hover:translate-y-[-4px]">
-              <div className="text-4xl mb-3">📊</div>
-              <h2 className="text-xl font-bold text-gray-900 mb-2">Active Postings</h2>
-              <p className="text-3xl font-bold text-green-600 mt-4">{listings.filter(l => l.status === 'OPEN').length}</p>
-              <p className="text-gray-600 text-sm mt-2">Open opportunities</p>
-            </div>
-          </div>
-
-          <Link href="/church-dashboard?tab=applications" className="block">
-            <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition border-t-4 border-green-600 cursor-pointer hover:translate-y-[-4px]">
-              <div className="text-4xl mb-3">📥</div>
-              <h2 className="text-xl font-bold text-gray-900 mb-2">Applications Inbox</h2>
-              <p className="text-gray-600 text-sm">Review preacher applications</p>
-            </div>
-          </Link>
-
-          <Link href="/church-dashboard/messages" className="block">
-            <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition border-t-4 border-green-600 cursor-pointer hover:translate-y-[-4px]">
-              <div className="text-4xl mb-3">💬</div>
-              <h2 className="text-xl font-bold text-gray-900 mb-2">Messages</h2>
-              <p className="text-gray-600 text-sm">Send/receive messages with preachers</p>
-            </div>
-          </Link>
-
-          <Link href="/church-dashboard/candidates" className="block">
-            <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition border-t-4 border-green-600 cursor-pointer hover:translate-y-[-4px]">
-              <div className="text-4xl mb-3">🔍</div>
-              <h2 className="text-xl font-bold text-gray-900 mb-2">Find Candidates</h2>
-              <p className="text-gray-600 text-sm">Search and filter available preachers</p>
-            </div>
-          </Link>
-
-          <Link href="/church-dashboard/analytics" className="block">
-            <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition border-t-4 border-green-600 cursor-pointer hover:translate-y-[-4px]">
-              <div className="text-4xl mb-3">📈</div>
-              <h2 className="text-xl font-bold text-gray-900 mb-2">Analytics</h2>
-              <p className="text-gray-600 text-sm">View recruitment metrics and pipeline</p>
-            </div>
-          </Link>
-        </div>
-
-        {/* Pastor Name Search Section */}
-        <div className="bg-white rounded-lg shadow-lg p-8 mb-12">
-          <h2 className="text-2xl font-bold text-green-900 mb-6">Search Preacher Database</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-            {/* Pastor Name */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Pastor Name</label>
-              <input
-                type="text"
-                placeholder="Search by name..."
-                value={searchName}
-                onChange={(e) => setSearchName(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
-              />
-            </div>
-
-            {/* Country */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Country</label>
-              <select
-                value={searchCountry}
-                onChange={(e) => setSearchCountry(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
-              >
-                <option value="">-- All Countries --</option>
-                <option value="Canada">Canada</option>
-                <option value="United States">United States</option>
-              </select>
-            </div>
-
-            {/* State/Province */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">State/Province</label>
-              <input
-                type="text"
-                placeholder="e.g., Ontario, Texas..."
-                value={searchState}
-                onChange={(e) => setSearchState(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
-              />
-            </div>
-
-            {/* Search Button */}
-            <div className="flex items-end">
-              <button
-                onClick={() => {
-                  const params = new URLSearchParams()
-                  if (searchName) params.append('name', searchName)
-                  if (searchCountry) params.append('country', searchCountry)
-                  if (searchState) params.append('state', searchState)
-                  
-                  const queryString = params.toString()
-                  router.push(`/browse/preachers${queryString ? '?' + queryString : ''}`)
-                }}
-                className="w-full bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-semibold transition"
-              >
-                Search
-              </button>
-            </div>
+            <Link href="/church-dashboard/setup" className="block">
+              <div className="bg-white border border-gray-200 rounded-lg p-8 hover:border-lime-400 hover:shadow-md transition">
+                <div className="text-4xl mb-4">⚙️</div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Account Settings</h3>
+                <p className="text-gray-600 mb-4">Update your church profile, email, password, and preferences</p>
+                <span className="text-lime-600 font-semibold">Go to Settings →</span>
+              </div>
+            </Link>
           </div>
         </div>
+
+        {/* Recent Listings */}
+        {!loading && listings.length > 0 && (
+          <div className="mb-12">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Your Recent Postings</h2>
+            <div className="space-y-4">
+              {listings.slice(0, 5).map((listing) => (
+                <div key={listing.id} className="bg-white border border-gray-200 rounded-lg p-6 hover:border-gray-300 transition">
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <h3 className="text-lg font-bold text-gray-900 mb-2">{listing.title}</h3>
+                      <p className="text-gray-600 text-sm mb-3">
+                        📍 {listing.location || 'Location TBD'}
+                        {listing.date && ` • 📅 ${new Date(listing.date).toLocaleDateString()}`}
+                      </p>
+                      <div className="flex gap-3">
+                        <span className={`text-xs font-semibold px-3 py-1 rounded-full ${getStatusColor(listing.status).bg} ${getStatusColor(listing.status).text}`}>
+                          {listing.status}
+                        </span>
+                        <span className="text-xs text-gray-500">
+                          {listing._count?.applications || 0} applications
+                        </span>
+                      </div>
+                    </div>
+                    <Link
+                      href={`/listings/${listing.id}`}
+                      className="text-lime-600 hover:text-lime-700 font-semibold text-sm whitespace-nowrap ml-4"
+                    >
+                      View →
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+            {listings.length > 5 && (
+              <Link href="/church-dashboard/listings" className="text-lime-600 hover:text-lime-700 font-semibold mt-4 inline-block">
+                View all {listings.length} postings →
+              </Link>
+            )}
+          </div>
+        )}
 
         {/* Help Section */}
-        <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-8 border border-green-200">
-          <h3 className="text-xl font-bold text-green-900 mb-3">Need Help?</h3>
-          <p className="text-gray-700 mb-4">Have questions about posting opportunities or managing applications?</p>
-          <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-semibold transition">
-            Contact Support
-          </button>
+        <div className="bg-gray-50 border border-gray-200 rounded-lg p-8">
+          <div className="flex items-start justify-between">
+            <div>
+              <h2 className="text-lg font-bold text-gray-900 mb-2">Need Help?</h2>
+              <p className="text-gray-600">Have questions about posting opportunities or managing applications?</p>
+            </div>
+            <button className="bg-gray-900 hover:bg-gray-800 text-white px-6 py-2 rounded-lg font-semibold transition whitespace-nowrap">
+              Contact Support
+            </button>
+          </div>
         </div>
       </div>
     </div>
