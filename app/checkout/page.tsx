@@ -47,6 +47,9 @@ function CheckoutContent() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('card')
+  const [showAddOnsModal, setShowAddOnsModal] = useState(false)
+  const [addOnDecision, setAddOnDecision] = useState<'pending' | 'skip' | 'add' | null>(null)
+  const [processingPayment, setProcessingPayment] = useState(false)
 
   // Auth form states
   const [isLogin, setIsLogin] = useState(true)
@@ -140,8 +143,22 @@ function CheckoutContent() {
 
   const handlePaymentSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // For paid plans, show add-ons modal first
+    if (plan.price > 0 && !processingPayment) {
+      setShowAddOnsModal(true)
+      setAddOnDecision('pending')
+      return
+    }
+
+    // If coming back from add-ons modal with a decision
+    if (addOnDecision === 'pending') {
+      return
+    }
+
     setLoading(true)
     setError('')
+    setProcessingPayment(true)
 
     try {
       // For free plan, skip payment
@@ -169,6 +186,7 @@ function CheckoutContent() {
             planType: planId.toUpperCase(),
             paymentMethod: 'card',
             cardDetails: cardForm,
+            addResumeUnlimited: addOnDecision === 'add',
           }),
         })
 
@@ -188,7 +206,10 @@ function CheckoutContent() {
         const response = await fetch('/api/checkout/paypal', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ planType: planId.toUpperCase() }),
+          body: JSON.stringify({ 
+            planType: planId.toUpperCase(),
+            addResumeUnlimited: addOnDecision === 'add',
+          }),
         })
 
         if (!response.ok) {
@@ -210,6 +231,7 @@ function CheckoutContent() {
           body: JSON.stringify({
             planType: planId.toUpperCase(),
             paymentMethod,
+            addResumeUnlimited: addOnDecision === 'add',
           }),
         })
 
@@ -223,7 +245,22 @@ function CheckoutContent() {
       setError(err instanceof Error ? err.message : 'Payment failed')
     } finally {
       setLoading(false)
+      setProcessingPayment(false)
     }
+  }
+
+  const handleAddOnDecision = (decision: 'skip' | 'add') => {
+    setAddOnDecision(decision)
+    setShowAddOnsModal(false)
+    
+    // Immediately process payment with the decision
+    setLoading(true)
+    setError('')
+    setProcessingPayment(true)
+
+    // Simulate form data for payment processing
+    const formEvent = new Event('submit') as any
+    handlePaymentSubmit(formEvent)
   }
 
   const formatCardNumber = (value: string) => {
@@ -274,6 +311,98 @@ function CheckoutContent() {
             >
               Go to Dashboard
             </Link>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Add-Ons Modal
+  if (showAddOnsModal) {
+    return (
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-96 overflow-y-auto">
+          <div className="p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              Wait! Don't Miss Out 🎯
+            </h2>
+            <p className="text-gray-600 mb-6">
+              Before you complete your checkout, we wanted to make sure you know about our most popular add-on:
+            </p>
+
+            {/* Resume Unlimited Add-On Card */}
+            <div className="border-2 border-lime-200 bg-gradient-to-br from-lime-50 to-green-50 rounded-lg p-6 mb-6">
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                    📋 Resume Unlimited
+                    <span className="text-xs bg-lime-600 text-white px-2 py-1 rounded">POPULAR</span>
+                  </h3>
+                  <p className="text-sm text-gray-600 mt-1">
+                    View unlimited preacher resumes every month
+                  </p>
+                </div>
+                <div className="text-right">
+                  <div className="text-3xl font-bold text-lime-600">$99</div>
+                  <div className="text-sm text-gray-600">/month</div>
+                </div>
+              </div>
+
+              <ul className="space-y-2 mb-4">
+                <li className="flex items-center gap-2 text-sm text-gray-700">
+                  <span className="text-lime-600 text-lg">✓</span>
+                  View unlimited preacher resumes
+                </li>
+                <li className="flex items-center gap-2 text-sm text-gray-700">
+                  <span className="text-lime-600 text-lg">✓</span>
+                  Access detailed qualifications & experience
+                </li>
+                <li className="flex items-center gap-2 text-sm text-gray-700">
+                  <span className="text-lime-600 text-lg">✓</span>
+                  Download resumes for offline review
+                </li>
+                <li className="flex items-center gap-2 text-sm text-gray-700">
+                  <span className="text-lime-600 text-lg">✓</span>
+                  Find the perfect fit faster
+                </li>
+              </ul>
+
+              <div className="bg-white rounded p-3 text-sm text-gray-600 border border-lime-200">
+                💡 <strong>Pro Tip:</strong> Most churches that use Resume Unlimited find their ideal preacher 3x faster than without it!
+              </div>
+            </div>
+
+            {/* Current Plan Info */}
+            <div className="bg-gray-50 rounded-lg p-4 mb-6">
+              <p className="text-sm text-gray-600">
+                <strong>Your selection:</strong> {plan.name} (${plan.price}/month)
+              </p>
+              <p className="text-sm text-gray-500 mt-1">
+                This add-on will be billed in addition to your plan
+              </p>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="grid grid-cols-2 gap-4">
+              <button
+                onClick={() => handleAddOnDecision('skip')}
+                disabled={loading}
+                className="px-4 py-3 border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition disabled:opacity-50"
+              >
+                Skip for Now
+              </button>
+              <button
+                onClick={() => handleAddOnDecision('add')}
+                disabled={loading}
+                className="px-4 py-3 bg-lime-600 hover:bg-lime-700 text-white rounded-lg font-semibold transition disabled:opacity-50"
+              >
+                Yes, Add It! 🚀
+              </button>
+            </div>
+
+            <p className="text-xs text-gray-500 text-center mt-4">
+              You can also add or manage this add-on anytime from your dashboard
+            </p>
           </div>
         </div>
       </div>
@@ -710,6 +839,14 @@ function CheckoutContent() {
                     <span>Subtotal</span>
                     <span>${plan.price.toFixed(2)}</span>
                   </div>
+
+                  {addOnDecision === 'add' && (
+                    <div className="flex justify-between items-center text-sm text-gray-600 mb-2 p-2 bg-lime-50 rounded">
+                      <span className="font-medium text-lime-700">Resume Unlimited Add-on</span>
+                      <span className="font-medium text-lime-700">+$99.00</span>
+                    </div>
+                  )}
+
                   <div className="flex justify-between items-center text-sm text-gray-600 mb-4">
                     <span>Tax</span>
                     <span>Calculated at checkout</span>
@@ -719,7 +856,7 @@ function CheckoutContent() {
 
               <div className="flex justify-between items-center text-lg font-bold text-gray-900 pt-4 border-t border-gray-200">
                 <span>Total</span>
-                <span className="text-lime-600">${plan.price.toFixed(2)}</span>
+                <span className="text-lime-600">${(plan.price + (addOnDecision === 'add' ? 99 : 0)).toFixed(2)}</span>
               </div>
 
               {plan.price === 0 && (
