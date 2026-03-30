@@ -13,19 +13,28 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json()
-    const { planType } = body
+    const { planType, churchName, province, city, postalCode } = body
 
     if (!planType) {
       return NextResponse.json({ error: 'Plan type required' }, { status: 400 })
     }
 
-    // Get church profile
-    const churchProfile = await prisma.churchProfile.findUnique({
+    // Get or create church profile
+    let churchProfile = await prisma.churchProfile.findUnique({
       where: { userId: session.user.id },
     })
 
     if (!churchProfile) {
-      return NextResponse.json({ error: 'Church profile not found' }, { status: 404 })
+      // Create church profile if it doesn't exist (during checkout)
+      churchProfile = await prisma.churchProfile.create({
+        data: {
+          userId: session.user.id,
+          churchName: churchName || 'My Church',
+          province: province || '',
+          city: city || '',
+          postalCode: postalCode || '',
+        },
+      })
     }
 
     // Calculate postings remaining based on plan

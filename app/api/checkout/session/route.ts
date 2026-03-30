@@ -16,25 +16,50 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    const { planType } = await req.json()
+    const { planType, cardDetails } = await req.json()
 
-    if (!planType || !PLAN_CONFIGS[planType as PlanType]) {
+    if (!planType) {
       return NextResponse.json(
         { error: 'Invalid plan type' },
         { status: 400 }
       )
     }
 
-    // Get church profile
-    const churchProfile = await db.churchProfile.findUnique({
+    // Get or create church profile
+    let churchProfile = await db.churchProfile.findUnique({
       where: { userId: session.user.id },
     })
+
+    if (!churchProfile && cardDetails) {
+      // Create church profile during checkout if it doesn't exist
+      churchProfile = await db.churchProfile.create({
+        data: {
+          userId: session.user.id,
+          churchName: '',
+          province: cardDetails.province || '',
+          city: cardDetails.city || '',
+          postalCode: cardDetails.postalCode || '',
+        },
+      })
+    }
 
     if (!churchProfile) {
       return NextResponse.json(
         { error: 'Church profile not found' },
         { status: 404 }
       )
+    }
+
+    // Update church profile with address info if provided
+    if (cardDetails) {
+      await db.churchProfile.update({
+        where: { id: churchProfile.id },
+        data: {
+          province: cardDetails.province || churchProfile.province,
+          city: cardDetails.city || churchProfile.city,
+          postalCode: cardDetails.postalCode || churchProfile.postalCode,
+        },
+      })
     }
 
     // PHASE 2 IMPLEMENTATION (For now, just create subscription directly)

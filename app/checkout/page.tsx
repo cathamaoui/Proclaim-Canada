@@ -36,6 +36,75 @@ const PRICING_PLANS: Record<string, { name: string, price: number, duration: str
 
 type PaymentMethod = 'card' | 'paypal' | 'bank' | 'interac'
 
+// Canadian Provinces and US States
+const PROVINCES_STATES: Record<string, string> = {
+  // Canada
+  AB: 'Alberta, Canada',
+  BC: 'British Columbia, Canada',
+  MB: 'Manitoba, Canada',
+  NB: 'New Brunswick, Canada',
+  NL: 'Newfoundland & Labrador, Canada',
+  NS: 'Nova Scotia, Canada',
+  NT: 'Northwest Territories, Canada',
+  NU: 'Nunavut, Canada',
+  ON: 'Ontario, Canada',
+  PE: 'Prince Edward Island, Canada',
+  QC: 'Quebec, Canada',
+  SK: 'Saskatchewan, Canada',
+  YT: 'Yukon, Canada',
+  // USA
+  AL: 'Alabama, USA',
+  AK: 'Alaska, USA',
+  AZ: 'Arizona, USA',
+  AR: 'Arkansas, USA',
+  CA: 'California, USA',
+  CO: 'Colorado, USA',
+  CT: 'Connecticut, USA',
+  DE: 'Delaware, USA',
+  FL: 'Florida, USA',
+  GA: 'Georgia, USA',
+  HI: 'Hawaii, USA',
+  ID: 'Idaho, USA',
+  IL: 'Illinois, USA',
+  IN: 'Indiana, USA',
+  IA: 'Iowa, USA',
+  KS: 'Kansas, USA',
+  KY: 'Kentucky, USA',
+  LA: 'Louisiana, USA',
+  ME: 'Maine, USA',
+  MD: 'Maryland, USA',
+  MA: 'Massachusetts, USA',
+  MI: 'Michigan, USA',
+  MN: 'Minnesota, USA',
+  MS: 'Mississippi, USA',
+  MO: 'Missouri, USA',
+  MT: 'Montana, USA',
+  NE: 'Nebraska, USA',
+  NV: 'Nevada, USA',
+  NH: 'New Hampshire, USA',
+  NJ: 'New Jersey, USA',
+  NM: 'New Mexico, USA',
+  NY: 'New York, USA',
+  NC: 'North Carolina, USA',
+  ND: 'North Dakota, USA',
+  OH: 'Ohio, USA',
+  OK: 'Oklahoma, USA',
+  OR: 'Oregon, USA',
+  PA: 'Pennsylvania, USA',
+  RI: 'Rhode Island, USA',
+  SC: 'South Carolina, USA',
+  SD: 'South Dakota, USA',
+  TN: 'Tennessee, USA',
+  TX: 'Texas, USA',
+  UT: 'Utah, USA',
+  VT: 'Vermont, USA',
+  VA: 'Virginia, USA',
+  WA: 'Washington, USA',
+  WV: 'West Virginia, USA',
+  WI: 'Wisconsin, USA',
+  WY: 'Wyoming, USA',
+}
+
 function CheckoutContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -66,6 +135,7 @@ function CheckoutContent() {
     cvv: '',
     cardholderName: '',
     billingAddress: '',
+    province: '',
     city: '',
     postalCode: '',
     country: 'Canada',
@@ -695,6 +765,22 @@ function CheckoutContent() {
                       <div className="grid grid-cols-3 gap-4">
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Province / State
+                          </label>
+                          <select
+                            required
+                            value={cardForm.province}
+                            onChange={(e) => setCardForm({ ...cardForm, province: e.target.value })}
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-500"
+                          >
+                            <option value="">Select Province/State</option>
+                            {Object.entries(PROVINCES_STATES).map(([code, name]) => (
+                              <option key={code} value={code}>{name}</option>
+                            ))}
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
                             City
                           </label>
                           <input
@@ -703,11 +789,12 @@ function CheckoutContent() {
                             value={cardForm.city}
                             onChange={(e) => setCardForm({ ...cardForm, city: e.target.value })}
                             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-500"
+                            placeholder="Toronto"
                           />
                         </div>
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Postal Code
+                            Postal Code / ZIP
                           </label>
                           <input
                             type="text"
@@ -715,20 +802,8 @@ function CheckoutContent() {
                             value={cardForm.postalCode}
                             onChange={(e) => setCardForm({ ...cardForm, postalCode: e.target.value })}
                             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-500"
+                            placeholder="M5V 3A8"
                           />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Country
-                          </label>
-                          <select
-                            value={cardForm.country}
-                            onChange={(e) => setCardForm({ ...cardForm, country: e.target.value })}
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-500"
-                          >
-                            <option>Canada</option>
-                            <option>United States</option>
-                          </select>
                         </div>
                       </div>
                     </>
