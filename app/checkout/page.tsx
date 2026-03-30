@@ -49,7 +49,6 @@ function CheckoutContent() {
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('card')
   const [showAddOnsModal, setShowAddOnsModal] = useState(false)
   const [addOnDecision, setAddOnDecision] = useState<'pending' | 'skip' | 'add' | null>(null)
-  const [processingPayment, setProcessingPayment] = useState(false)
 
   // Auth form states
   const [isLogin, setIsLogin] = useState(true)
@@ -144,22 +143,27 @@ function CheckoutContent() {
   const handlePaymentSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
-    // For paid plans, show add-ons modal first
-    if (plan.price > 0 && !processingPayment) {
+    // For paid plans, show add-ons modal first (only if not already decided)
+    if (plan.price > 0 && addOnDecision === null) {
       setShowAddOnsModal(true)
       setAddOnDecision('pending')
       return
     }
 
-    // If coming back from add-ons modal with a decision
+    // If modal is still pending (shouldn't happen), don't process
     if (addOnDecision === 'pending') {
       return
     }
 
+    // If we have a decision, process the payment with it
+    const decision = addOnDecision || 'skip'
     setLoading(true)
     setError('')
-    setProcessingPayment(true)
 
+    await handlePaymentAfterAddOnDecision(decision)
+  }
+
+  const handlePaymentAfterAddOnDecision = async (decision: 'skip' | 'add') => {
     try {
       // For free plan, skip payment
       if (plan.price === 0) {
@@ -186,7 +190,7 @@ function CheckoutContent() {
             planType: planId.toUpperCase(),
             paymentMethod: 'card',
             cardDetails: cardForm,
-            addResumeUnlimited: addOnDecision === 'add',
+            addResumeUnlimited: decision === 'add',
           }),
         })
 
@@ -208,7 +212,7 @@ function CheckoutContent() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ 
             planType: planId.toUpperCase(),
-            addResumeUnlimited: addOnDecision === 'add',
+            addResumeUnlimited: decision === 'add',
           }),
         })
 
@@ -231,7 +235,7 @@ function CheckoutContent() {
           body: JSON.stringify({
             planType: planId.toUpperCase(),
             paymentMethod,
-            addResumeUnlimited: addOnDecision === 'add',
+            addResumeUnlimited: decision === 'add',
           }),
         })
 
@@ -245,22 +249,20 @@ function CheckoutContent() {
       setError(err instanceof Error ? err.message : 'Payment failed')
     } finally {
       setLoading(false)
-      setProcessingPayment(false)
     }
   }
 
-  const handleAddOnDecision = (decision: 'skip' | 'add') => {
-    setAddOnDecision(decision)
+  const handleAddOnDecision = async (decision: 'skip' | 'add') => {
     setShowAddOnsModal(false)
+    setAddOnDecision(decision)
     
-    // Immediately process payment with the decision
-    setLoading(true)
-    setError('')
-    setProcessingPayment(true)
-
-    // Simulate form data for payment processing
-    const formEvent = new Event('submit') as any
-    handlePaymentSubmit(formEvent)
+    // Trigger payment after state updates
+    setTimeout(() => {
+      const form = document.querySelector('form[data-payment-form]') as HTMLFormElement
+      if (form) {
+        form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }))
+      }
+    }, 50)
   }
 
   const formatCardNumber = (value: string) => {
@@ -612,7 +614,7 @@ function CheckoutContent() {
                 </div>
 
                 {/* Payment Forms */}
-                <form onSubmit={handlePaymentSubmit} className="space-y-4">
+                <form onSubmit={handlePaymentSubmit} data-payment-form className="space-y-4">
                   {/* Credit/Debit Card Form */}
                   {paymentMethod === 'card' && (
                     <>
